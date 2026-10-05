@@ -7,10 +7,16 @@
 <meta name="description" content="Create your quiz in 1 minute, share it with your friends and find out who knows you best! Free, on Telegram and on the web.">
 <meta property="og:title" content="💛 Who knows me best? Take my quiz!">
 <meta property="og:description" content="Answer 10 questions about me and find out how well you really know me.">
-<meta property="og:image" content="https://raw.githubusercontent.com/jeremstyke/whoknowsme/main/og.png">
+<meta property="og:image" content="https://jeremstyke.github.io/whoknowsme/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffdd4a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Who Knows Me">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,14 +83,14 @@ h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
 <body><div class="w" id="app"><div class="heart">💛</div></div>
 <script>
 const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#ffdd4a'); tg.setBackgroundColor('#ffdd4a'); } catch (e) {}
-const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://pote-ia-bot-en-production.up.railway.app/km/';
+const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
 const initData = (tg && tg.initData) || '', IN_TG = !!initData;
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
 let lang = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en').slice(0, 2).toLowerCase() === 'fr') ? 'fr' : 'en';
 document.documentElement.lang = lang;
 const S = {
-  en: { title: 'Who knows me best?', sub: 'Answer 10 questions about yourself, share your quiz, and find out which friend knows you best!', create: '✨ Create my quiz', again: '✨ New quiz (new questions)', ready: 'Your quiz is ready! 🎉', readySub: 'Send it to your friends: who will get the best score?', more: 'Other apps', copy: '🔗 Copy the link', copied: 'Link copied!', myRank: '🏆 Who knows me best', nobody: 'No answer yet. Share your quiz! 👆', share: 'Share my quiz', qOf: '{i}/{n}', aboutMe: 'About you', guessWhat: 'What did {name} answer?', invT: '{name} wants to know if you really know them 👀', invT0: 'A friend sent you their quiz! 👀', invSub: '{n} questions. Guess their answers!', invSub0: 'Guess their answers and find out if you really know them!', yourName: 'Your first name', start: '🎯 Let\'s go!', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You have a lot to learn about {name} 😅', rank: 'You are #{r} out of {t}', yours: '✨ Create MY quiz', challenge: '📤 Challenge my friends', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', shareText: '💛 How well do you know me? Take my quiz!', saving: 'One second…', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', nameNeed: 'Type your first name 🙂', goOn: 'Continue', answers: 'Right answers', you: 'you', daily: '📅 Question of the day', wyrT: '🤔 Would you rather…', or: 'or', world: '{p}% of players', sameAs: 'Same as you:', compT: '💌 Compliments of the day', compSub: 'Choose a friend for each question. They get an anonymous notification!', compDone: '✅ Your compliments are sent! Come back tomorrow for new ones.', compNeed: 'Invite at least 2 friends to your quiz to send compliments.', gotT: '💌 Your compliments', someone: 'Someone chose you:', reveal: '👀 Who? · {p} ⭐', revealVip: '👀 Who?', streakT: '🔥 {n}', nobodyComp: 'No compliment yet: share your quiz so your friends can choose you!', dSent: '✅ Sent! Your friends get a notification to guess your answer 👀', dGot: '🎯 Guessed you:', dWait: 'Your friends will get a notification 👀', dFriends: '👀 Guess your friends', dWho: '🎯 Who guessed you today', dNoGuess: 'Nobody yet. Your friends get a notification!', dFl: '🔥 Friends who guess you every day', dYou: 'You:', dailyMine: 'Your answer?', dailyDone: '✅ Saved! Now guess your friends\' answers:', guess: 'Guess', waitF: 'Your friends haven\'t answered yet. As soon as they do, they will appear here: guess their answer, and they will guess yours!', noF: 'Your friends will appear here once they have answered your quiz. Then every day, you guess each other\'s answers to keep your 🔥 flames burning!', invite: '📤 Invite friends', flames: '🔥 Your flames', flameHint: 'Answer and guess each other every day to keep your flames burning!', flameDays: '{n} days', playTg: '✈️ Play on Telegram', tgPay: 'Payments are available in the Telegram version 💛' },
-  fr: { title: 'Qui me connaît le mieux ?', sub: 'Réponds à 10 questions sur toi, partage ton quiz, et découvre quel ami te connaît le mieux !', create: '✨ Créer mon quiz', again: '✨ Nouveau quiz (nouvelles questions)', ready: 'Ton quiz est prêt ! 🎉', readySub: 'Envoie-le à tes amis : qui fera le meilleur score ?', more: 'Autres applis', copy: '🔗 Copier le lien', copied: 'Lien copié !', myRank: '🏆 Qui me connaît le mieux', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', share: 'Partager mon quiz', qOf: '{i}/{n}', aboutMe: 'Sur toi', guessWhat: 'Qu\'a répondu {name} ?', invT: '{name} veut savoir si tu le connais vraiment 👀', invT0: 'Un ami t\'a envoyé son quiz ! 👀', invSub: '{n} questions. Devine ses réponses !', invSub0: 'Devine ses réponses et découvre si tu le connais vraiment !', yourName: 'Ton prénom', start: '🎯 C\'est parti !', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as beaucoup à apprendre sur {name} 😅', rank: 'Tu es {r}e sur {t}', yours: '✨ Créer MON quiz', challenge: '📤 Défier mes amis', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz !', saving: 'Une seconde…', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', nameNeed: 'Écris ton prénom 🙂', goOn: 'Continuer', answers: 'Les bonnes réponses', you: 'toi', daily: '📅 La question du jour', wyrT: '🤔 Tu préfères…', or: 'ou', world: '{p} % des joueurs', sameAs: 'Comme toi :', compT: '💌 Les compliments du jour', compSub: 'Choisis un ami pour chaque question. Il reçoit une notif anonyme !', compDone: '✅ Tes compliments sont envoyés ! Reviens demain pour les suivants.', compNeed: 'Invite au moins 2 amis à ton quiz pour envoyer des compliments.', gotT: '💌 Tes compliments', someone: 'Quelqu\'un t\'a choisi :', reveal: '👀 Qui ? · {p} ⭐', revealVip: '👀 Qui ?', streakT: '🔥 {n}', nobodyComp: 'Pas encore de compliment : partage ton quiz pour que tes amis puissent te choisir !', dSent: '✅ C\'est envoyé ! Tes amis reçoivent une notif pour deviner ta réponse 👀', dGot: '🎯 T\'ont deviné :', dWait: 'Tes amis vont recevoir une notif 👀', dFriends: '👀 Devine tes amis', dWho: '🎯 Qui t\'a deviné aujourd\'hui', dNoGuess: 'Personne pour l\'instant. Tes amis ont reçu une notif !', dFl: '🔥 Les amis qui te devinent chaque jour', dYou: 'Toi :', dailyMine: 'Ta réponse ?', dailyDone: '✅ Enregistré ! Devine maintenant ce qu\'ont répondu tes amis :', guess: 'Deviner', waitF: 'Tes amis n\'ont pas encore répondu. Dès qu\'ils le feront, ils apparaîtront ici : devine leur réponse, et eux devineront la tienne !', noF: 'Tes amis apparaîtront ici dès qu\'ils auront répondu à ton quiz. Ensuite, chaque jour, vous devinez vos réponses pour garder vos 🔥 flammes !', invite: '📤 Inviter des amis', flames: '🔥 Tes flammes', flameHint: 'Répondez et devinez-vous chaque jour pour garder vos flammes !', flameDays: '{n} jours', playTg: '✈️ Jouer sur Telegram', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
+  en: { title: 'Who knows me best?', sub: 'Answer 10 questions about yourself, share your quiz, and find out which friend knows you best!', create: '✨ Create my quiz', again: '✨ New quiz (new questions)', ready: 'Your quiz is ready! 🎉', readySub: 'Send it to your friends: who will get the best score?', more: 'Other apps', copy: '🔗 Copy the link', copied: 'Link copied!', myRank: '🏆 Who knows me best', nobody: 'No answer yet. Share your quiz! 👆', share: 'Share my quiz', qOf: '{i}/{n}', aboutMe: 'About you', guessWhat: 'What did {name} answer?', invT: '{name} wants to know if you really know them 👀', invT0: 'A friend sent you their quiz! 👀', invSub: '{n} questions. Guess their answers!', invSub0: 'Guess their answers and find out if you really know them!', yourName: 'Your first name', start: '🎯 Let\'s go!', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You have a lot to learn about {name} 😅', rank: 'You are #{r} out of {t}', yours: '✨ Create MY quiz', challenge: '📤 Challenge my friends', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', shareText: '💛 How well do you know me? Take my quiz!', saving: 'One second…', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', nameNeed: 'Type your first name 🙂', goOn: 'Continue', answers: 'Right answers', you: 'you', daily: '📅 Question of the day', wyrT: '🤔 Would you rather…', or: 'or', world: '{p}% of players', sameAs: 'Same as you:', compT: '💌 Compliments of the day', compSub: 'Choose a friend for each question. They get an anonymous notification!', compDone: '✅ Your compliments are sent! Come back tomorrow for new ones.', compNeed: 'Invite at least 2 friends to your quiz to send compliments.', gotT: '💌 Your compliments', someone: 'Someone chose you:', reveal: '👀 Who? · {p} ⭐', revealVip: '👀 Who?', streakT: '🔥 {n}', nobodyComp: 'No compliment yet: share your quiz so your friends can choose you!', dSent: '✅ Sent! Your friends get a notification to guess your answer 👀', dGot: '🎯 Guessed you:', dWait: 'Your friends will get a notification 👀', dFriends: '👀 Guess your friends', dWho: '🎯 Who guessed you today', dNoGuess: 'Nobody yet. Your friends get a notification!', dFl: '🔥 Friends who guess you every day', dYou: 'You:', dailyMine: 'Your answer?', dailyDone: '✅ Saved! Now guess your friends\' answers:', guess: 'Guess', waitF: 'Your friends haven\'t answered yet. As soon as they do, they will appear here: guess their answer, and they will guess yours!', noF: 'Your friends will appear here once they have answered your quiz. Then every day, you guess each other\'s answers to keep your 🔥 flames burning!', invite: '📤 Invite friends', flames: '🔥 Your flames', flameHint: 'Answer and guess each other every day to keep your flames burning!', flameDays: '{n} days', other: '📲 Other apps (SMS, Messenger…)', pasteIt: 'Link copied! Paste it in an SMS or on Messenger 📋', install: '📲 Install the app', installSub: 'One tap on your home screen, like a real app.', iosHint: 'On iPhone: tap the Share button ⬆️ then "Add to Home Screen".', playTg: '✈️ Play on Telegram', tgPay: 'Payments are available in the Telegram version 💛' },
+  fr: { title: 'Qui me connaît le mieux ?', sub: 'Réponds à 10 questions sur toi, partage ton quiz, et découvre quel ami te connaît le mieux !', create: '✨ Créer mon quiz', again: '✨ Nouveau quiz (nouvelles questions)', ready: 'Ton quiz est prêt ! 🎉', readySub: 'Envoie-le à tes amis : qui fera le meilleur score ?', more: 'Autres applis', copy: '🔗 Copier le lien', copied: 'Lien copié !', myRank: '🏆 Qui me connaît le mieux', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', share: 'Partager mon quiz', qOf: '{i}/{n}', aboutMe: 'Sur toi', guessWhat: 'Qu\'a répondu {name} ?', invT: '{name} veut savoir si tu le connais vraiment 👀', invT0: 'Un ami t\'a envoyé son quiz ! 👀', invSub: '{n} questions. Devine ses réponses !', invSub0: 'Devine ses réponses et découvre si tu le connais vraiment !', yourName: 'Ton prénom', start: '🎯 C\'est parti !', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as beaucoup à apprendre sur {name} 😅', rank: 'Tu es {r}e sur {t}', yours: '✨ Créer MON quiz', challenge: '📤 Défier mes amis', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz !', saving: 'Une seconde…', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', nameNeed: 'Écris ton prénom 🙂', goOn: 'Continuer', answers: 'Les bonnes réponses', you: 'toi', daily: '📅 La question du jour', wyrT: '🤔 Tu préfères…', or: 'ou', world: '{p} % des joueurs', sameAs: 'Comme toi :', compT: '💌 Les compliments du jour', compSub: 'Choisis un ami pour chaque question. Il reçoit une notif anonyme !', compDone: '✅ Tes compliments sont envoyés ! Reviens demain pour les suivants.', compNeed: 'Invite au moins 2 amis à ton quiz pour envoyer des compliments.', gotT: '💌 Tes compliments', someone: 'Quelqu\'un t\'a choisi :', reveal: '👀 Qui ? · {p} ⭐', revealVip: '👀 Qui ?', streakT: '🔥 {n}', nobodyComp: 'Pas encore de compliment : partage ton quiz pour que tes amis puissent te choisir !', dSent: '✅ C\'est envoyé ! Tes amis reçoivent une notif pour deviner ta réponse 👀', dGot: '🎯 T\'ont deviné :', dWait: 'Tes amis vont recevoir une notif 👀', dFriends: '👀 Devine tes amis', dWho: '🎯 Qui t\'a deviné aujourd\'hui', dNoGuess: 'Personne pour l\'instant. Tes amis ont reçu une notif !', dFl: '🔥 Les amis qui te devinent chaque jour', dYou: 'Toi :', dailyMine: 'Ta réponse ?', dailyDone: '✅ Enregistré ! Devine maintenant ce qu\'ont répondu tes amis :', guess: 'Deviner', waitF: 'Tes amis n\'ont pas encore répondu. Dès qu\'ils le feront, ils apparaîtront ici : devine leur réponse, et eux devineront la tienne !', noF: 'Tes amis apparaîtront ici dès qu\'ils auront répondu à ton quiz. Ensuite, chaque jour, vous devinez vos réponses pour garder vos 🔥 flammes !', invite: '📤 Inviter des amis', flames: '🔥 Tes flammes', flameHint: 'Répondez et devinez-vous chaque jour pour garder vos flammes !', flameDays: '{n} jours', other: '📲 Autres applis (SMS, Messenger…)', pasteIt: 'Lien copié ! Colle-le dans un SMS ou sur Messenger 📋', install: '📲 Installer l\'appli', installSub: 'Un toucher sur ton écran d\'accueil, comme une vraie appli.', iosHint: 'Sur iPhone : touche le bouton Partager ⬆️ puis « Sur l\'écran d\'accueil ».', playTg: '✈️ Jouer sur Telegram', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
 };
 const t = (k, v) => { let s = S[lang][k] || S.en[k] || k; for (const [a, b] of Object.entries(v || {})) s = s.split('{' + a + '}').join(b); return s; };
 const Q = [
@@ -133,23 +139,29 @@ function openOut(u) { try { if (IN_TG && /^https:/.test(u)) { /t\.me\//.test(u) 
 // share: WhatsApp and Telegram first, the other apps in a sheet
 function shareTo(where, id, text) {
   haptic('medium'); api('ev', { k: 'share_' + where }).catch(() => {});
-  const web = SITE + '?q=' + id, full = text + ' ' + web;
-  if (where === 'wa') return openOut('https://wa.me/?text=' + encodeURIComponent(full));
+  const web = SITE + '?q=' + id;
+  if (where === 'wa') return openOut('https://wa.me/?text=' + encodeURIComponent(text + ' ' + web));
   if (where === 'tg') return openOut('https://t.me/share/url?url=' + encodeURIComponent(quizLink(id)) + '&text=' + encodeURIComponent(text));
-  if (where === 'ms') return openOut('fb-messenger://share/?link=' + encodeURIComponent(web));
-  if (where === 'sms') return openOut('sms:?&body=' + encodeURIComponent(full));
-  if (where === 'copy') { try { navigator.clipboard.writeText(web); toast(t('copied')); } catch (e) {} }
+  // other apps: the phone's share menu (SMS, Messenger, Instagram…), or the link copied
+  if (navigator.share) { navigator.share({ title: t('title'), text, url: web }).catch(() => {}); return; }
+  const done = () => toast(t('pasteIt'));
+  try { navigator.clipboard.writeText(text + ' ' + web).then(done, () => { fallbackCopy(text + ' ' + web); done(); }); } catch (e) { fallbackCopy(text + ' ' + web); done(); }
 }
-const shareBtns = (id, text) => `<button class="btn wa" data-s="wa">💬 WhatsApp</button><button class="btn tg" data-s="tg">✈️ Telegram</button><button class="link" data-s="more">${esc(t('more'))}</button>`;
-function bindShare(id, text) {
-  app.querySelectorAll('[data-s]').forEach((b) => b.onclick = () => {
-    if (b.dataset.s !== 'more') return shareTo(b.dataset.s, id, text);
-    const d = document.createElement('div'); d.className = 'sheet';
-    d.innerHTML = `<div class="in"><button class="btn" data-o="ms">⚡ Messenger</button><button class="btn" data-o="sms">✉️ SMS</button><button class="btn" data-o="copy">${esc(t('copy'))}</button></div>`;
-    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
-    d.querySelectorAll('[data-o]').forEach((x) => x.onclick = () => { shareTo(x.dataset.o, id, text); d.remove(); });
-  });
+function fallbackCopy(s) { const ta = document.createElement('textarea'); ta.value = s; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }
+const shareBtns = () => `<button class="btn wa" data-s="wa">💬 WhatsApp</button><button class="btn tg" data-s="tg">✈️ Telegram</button><button class="btn" data-s="other">${esc(t('other'))}</button>`;
+function bindShare(id, text, root) { (root || app).querySelectorAll('[data-s]').forEach((b) => b.onclick = () => { shareTo(b.dataset.s, id, text); const sh = b.closest('.sheet'); if (sh) sh.remove(); }); }
+function shareSheetFor(id, text) { const d = document.createElement('div'); d.className = 'sheet'; d.innerHTML = `<div class="in">${shareBtns()}</div>`; document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); }; bindShare(id, text, d); }
+
+// ===== installing the app (website only) =====
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvt = e; const c = $('inst'); if (c) c.style.display = 'block'; });
+const IS_IOS = /iphone|ipad|ipod/i.test(navigator.userAgent), STANDALONE = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+function installCard() {
+  if (IN_TG || STANDALONE) return '';
+  return `<div class="stk" id="inst" style="margin-top:22px;display:${installEvt || IS_IOS ? 'block' : 'none'}"><h2>${esc(t('install'))}</h2><p class="mute" style="margin:0">${esc(IS_IOS && !installEvt ? t('iosHint') : t('installSub'))}</p>${IS_IOS && !installEvt ? '' : `<button class="btn ink" id="instb">${esc(t('install'))}</button>`}</div>`;
 }
+function bindInstall() { const b = $('instb'); if (b) b.onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch (e) {} installEvt = null; api('ev', { k: 'pwa_install' }).catch(() => {}); const c = $('inst'); if (c) c.remove(); }; }
+if (!IN_TG && 'serviceWorker' in navigator && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});
 
 // ===== home: question of the day + flames, my ranking, new quiz =====
 function home() {
@@ -161,10 +173,11 @@ function home() {
   }
   app.innerHTML = `<div id="dly"></div>
     <div class="stk"><h2>${esc(t('myRank'))}</h2>${board(q.board, q.n)}</div>
-    <h2 style="margin-top:4px">${esc(t('share'))}</h2>${shareBtns(q.id)}
-    <button class="btn go" id="new" style="margin-top:22px">${esc(t('again'))}</button>${foot}`;
+    <h2 style="margin-top:4px">${esc(t('share'))}</h2>${shareBtns()}
+    <button class="btn go" id="new" style="margin-top:22px">${esc(t('again'))}</button>${installCard()}${foot}`;
   bindShare(q.id, t('shareText'));
   $('new').onclick = createFlow;
+  bindInstall();
   dailyCard();
 }
 let dailyPre = null;
@@ -194,7 +207,7 @@ async function dailyCard() {
     box.querySelectorAll('[data-wy]').forEach((x) => x.onclick = async () => { if (d.wyr.mine != null) return; haptic('ok'); try { d = await api('wyr_vote', { choice: Number(x.dataset.wy) }); draw(); } catch (e) { toast(t('err')); } });
     box.querySelectorAll('[data-cp]').forEach((x) => x.onclick = async () => { haptic('ok'); x.style.opacity = .5; const [qid, to] = x.dataset.cp.split(':').map(Number); try { d = await api('comp_pick', { qid, to }); toast('💌'); draw(); } catch (e) { toast(t('err')); } });
     box.querySelectorAll('[data-rv]').forEach((x) => x.onclick = () => buy('reveal', { id: Number(x.dataset.rv) }, async () => { try { d = await api('today'); } catch (e) {} draw(); }));
-    const dinv = $('dinv'); if (dinv) dinv.onclick = () => { if (!st.quiz) return createFlow(); const d2 = document.createElement('div'); d2.className = 'sheet'; d2.innerHTML = `<div class="in"><button class="btn wa" data-o="wa">💬 WhatsApp</button><button class="btn tg" data-o="tg">✈️ Telegram</button><button class="btn" data-o="ms">⚡ Messenger</button><button class="btn" data-o="sms">✉️ SMS</button></div>`; document.body.appendChild(d2); d2.onclick = (e) => { if (e.target === d2) d2.remove(); }; d2.querySelectorAll('[data-o]').forEach((x) => x.onclick = () => { shareTo(x.dataset.o, st.quiz.id, t('shareText')); d2.remove(); }); };
+    const dinv = $('dinv'); if (dinv) dinv.onclick = () => { if (!st.quiz) return createFlow(); shareSheetFor(st.quiz.id, t('shareText')); };
   };
   draw();
 }
@@ -230,7 +243,7 @@ function createFlow() {
 }
 function ready(id) {
   window.scrollTo(0, 0);
-  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns(id)}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
+  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
   bindShare(id, t('shareText')); $('hm').onclick = home;
 }
 
@@ -261,12 +274,7 @@ function result(qz, score, guesses, answers, b, rank, total) {
     <div class="stk" style="margin-top:20px"><h2>🏆 ${esc(name)}</h2>${board(b, n)}</div>
     <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}</b>${guesses[i] !== answers[i] ? ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
   $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); createFlow(); };
-  $('ch').onclick = () => {
-    const d = document.createElement('div'); d.className = 'sheet'; const text = t('challengeText', { s: score + '/' + n, name });
-    d.innerHTML = `<div class="in"><button class="btn wa" data-o="wa">💬 WhatsApp</button><button class="btn tg" data-o="tg">✈️ Telegram</button><button class="btn" data-o="ms">⚡ Messenger</button><button class="btn" data-o="sms">✉️ SMS</button></div>`;
-    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
-    d.querySelectorAll('[data-o]').forEach((x) => x.onclick = () => { shareTo(x.dataset.o, qz.id, text); d.remove(); });
-  };
+  $('ch').onclick = () => shareSheetFor(qz.id, t('challengeText', { s: score + '/' + n, name }));
 }
 
 // ===== start: Telegram players are known; web visitors give their first name once =====
