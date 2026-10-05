@@ -10,101 +10,71 @@
 <meta property="og:image" content="https://jeremstyke.github.io/whoknowsme/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffdd4a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3eeff;--card:#fff;--ink:#2b1b4f;--mute:#7d70a3;--line:#e7defc;--sun:#ffc21a;--coral:#ff4f7b;--mint:#18b67a;--violet:#7c4dff;
- --c-classic:#ffb800;--c-funny:#ff8a00;--c-love:#ff4f7b;--c-school:#3d8bff;--c-society:#18b67a;--c-bff:#8b5cf6;--c-custom:#2b1b4f}
+:root{--sun:#ffdd4a;--ink:#1d1238;--paper:#fffdf6;--coral:#ff5c8a;--blue:#3d7bff;--mint:#22c993;--violet:#8b5cf6;--orange:#ff9f1c;--mute:#6b6080}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:17px/1.45 Nunito,ui-rounded,system-ui,sans-serif}
-body{padding:env(safe-area-inset-top,0) 0 calc(84px + env(safe-area-inset-bottom,0))}
-body.notab{padding-bottom:env(safe-area-inset-bottom,0)}
-.w{max-width:520px;margin:0 auto;padding:14px 16px 30px}
-.top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}.top b{font:700 22px Fredoka,ui-rounded,sans-serif;flex:1}
-.chip{background:var(--card);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;box-shadow:0 3px 0 var(--line)}
-h1{font:700 28px/1.15 Fredoka,ui-rounded,sans-serif;margin:6px 0 8px;text-align:center}
-h2{font:700 21px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
-.big{font-size:70px;text-align:center;line-height:1;margin-top:6px}
-.sub{color:var(--mute);text-align:center;margin:0 0 16px;font-weight:700}
-.card{background:var(--card);border-radius:24px;padding:16px;margin:0 0 14px;box-shadow:0 5px 0 var(--line)}
-.btn{display:block;width:100%;border:0;border-radius:18px;padding:16px;font:800 18px Nunito,sans-serif;cursor:pointer;margin:10px 0 0;color:#fff;background:var(--violet);box-shadow:0 5px 0 #5a2fd6;text-align:center;text-decoration:none}
-.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #5a2fd6}
-.btn.sun{background:var(--sun);color:var(--ink);box-shadow:0 5px 0 #d99e00}.btn.sun:active{box-shadow:0 2px 0 #d99e00}
-.btn.coral{background:var(--coral);box-shadow:0 5px 0 #d23460}
-.btn.alt{background:var(--card);color:var(--ink);box-shadow:0 5px 0 var(--line);border:2px solid var(--line)}
-.themes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.th{border-radius:22px;padding:18px 12px 16px;text-align:left;cursor:pointer;color:#fff;font:700 18px Fredoka,sans-serif;box-shadow:0 5px 0 rgba(0,0,0,.12);min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
-.th b{font-size:38px;line-height:1}.th:active{transform:translateY(3px)}
-.th small{font:800 13px Nunito,sans-serif;opacity:.9}
-.th.wide{grid-column:1/3;flex-direction:row;align-items:center;min-height:0;gap:14px}.th.wide span{flex:1}
-.prog{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 16px}
-.prog i{display:block;height:100%;background:var(--violet);border-radius:99px;transition:width .3s}
-.qhead{display:flex;align-items:center;gap:10px}.qhead .qn{flex:1;text-align:left;margin:0}
-.x{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--card);color:var(--mute);font-size:18px;cursor:pointer;box-shadow:0 3px 0 var(--line)}
-.qn{color:var(--mute);font-weight:800;text-align:center;margin:0 0 6px;font-size:15px}
-.q{font:700 25px/1.25 Fredoka,sans-serif;text-align:center;margin:8px 0 18px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{background:var(--card);border:3px solid transparent;border-radius:22px;padding:16px 10px;text-align:center;cursor:pointer;color:var(--ink);font:800 16px Nunito,sans-serif;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 0 var(--line)}
-.opt b{font-size:42px;line-height:1}.opt:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
-.opt.ok{border-color:var(--mint);background:#e7fbf3}
-.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:2px solid var(--bg)}.row:last-child{border-bottom:0}
-.row .n{flex:1;font-weight:800}.row .s{font:700 18px Fredoka,sans-serif;color:var(--violet)}
-.qrow{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:14px;margin:0 0 12px;cursor:pointer;box-shadow:0 5px 0 var(--line)}
-.qrow .ic{flex:none;width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px}
-.qrow .tx{flex:1}.qrow .tx b{display:block;font:700 18px Fredoka,sans-serif}.qrow .tx span{color:var(--mute);font-weight:700;font-size:14px}
-.qrow .go{color:var(--mute);font-size:22px}
-.score{width:170px;height:170px;border-radius:50%;margin:10px auto 8px;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--violet) calc(var(--p)*1%),var(--line) 0);position:relative}
-.score::before{content:'';position:absolute;inset:16px;border-radius:50%;background:var(--bg)}
-.score b{position:relative;font:700 46px Fredoka,sans-serif}
-.ans{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:2px solid var(--bg);font-size:15px}.ans:last-child{border-bottom:0}.ans em{font-style:normal;color:var(--mute)}
-.muted{color:var(--mute);text-align:center;font-weight:700}.small{font-size:14px}
-.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:800;z-index:20;white-space:nowrap}
-.steps{background:var(--card);border-radius:24px;padding:14px 16px;margin:0 0 16px;box-shadow:0 5px 0 var(--line)}
-.steps div{display:flex;gap:12px;align-items:center;margin:8px 0;font-weight:800}
-.steps span{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);display:flex;align-items:center;justify-content:center;font:700 16px Fredoka,sans-serif}
-.inp{width:100%;background:var(--card);border:2px solid var(--line);border-radius:16px;color:var(--ink);padding:14px;font:800 17px Nunito,sans-serif;margin:6px 0}
-.inp:focus{outline:none;border-color:var(--violet)}
-.ed{background:var(--card);border-radius:22px;padding:14px;margin:0 0 12px;box-shadow:0 5px 0 var(--line)}
-.ed .orow{display:flex;gap:8px;align-items:center}.ed .orow .inp{margin:4px 0;padding:11px}
-.ok{flex:none;width:46px;height:46px;border-radius:14px;border:2px solid var(--line);background:var(--card);font-size:20px;cursor:pointer}
-.ok.on{border-color:var(--mint);background:#e7fbf3}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0));box-shadow:0 -4px 20px rgba(43,27,79,.08);z-index:5}
-.tabs div{flex:1;max-width:170px;text-align:center;padding:6px 0;border-radius:16px;cursor:pointer;color:var(--mute);font-weight:800;font-size:13px}
-.tabs div b{display:block;font-size:24px;line-height:1.1}.tabs div.on{color:var(--violet);background:#efe8ff}
-.shares{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
-.sh{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;cursor:pointer;color:var(--ink);font:800 13px Nunito,sans-serif;text-decoration:none}
-.sh i{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-style:normal;color:#fff}
-.sh.wa i{background:#25D366}.sh.ms i{background:#0084FF}.sh.tg i{background:#229ED9}.sh.sms i{background:#8e7cc3}
-.sheet{position:fixed;inset:0;background:rgba(43,27,79,.45);display:flex;align-items:flex-end;z-index:10}
-.sheet .in{background:var(--bg);width:100%;max-width:520px;margin:0 auto;border-radius:28px 28px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0))}
-.daily{background:linear-gradient(135deg,#7c4dff,#b14dff);color:#fff;border-radius:26px;padding:18px;margin:0 0 14px;box-shadow:0 6px 0 #5a2fd6}
-.daily .tag{font-weight:800;font-size:14px;opacity:.95}.daily .q{color:#fff;margin:10px 0 16px}
-.daily .opt{min-height:100px}
-.daily .qn,.daily .muted{color:rgba(255,255,255,.92)}.daily .row{border-color:rgba(255,255,255,.18)}.daily .row .n{color:#fff}
-.vip{background:linear-gradient(135deg,#ffc21a,#ff8a00);color:var(--ink);border-radius:24px;padding:18px;margin:6px 0 14px;text-align:center;box-shadow:0 5px 0 #d97a00}
-.vip b{font:700 21px Fredoka,sans-serif;display:block}.vip p{margin:6px 0 4px;font-weight:800}.vip .btn{background:var(--ink);box-shadow:none}
-.hero{text-align:center;padding:10px 0 4px}
-.foot{margin-top:22px;text-align:center;color:var(--mute);font-size:12px;font-weight:700}.foot a{color:var(--mute)}
+html,body{margin:0;min-height:100%;background:var(--sun);color:var(--ink);font:17px/1.45 Nunito,ui-rounded,system-ui,sans-serif}
+body{background:var(--sun) radial-gradient(rgba(29,18,56,.07) 1.5px,transparent 1.6px) 0 0/22px 22px;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.w{max-width:480px;margin:0 auto;padding:16px 16px 36px}
+.stk{background:var(--paper);border:3px solid var(--ink);border-radius:24px;box-shadow:5px 5px 0 var(--ink);padding:18px;margin:0 0 18px}
+h1{font:700 32px/1.1 Fredoka,ui-rounded,sans-serif;margin:0 0 8px;text-align:center}
+h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
+.lead{text-align:center;font-weight:800;margin:0 0 4px}
+.mute{color:var(--mute);font-weight:800}
+.heart{width:118px;height:118px;margin:6px auto 14px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);display:flex;align-items:center;justify-content:center;font-size:66px;transform:rotate(-6deg)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:3px solid var(--ink);border-radius:20px;padding:16px;font:900 19px Nunito,sans-serif;cursor:pointer;margin:12px 0 0;color:var(--ink);background:var(--paper);box-shadow:5px 5px 0 var(--ink);text-decoration:none;transition:transform .08s}
+.btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
+.btn.go{background:var(--coral);color:#fff}.btn.wa{background:#25d366;color:#fff}.btn.tg{background:#2aabee;color:#fff}.btn.ink{background:var(--ink);color:var(--sun)}
+.btn.sm{padding:11px;font-size:16px;border-radius:16px;box-shadow:4px 4px 0 var(--ink)}
+.link{display:block;text-align:center;margin:16px 0 0;font-weight:900;color:var(--ink);text-decoration:underline;cursor:pointer;background:none;border:0;font-size:16px;width:100%}
+.dots{display:flex;gap:6px;justify-content:center;margin:0 0 14px}.dots i{width:22px;height:8px;border-radius:9px;background:rgba(29,18,56,.18)}.dots i.on{background:var(--ink)}
+.q{font:700 26px/1.2 Fredoka,sans-serif;text-align:center;margin:4px 0 18px}
+.q small{display:block;font:800 15px Nunito,sans-serif;color:var(--mute);margin-bottom:6px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{border:3px solid var(--ink);border-radius:22px;padding:16px 8px;text-align:center;cursor:pointer;color:#fff;font:900 16px Nunito,sans-serif;min-height:124px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:4px 4px 0 var(--ink);text-shadow:0 1px 0 rgba(0,0,0,.15)}
+.opt b{font-size:44px;line-height:1;text-shadow:none}.opt:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.opt:nth-child(1){background:var(--coral)}.opt:nth-child(2){background:var(--blue)}.opt:nth-child(3){background:var(--mint)}.opt:nth-child(4){background:var(--violet)}
+.top{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.x{width:44px;height:44px;border-radius:14px;border:3px solid var(--ink);background:var(--paper);box-shadow:3px 3px 0 var(--ink);font:900 18px Nunito,sans-serif;cursor:pointer;flex:none}
+.top .mute{flex:1;text-align:right}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:2px dashed rgba(29,18,56,.15)}.row:last-child{border-bottom:0}
+.row .n{flex:1;font-weight:900}.row .s{font:700 19px Fredoka,sans-serif}
+.score{font:700 76px/1 Fredoka,sans-serif;text-align:center;margin:4px 0}
+.badge{display:inline-block;background:var(--ink);color:var(--sun);border-radius:999px;padding:4px 12px;font-weight:900;font-size:14px}
+.daily{background:var(--violet);color:#fff}.daily .mute{color:rgba(255,255,255,.85)}.daily h2{color:#fff}
+.daily .opt{min-height:96px;font-size:15px}.daily .row{border-color:rgba(255,255,255,.25)}
+.flames{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;margin:0 -2px}
+.fl{flex:none;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:18px;padding:8px 12px;text-align:center;min-width:86px;box-shadow:3px 3px 0 var(--ink)}
+.fl b{display:block;font:700 22px Fredoka,sans-serif}.fl span{font-weight:900;font-size:13px}.fl.dim{opacity:.6}
+.gbtn{border:2px solid #fff;background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:7px 12px;font:900 14px Nunito,sans-serif;cursor:pointer}
+.inp{width:100%;background:var(--paper);border:3px solid var(--ink);border-radius:18px;color:var(--ink);padding:15px;font:900 18px Nunito,sans-serif;margin:8px 0 0;box-shadow:4px 4px 0 var(--ink)}
+.inp:focus{outline:none}
+.ans{display:flex;gap:10px;padding:9px 0;border-bottom:2px dashed rgba(29,18,56,.15);font-size:15px;font-weight:700}.ans:last-child{border-bottom:0}.ans em{font-style:normal;color:var(--mute)}
+.sheet{position:fixed;inset:0;background:rgba(29,18,56,.5);display:flex;align-items:flex-end;z-index:9}
+.sheet .in{width:100%;max-width:480px;margin:0 auto;background:var(--sun);border:3px solid var(--ink);border-bottom:0;border-radius:28px 28px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0))}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:var(--sun);padding:12px 18px;border-radius:14px;font-weight:900;z-index:20;white-space:nowrap}
+.foot{margin-top:22px;text-align:center;font-weight:800;font-size:13px}.foot a{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.btn,.opt{transition:none}}
 </style>
 </head>
-<body><div class="w" id="app"><div class="big">💛</div><p class="sub">…</p></div><div class="tabs" id="tabs" style="display:none"></div>
+<body><div class="w" id="app"><div class="heart">💛</div></div>
 <script>
-const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#f3eeff'); tg.setBackgroundColor('#f3eeff'); } catch (e) {}
+const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#ffdd4a'); tg.setBackgroundColor('#ffdd4a'); } catch (e) {}
 const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
+const initData = (tg && tg.initData) || '', IN_TG = !!initData;
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
-const initData = (tg && tg.initData) || '';
-const IN_TG = !!initData;
-const tgLang = ((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en').slice(0, 2).toLowerCase();
-let lang = tgLang === 'fr' ? 'fr' : 'en';
+let lang = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en').slice(0, 2).toLowerCase() === 'fr') ? 'fr' : 'en';
 document.documentElement.lang = lang;
 const S = {
-  en: { title: 'Who knows you best?', s1: 'Answer 10 questions about yourself', s2: 'Share your quiz with your friends', s3: 'See who knows you best!', create: '✨ Create my quiz', ready: 'Your quiz is ready!', readySub: 'Share it with your friends and groups to see who knows you best.', share: '📤 Share my quiz', copy: '🔗 Copy my link', copied: 'Link copied!', ranking: '🏆 Who knows me best', rankOf: '🏆 Who knows {name} best', nobody: 'No answer yet. Share your quiz! 👆', plays: 'answers', redo: '🔄 Make a new quiz', aboutYou: 'About you', qOf: 'Question {i} of 10', saving: 'Saving…', howWell: 'How well do you know {name}?', guessSub: 'Guess {name}\'s 10 answers!', start: '🎯 Let\'s go!', guess: 'What did {name} answer?', you: 'You', result: 'Your score', yourGuess: 'you said', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You still have a lot to learn about {name} 😅', makeYours: '✨ Now create YOUR quiz', back: '← Back', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', shareText: '💛 How well do you know me? Take my quiz and find out!', tgOnly: 'Open this game in Telegram 💛', pickTheme: 'Choose your quiz', newQuiz: '➕ New quiz', myQuizzes: 'My quizzes', answersN: '{n} answers', rankingBtn: '🏆 Ranking', customTh: 'Your questions', customBtn: '✍️ With YOUR questions', stars: '{p} ⭐', detailsBtn: '👀 What each friend answered · {p} ⭐', detailsOpen: '👀 What each friend answered', edT: '✍️ Your own questions', edSub: 'Write 5 to 10 questions about yourself, with 4 answers each, and tap ✅ next to the right one.', edQ: 'Question {i}', edQPh: 'e.g. The nickname my mum gives me?', edOPh: 'Answer {k}', edAdd: '➕ Add a question', edPublish: '🚀 Publish my quiz · {p} ⭐', edNeed: 'Fill at least 5 complete questions and tick the right answer ✅.', links: 'No links in the questions, please.', paidOk: '✅ Payment received!', detT: '👀 What each friend answered', rankYou: 'You are #{r} out of {t}', challenge: '📤 Challenge my friends on this quiz', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', themeAgain: 'Make another one 👇', theme_classic: 'Classic', theme_funny: 'Funny', theme_love: 'Love', theme_school: 'School', theme_society: 'Society', theme_bff: 'Best friends', tabCreate: 'Create', tabDaily: 'Daily', tabQuizzes: 'My quizzes', createT: 'Create a quiz', createSub: 'Choose a theme, answer 10 questions about you, then share it!', noQuizzes: 'You have no quiz yet.', shareBig: '📤 Share this quiz', quit: 'Quit', theme_custom: 'Your questions', yourName: 'Your first name', friendInv: 'A friend sent you their quiz! 💛', friendInvSub: 'Type your first name to answer their questions and find out how well you know them.', nameGo: 'Continue', nameNeed: 'Type your first name 🙂', webSub: 'Create your quiz in 1 minute, share it on WhatsApp, Messenger, Telegram or by SMS, and find out who knows you best.', playTg: 'Play on Telegram', shareOn: 'Share on…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copy the link', dailyT: '📅 Question of the day', dailyMine: 'What is YOUR answer?', dailyDone: '✅ Answer saved!', streak: '🔥 {n} days in a row', points: '⭐ {n} points', guessFriends: '👀 Guess what your friends answered', guessBtn: 'Guess', noFriendsYet: 'Share your quizzes: your friends will appear here every day.', waitFriends: 'Your friends have not answered today\'s question yet. Come back later!', vipT: '👑 Premium for life', vipD: 'Your own questions, every friend\'s answers and all the future quizzes. Forever.', vipBtn: 'Unlock everything · {p} ⭐', vipOn: '👑 Premium for life', tgPay: 'Payments are available in the Telegram version 💛' },
-  fr: { title: 'Qui te connaît le mieux ?', s1: 'Réponds à 10 questions sur toi', s2: 'Partage ton quiz à tes amis', s3: 'Découvre qui te connaît le mieux !', create: '✨ Créer mon quiz', ready: 'Ton quiz est prêt !', readySub: 'Partage-le à tes amis et dans tes groupes pour savoir qui te connaît le mieux.', share: '📤 Partager mon quiz', copy: '🔗 Copier mon lien', copied: 'Lien copié !', ranking: '🏆 Qui me connaît le mieux', rankOf: '🏆 Qui connaît le mieux {name}', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', plays: 'réponses', redo: '🔄 Faire un nouveau quiz', aboutYou: 'Sur toi', qOf: 'Question {i} sur 10', saving: 'Enregistrement…', howWell: 'Tu connais vraiment {name} ?', guessSub: 'Devine les 10 réponses de {name} !', start: '🎯 C\'est parti !', guess: 'Qu\'a répondu {name} ?', you: 'Toi', result: 'Ton score', yourGuess: 'tu as dit', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as encore beaucoup à apprendre sur {name} 😅', makeYours: '✨ Crée TON quiz maintenant', back: '← Retour', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz pour le savoir !', tgOnly: 'Ouvre ce jeu dans Telegram 💛', pickTheme: 'Choisis ton quiz', newQuiz: '➕ Nouveau quiz', myQuizzes: 'Mes quiz', answersN: '{n} réponses', rankingBtn: '🏆 Classement', customTh: 'Tes questions', customBtn: '✍️ Avec TES questions', stars: '{p} ⭐', detailsBtn: '👀 Ce que chacun a répondu · {p} ⭐', detailsOpen: '👀 Ce que chacun a répondu', edT: '✍️ Tes propres questions', edSub: 'Écris de 5 à 10 questions sur toi, avec 4 réponses chacune, et touche ✅ à côté de la bonne.', edQ: 'Question {i}', edQPh: 'Ex : le surnom que me donne ma mère ?', edOPh: 'Réponse {k}', edAdd: '➕ Ajouter une question', edPublish: '🚀 Publier mon quiz · {p} ⭐', edNeed: 'Remplis au moins 5 questions complètes et coche la bonne réponse ✅.', links: 'Pas de liens dans les questions.', paidOk: '✅ Paiement reçu !', detT: '👀 Ce que chacun a répondu', rankYou: 'Tu es {r}e sur {t}', challenge: '📤 Défier mes amis sur ce quiz', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', themeAgain: 'Fais-en un autre 👇', theme_classic: 'Classique', theme_funny: 'Drôle', theme_love: 'Amour', theme_school: 'École', theme_society: 'Société', theme_bff: 'Meilleurs amis', tabCreate: 'Créer', tabDaily: 'Du jour', tabQuizzes: 'Mes quiz', createT: 'Crée un quiz', createSub: 'Choisis un thème, réponds à 10 questions sur toi, puis partage-le !', noQuizzes: 'Tu n\'as pas encore de quiz.', shareBig: '📤 Partager ce quiz', quit: 'Quitter', theme_custom: 'Tes questions', yourName: 'Ton prénom', friendInv: 'Un ami t\'a envoyé son quiz ! 💛', friendInvSub: 'Écris ton prénom pour répondre à ses questions et découvrir si tu le connais vraiment.', nameGo: 'Continuer', nameNeed: 'Écris ton prénom 🙂', webSub: 'Crée ton quiz en 1 minute, partage-le sur WhatsApp, Messenger, Telegram ou par SMS, et découvre qui te connaît le mieux.', playTg: 'Jouer sur Telegram', shareOn: 'Partager sur…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copier le lien', dailyT: '📅 La question du jour', dailyMine: 'Quelle est TA réponse ?', dailyDone: '✅ Réponse enregistrée !', streak: '🔥 {n} jours d\'affilée', points: '⭐ {n} points', guessFriends: '👀 Devine ce qu\'ont répondu tes amis', guessBtn: 'Deviner', noFriendsYet: 'Partage tes quiz : tes amis apparaîtront ici chaque jour.', waitFriends: 'Tes amis n\'ont pas encore répondu à la question du jour. Reviens plus tard !', vipT: '👑 Premium à vie', vipD: 'Tes propres questions, les réponses de chaque ami et tous les futurs quiz. Pour toujours.', vipBtn: 'Tout débloquer · {p} ⭐', vipOn: '👑 Premium à vie', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
+  en: { title: 'Who knows me best?', sub: 'Answer 10 questions about yourself, share your quiz, and find out which friend knows you best!', create: '✨ Create my quiz', again: '✨ New quiz (new questions)', ready: 'Your quiz is ready! 🎉', readySub: 'Send it to your friends: who will get the best score?', more: 'Other apps', copy: '🔗 Copy the link', copied: 'Link copied!', myRank: '🏆 Who knows me best', nobody: 'No answer yet. Share your quiz! 👆', share: 'Share my quiz', qOf: '{i}/{n}', aboutMe: 'About you', guessWhat: 'What did {name} answer?', invT: '{name} wants to know if you really know them 👀', invT0: 'A friend sent you their quiz! 👀', invSub: '{n} questions. Guess their answers!', invSub0: 'Guess their answers and find out if you really know them!', yourName: 'Your first name', start: '🎯 Let\'s go!', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You have a lot to learn about {name} 😅', rank: 'You are #{r} out of {t}', yours: '✨ Create MY quiz', challenge: '📤 Challenge my friends', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', shareText: '💛 How well do you know me? Take my quiz!', saving: 'One second…', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', nameNeed: 'Type your first name 🙂', goOn: 'Continue', answers: 'Right answers', you: 'you', daily: '📅 Question of the day', dailyMine: 'Your answer?', dailyDone: '✅ Saved! Now guess your friends\' answers:', guess: 'Guess', waitF: 'Your friends haven\'t answered yet. Come back later!', noF: 'Share your quiz: your friends will show up here every day.', flames: '🔥 Your flames', flameHint: 'Answer and guess each other every day to keep your flames burning!', flameDays: '{n} days', playTg: '✈️ Play on Telegram' },
+  fr: { title: 'Qui me connaît le mieux ?', sub: 'Réponds à 10 questions sur toi, partage ton quiz, et découvre quel ami te connaît le mieux !', create: '✨ Créer mon quiz', again: '✨ Nouveau quiz (nouvelles questions)', ready: 'Ton quiz est prêt ! 🎉', readySub: 'Envoie-le à tes amis : qui fera le meilleur score ?', more: 'Autres applis', copy: '🔗 Copier le lien', copied: 'Lien copié !', myRank: '🏆 Qui me connaît le mieux', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', share: 'Partager mon quiz', qOf: '{i}/{n}', aboutMe: 'Sur toi', guessWhat: 'Qu\'a répondu {name} ?', invT: '{name} veut savoir si tu le connais vraiment 👀', invT0: 'Un ami t\'a envoyé son quiz ! 👀', invSub: '{n} questions. Devine ses réponses !', invSub0: 'Devine ses réponses et découvre si tu le connais vraiment !', yourName: 'Ton prénom', start: '🎯 C\'est parti !', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as beaucoup à apprendre sur {name} 😅', rank: 'Tu es {r}e sur {t}', yours: '✨ Créer MON quiz', challenge: '📤 Défier mes amis', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz !', saving: 'Une seconde…', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', nameNeed: 'Écris ton prénom 🙂', goOn: 'Continuer', answers: 'Les bonnes réponses', you: 'toi', daily: '📅 La question du jour', dailyMine: 'Ta réponse ?', dailyDone: '✅ Enregistré ! Devine maintenant ce qu\'ont répondu tes amis :', guess: 'Deviner', waitF: 'Tes amis n\'ont pas encore répondu. Reviens plus tard !', noF: 'Partage ton quiz : tes amis apparaîtront ici chaque jour.', flames: '🔥 Tes flammes', flameHint: 'Répondez et devinez-vous chaque jour pour garder vos flammes !', flameDays: '{n} jours', playTg: '✈️ Jouer sur Telegram' },
 };
 const t = (k, v) => { let s = S[lang][k] || S.en[k] || k; for (const [a, b] of Object.entries(v || {})) s = s.split('{' + a + '}').join(b); return s; };
-// the 20 questions: emoji and text for each of the 4 answers
 const Q = [
   { e: ['🍕', '🍣', '🍔', '🌮'], en: ['My favourite food?', 'Pizza', 'Sushi', 'Burger', 'Tacos'], fr: ['Mon plat préféré ?', 'Pizza', 'Sushi', 'Burger', 'Tacos'] },
   { e: ['☕', '🍵', '🥤', '🧃'], en: ['My favourite drink?', 'Coffee', 'Tea', 'Soda', 'Juice'], fr: ['Ma boisson préférée ?', 'Café', 'Thé', 'Soda', 'Jus de fruits'] },
@@ -128,313 +98,150 @@ const Q = [
   { e: ['📱', '📚', '🧑‍🤝‍🧑', '🍗'], en: ['On a desert island, I take…', 'My phone', 'A book', 'My best friend', 'Food'], fr: ['Sur une île déserte, j\'emporte…', 'Mon téléphone', 'Un livre', 'Mon meilleur ami', 'De la nourriture'] },
 ];
 Q.push(...[{"e": ["🦥", "🦁", "🐒", "🦄"], "en": ["If I were an animal, I'd be…", "A sloth", "A lion", "A monkey", "A unicorn"], "fr": ["Si j'étais un animal, je serais…", "Un paresseux", "Un lion", "Un singe", "Une licorne"]}, {"e": ["🕺", "🙈", "🤸", "🧍"], "en": ["My dance style?", "Disco king", "Shy in a corner", "Acrobat", "I don't dance"], "fr": ["Mon style de danse ?", "Roi du disco", "Timide dans un coin", "Acrobate", "Je ne danse pas"]}, {"e": ["🗣️", "🚪", "👋", "🤧"], "en": ["My most embarrassing move?", "Calling the teacher mum", "Pushing a pull door", "Waving at a stranger", "Sneezing super loud"], "fr": ["Ma plus grosse honte ?", "Appeler la prof maman", "Pousser une porte 'tirez'", "Saluer un inconnu", "Éternuer super fort"]}, {"e": ["🏃", "🧟", "🪓", "😴"], "en": ["In a zombie apocalypse, I…", "Run away first", "Get bitten first", "Become the hero", "Sleep through it"], "fr": ["Pendant une invasion de zombies, je…", "Fuis le premier", "Me fais mordre en premier", "Deviens le héros", "Dors pendant"]}, {"e": ["🎤", "🍳", "😂", "🙃"], "en": ["My hidden talent?", "Singing in the shower", "Cooking", "Imitations", "I have none"], "fr": ["Mon talent caché ?", "Chanter sous la douche", "Cuisiner", "Les imitations", "Je n'en ai aucun"]}, {"e": ["😱", "🏃", "🫳", "🤝"], "en": ["When I see a spider, I…", "Scream", "Leave the house", "Catch it", "Make friends with it"], "fr": ["Quand je vois une araignée, je…", "Hurle", "Quitte la maison", "L'attrape", "Deviens son ami"]}, {"e": ["🎬", "🎤", "😂", "🤡"], "en": ["If I became famous, it would be for…", "Acting", "Singing", "My memes", "My clumsiness"], "fr": ["Si je devenais célèbre, ce serait pour…", "Le cinéma", "La chanson", "Mes mèmes", "Ma maladresse"]}, {"e": ["🍟", "🍍", "🥒", "🧀"], "en": ["A weird food combo I love?", "Fries in ice cream", "Pineapple pizza", "Pickles with everything", "Chocolate and cheese"], "fr": ["Un mélange bizarre que j'adore ?", "Frites dans la glace", "Pizza à l'ananas", "Cornichons avec tout", "Chocolat et fromage"]}, {"e": ["📱", "🍪", "⏰", "🧦"], "en": ["My worst habit?", "Phone at the table", "Snacking at night", "Hitting snooze", "Socks everywhere"], "fr": ["Ma pire habitude ?", "Téléphone à table", "Grignoter la nuit", "Repousser le réveil", "Chaussettes partout"]}, {"e": ["🔦", "🏃", "😂", "💀"], "en": ["In a horror movie, I'm the one who…", "Goes to check", "Runs first", "Makes jokes", "Dies first"], "fr": ["Dans un film d'horreur, je suis celui qui…", "Va voir", "Fuit le premier", "Fait des blagues", "Meurt en premier"]}, {"e": ["⚡", "🍔", "😴", "📶"], "en": ["My superhero name?", "Captain Lazy", "Burger Man", "Mister Nap", "WiFi Hero"], "fr": ["Mon nom de super-héros ?", "Capitaine Flemme", "Burger Man", "Monsieur Sieste", "Wi-Fi Héros"]}, {"e": ["🍰", "😂", "🎟️", "😴"], "en": ["With one invisible day, I would…", "Eat everything", "Prank my friends", "Sneak into concerts", "Sleep"], "fr": ["Invisible pendant un jour, je…", "Mangerais tout", "Piégerais mes amis", "Irais aux concerts gratis", "Dormirais"]}, {"e": ["🎤", "💔", "🎸", "🙊"], "en": ["At karaoke, I sing…", "Rap", "A sad love song", "Rock", "Nothing, I refuse"], "fr": ["Au karaoké, je chante…", "Du rap", "Une chanson triste", "Du rock", "Rien, je refuse"]}, {"e": ["😂", "💥", "💘", "🤯"], "en": ["If my life were a film, it'd be…", "A comedy", "An action movie", "A romance", "Total chaos"], "fr": ["Si ma vie était un film, ce serait…", "Une comédie", "Un film d'action", "Une romance", "Le chaos total"]}, {"e": ["🛌", "🍕", "📺", "🎮"], "en": ["My perfect lazy Sunday?", "Bed all day", "Pizza marathon", "Series binge", "Gaming all day"], "fr": ["Mon dimanche flemme idéal ?", "Au lit toute la journée", "Marathon pizza", "Séries en boucle", "Jeux vidéo non-stop"]}, {"e": ["🍝", "🎬", "🌳", "🎮"], "en": ["My ideal first date?", "Restaurant", "Cinema", "A walk", "Games night"], "fr": ["Mon premier rendez-vous idéal ?", "Restaurant", "Ciné", "Une balade", "Soirée jeux"]}, {"e": ["💬", "🎁", "🤗", "🕰️"], "en": ["My love language?", "Sweet words", "Gifts", "Hugs", "Time together"], "fr": ["Mon langage de l'amour ?", "Les mots doux", "Les cadeaux", "Les câlins", "Le temps ensemble"]}, {"e": ["😊", "👀", "😂", "🧠"], "en": ["What attracts me first?", "A smile", "The eyes", "Humour", "Intelligence"], "fr": ["Ce qui m'attire en premier ?", "Le sourire", "Les yeux", "L'humour", "L'intelligence"]}, {"e": ["🌹", "🙂", "😬", "🧊"], "en": ["Am I romantic?", "Very romantic", "A little", "Not really", "Ice cold"], "fr": ["Je suis romantique ?", "Très", "Un peu", "Pas vraiment", "Un vrai glaçon"]}, {"e": ["😤", "🤏", "😌", "🙈"], "en": ["Am I jealous?", "Very", "A bit", "Not at all", "I hide it"], "fr": ["Je suis jaloux ?", "Très", "Un peu", "Pas du tout", "Je le cache"]}, {"e": ["💐", "🍫", "✈️", "✍️"], "en": ["The perfect gift for me?", "Flowers", "Chocolate", "A trip", "A handwritten letter"], "fr": ["Le cadeau parfait pour moi ?", "Des fleurs", "Du chocolat", "Un voyage", "Une lettre écrite"]}, {"e": ["🙋", "🙈", "😏", "😂"], "en": ["When I like someone, I…", "Make the first move", "Wait", "Send signals", "Make jokes"], "fr": ["Quand quelqu'un me plaît, je…", "Fais le premier pas", "Attends", "Envoie des signaux", "Fais des blagues"]}, {"e": ["❤️", "💸", "🍕", "🤷"], "en": ["Valentine's Day for me?", "I love it", "Too commercial", "Pizza at home", "I don't care"], "fr": ["La Saint-Valentin pour moi ?", "J'adore", "Trop commercial", "Pizza à la maison", "Je m'en fiche"]}, {"e": ["⚡", "⏳", "📅", "👻"], "en": ["When my crush texts, I reply…", "Instantly", "After a while", "The next day", "I disappear"], "fr": ["Quand mon crush m'écrit, je réponds…", "Tout de suite", "Après un moment", "Le lendemain", "Je disparais"]}, {"e": ["🏰", "🏖️", "🏛️", "🚫"], "en": ["My dream wedding?", "In a castle", "On a beach", "Simple at the town hall", "No wedding"], "fr": ["Mon mariage de rêve ?", "Dans un château", "Sur une plage", "Simple à la mairie", "Pas de mariage"]}, {"e": ["🍳", "🎮", "✈️", "🛋️"], "en": ["Best couple activity?", "Cooking together", "Video games", "Travelling", "Netflix on the sofa"], "fr": ["La meilleure activité en couple ?", "Cuisiner ensemble", "Jeux vidéo", "Voyager", "Netflix au canapé"]}, {"e": ["🙄", "🕐", "📱", "🤥"], "en": ["What turns me off most?", "Arrogance", "Lateness", "Always on the phone", "Lies"], "fr": ["Ce qui me refroidit le plus ?", "L'arrogance", "Les retards", "Toujours sur son téléphone", "Les mensonges"]}, {"e": ["⚡", "🐢", "🔒", "🤷"], "en": ["I fall in love…", "Very fast", "Slowly", "Rarely", "Never yet"], "fr": ["Je tombe amoureux…", "Très vite", "Lentement", "Rarement", "Jamais encore"]}, {"e": ["💌", "🎶", "📸", "🌅"], "en": ["The most romantic thing for me?", "A love letter", "A song for me", "A photo album", "A sunset together"], "fr": ["Le plus romantique pour moi ?", "Une lettre d'amour", "Une chanson pour moi", "Un album photo", "Un coucher de soleil à deux"]}, {"e": ["👫", "🏠", "🌍", "🐶"], "en": ["In 10 years, I see myself…", "In love and happy", "With a big house", "Travelling the world", "With lots of pets"], "fr": ["Dans 10 ans, je me vois…", "Amoureux et heureux", "Avec une grande maison", "Faire le tour du monde", "Avec plein d'animaux"]}, {"e": ["➗", "📖", "🎨", "⚽"], "en": ["My favourite subject?", "Maths", "Languages", "Art", "PE"], "fr": ["Ma matière préférée ?", "Maths", "Langues", "Arts plastiques", "Sport"]}, {"e": ["🙋", "😴", "🗣️", "📱"], "en": ["In class, I am the one who…", "Raises a hand", "Sleeps", "Chats", "Is on the phone"], "fr": ["En classe, je suis celui qui…", "Lève la main", "Dort", "Bavarde", "Est sur son téléphone"]}, {"e": ["🥇", "🪟", "🔙", "🔥"], "en": ["My favourite seat?", "Front row", "By the window", "At the back", "Next to the radiator"], "fr": ["Ma place préférée ?", "Premier rang", "Près de la fenêtre", "Au fond", "Près du radiateur"]}, {"e": ["📅", "⏰", "👀", "🙈"], "en": ["My homework is…", "Done early", "Done last minute", "Copied", "Never done"], "fr": ["Mes devoirs sont…", "Faits en avance", "Faits à la dernière minute", "Copiés", "Jamais faits"]}, {"e": ["😱", "😌", "📚", "🍀"], "en": ["Before an exam, I…", "Panic", "Stay zen", "Revise all night", "Count on luck"], "fr": ["Avant un examen, je…", "Panique", "Reste zen", "Révise toute la nuit", "Compte sur la chance"]}, {"e": ["😋", "🤢", "🥪", "🍟"], "en": ["The school canteen?", "I love it", "I hate it", "I bring my sandwich", "Only fries day"], "fr": ["La cantine ?", "J'adore", "Je déteste", "J'apporte mon sandwich", "Seulement le jour des frites"]}, {"e": ["🔔", "🍽️", "🏠", "📚"], "en": ["Best moment of the school day?", "Break time", "Lunch", "Going home", "The lessons"], "fr": ["Le meilleur moment de la journée ?", "La récré", "La cantine", "La sortie", "Les cours"]}, {"e": ["🚌", "⏰", "🐶", "🤷"], "en": ["My excuse for being late?", "The bus", "My alarm", "My dog", "No excuse"], "fr": ["Mon excuse quand je suis en retard ?", "Le bus", "Mon réveil", "Mon chien", "Pas d'excuse"]}, {"e": ["🏛️", "🎢", "⛷️", "🏖️"], "en": ["My dream school trip?", "A museum", "A theme park", "Skiing", "The seaside"], "fr": ["Ma sortie scolaire de rêve ?", "Un musée", "Un parc d'attractions", "Le ski", "La mer"]}, {"e": ["🎨", "✏️", "🧸", "🙏"], "en": ["My pencil case?", "Full of colours", "One single pen", "Super cute", "I borrow everything"], "fr": ["Ma trousse ?", "Pleine de couleurs", "Un seul stylo", "Toute mignonne", "J'emprunte tout"]}, {"e": ["👑", "🛠️", "🎭", "👻"], "en": ["In group work, I'm…", "The leader", "The worker", "The entertainer", "Invisible"], "fr": ["En travail de groupe, je suis…", "Le chef", "Le bosseur", "L'amuseur", "Invisible"]}, {"e": ["🔬", "📝", "🌍", "🎵"], "en": ["My best grades were in…", "Science", "Writing", "History-geography", "Music"], "fr": ["Mes meilleures notes, c'était en…", "Sciences", "Rédaction", "Histoire-géo", "Musique"]}, {"e": ["😇", "😈", "🤓", "💤"], "en": ["Teachers think I'm…", "An angel", "A little devil", "A nerd", "Always asleep"], "fr": ["Les profs pensent que je suis…", "Un ange", "Un petit diable", "Un intello", "Toujours endormi"]}, {"e": ["🚀", "⚽", "🩺", "🎤"], "en": ["My dream job as a kid?", "Astronaut", "Footballer", "Doctor", "Star"], "fr": ["Mon métier de rêve enfant ?", "Astronaute", "Footballeur", "Médecin", "Star"]}, {"e": ["😂", "💘", "🏆", "😳"], "en": ["My best school memory?", "A crazy laughing fit", "My first crush", "Winning a prize", "A moment of shame"], "fr": ["Mon meilleur souvenir d'école ?", "Un fou rire", "Mon premier crush", "Un prix gagné", "Un moment de honte"]}, {"e": ["💰", "🙅", "🤏", "🤷"], "en": ["For me, money buys happiness?", "Yes", "No", "A little", "It depends"], "fr": ["Pour moi, l'argent fait le bonheur ?", "Oui", "Non", "Un peu", "Ça dépend"]}, {"e": ["🏙️", "🌾", "🏖️", "🏔️"], "en": ["Where would I rather live?", "Big city", "Countryside", "Seaside", "Mountains"], "fr": ["Où je préférerais vivre ?", "En ville", "À la campagne", "Au bord de la mer", "À la montagne"]}, {"e": ["📱", "👍", "🙄", "🚫"], "en": ["Me and social media?", "Addicted", "Normal", "Rarely", "I hate them"], "fr": ["Moi et les réseaux sociaux ?", "Accro", "Normal", "Rarement", "Je déteste"]}, {"e": ["🌱", "♻️", "🤷", "🚗"], "en": ["Me and the planet?", "Very careful", "I sort my waste", "Not much", "Car everywhere"], "fr": ["Moi et la planète ?", "Très attentif", "Je trie mes déchets", "Pas trop", "Voiture partout"]}, {"e": ["💻", "🏢", "🌍", "🧑‍🍳"], "en": ["My ideal way of working?", "Remote", "In an office", "Travelling", "With my hands"], "fr": ["Ma façon idéale de travailler ?", "En télétravail", "Au bureau", "En voyageant", "De mes mains"]}, {"e": ["🚀", "😐", "😟", "🤖"], "en": ["How do I see the future?", "Optimistic", "Neutral", "Worried", "Robots will rule"], "fr": ["Comment je vois l'avenir ?", "Optimiste", "Neutre", "Inquiet", "Les robots vont gouverner"]}, {"e": ["✅", "❌", "😶", "🤢"], "en": ["Pineapple on pizza?", "Yes!", "Never", "Tried it once", "It's a crime"], "fr": ["L'ananas sur la pizza ?", "Oui !", "Jamais", "Testé une fois", "C'est un crime"]}, {"e": ["🐱", "🐶", "🐹", "🙅"], "en": ["Team cats or team dogs?", "Cats", "Dogs", "Both", "Neither"], "fr": ["Team chats ou team chiens ?", "Chats", "Chiens", "Les deux", "Aucun"]}, {"e": ["🍔", "👕", "🎮", "🏦"], "en": ["With 100 surprise euros, I…", "Eat out", "Buy clothes", "Buy games", "Save them"], "fr": ["Avec 100 € surprise, je…", "Me fais un resto", "M'achète des vêtements", "M'achète des jeux", "Les mets de côté"]}, {"e": ["🎉", "🛋️", "🏃", "👨‍👩‍👧"], "en": ["My ideal weekend?", "Partying", "Resting", "Sport", "Family time"], "fr": ["Mon week-end idéal ?", "Faire la fête", "Me reposer", "Faire du sport", "En famille"]}, {"e": ["✈️", "🚆", "🚗", "🚲"], "en": ["My favourite way to travel?", "Plane", "Train", "Car", "Bike"], "fr": ["Ma façon préférée de voyager ?", "L'avion", "Le train", "La voiture", "Le vélo"]}, {"e": ["🤖", "😬", "🤷", "🧑‍💻"], "en": ["Artificial intelligence?", "I love it", "It scares me", "I don't care", "I use it every day"], "fr": ["L'intelligence artificielle ?", "J'adore", "Ça me fait peur", "Je m'en fiche", "Je l'utilise tous les jours"]}, {"e": ["🇺🇸", "🇯🇵", "🇨🇦", "🏠"], "en": ["The country I'd love to live in?", "USA", "Japan", "Canada", "My own country"], "fr": ["Le pays où j'aimerais vivre ?", "États-Unis", "Japon", "Canada", "Mon pays"]}, {"e": ["❤️", "👨‍👩‍👧", "🤝", "💸"], "en": ["What matters most to me?", "Love", "Family", "Friendship", "Success"], "fr": ["Ce qui compte le plus pour moi ?", "L'amour", "La famille", "L'amitié", "La réussite"]}, {"e": ["📺", "📱", "📻", "🙈"], "en": ["How do I get the news?", "TV", "My phone", "Radio", "I don't"], "fr": ["Comment je m'informe ?", "La télé", "Mon téléphone", "La radio", "Je ne m'informe pas"]}, {"e": ["🏫", "💼", "🌐", "👶"], "en": ["Where did I meet my best friend?", "At school", "At work", "Online", "Since childhood"], "fr": ["Où j'ai rencontré mon meilleur ami ?", "À l'école", "Au travail", "En ligne", "Depuis l'enfance"]}, {"e": ["🍕", "🎮", "🛍️", "💬"], "en": ["My favourite thing to do with friends?", "Eating", "Gaming", "Shopping", "Talking for hours"], "fr": ["Mon activité préférée entre amis ?", "Manger", "Jouer", "Faire du shopping", "Parler des heures"]}, {"e": ["😂", "🧠", "🧭", "🫶"], "en": ["My role in the group?", "The clown", "The brain", "The leader", "The group's mum"], "fr": ["Mon rôle dans la bande ?", "Le clown", "Le cerveau", "Le chef", "La maman du groupe"]}, {"e": ["🔒", "🙊", "😅", "📢"], "en": ["With secrets, I am…", "A vault", "Mostly safe", "I leak sometimes", "A loudspeaker"], "fr": ["Avec les secrets, je suis…", "Un coffre-fort", "Plutôt fiable", "Je lâche parfois", "Un haut-parleur"]}, {"e": ["🤗", "🍫", "🎬", "😶"], "en": ["When I'm sad, I want…", "A hug", "Chocolate", "A film", "To be alone"], "fr": ["Quand je suis triste, je veux…", "Un câlin", "Du chocolat", "Un film", "Être seul"]}, {"e": ["😂", "🎙️", "📝", "👍"], "en": ["How do I text?", "Emojis everywhere", "Voice notes", "Long messages", "One word"], "fr": ["Comment j'écris mes messages ?", "Plein d'emojis", "Des vocaux", "De longs messages", "Un seul mot"]}, {"e": ["🧂", "🐶", "🍪", "🌪️"], "en": ["My best friend and I are like…", "Salt and pepper", "Cat and dog", "Milk and cookies", "A storm"], "fr": ["Mon meilleur ami et moi, on est comme…", "Le sel et le poivre", "Chien et chat", "Lait et cookies", "Une tempête"]}, {"e": ["💘", "😂", "😭", "🍕"], "en": ["Our late-night talks are about…", "Crushes", "Total nonsense", "Problems", "Food"], "fr": ["Nos discussions tard le soir, c'est…", "Les crushs", "N'importe quoi", "Nos problèmes", "La bouffe"]}, {"e": ["😇", "🙂", "😈", "🤯"], "en": ["My prank level?", "Never", "Small ones", "Big ones", "Legendary"], "fr": ["Mon niveau de blagues ?", "Jamais", "Des petites", "Des grosses", "Légendaire"]}, {"e": ["🏖️", "🏙️", "⛺", "🎢"], "en": ["A trip with my best friend?", "Beach", "Big city", "Camping", "Theme park"], "fr": ["Un voyage avec mon meilleur ami ?", "La plage", "Une grande ville", "Le camping", "Un parc d'attractions"]}, {"e": ["👕", "📚", "🔋", "💸"], "en": ["What I borrow and never give back?", "Clothes", "Books", "Chargers", "Money"], "fr": ["Ce que j'emprunte sans le rendre ?", "Des vêtements", "Des livres", "Des chargeurs", "De l'argent"]}, {"e": ["🙋", "👉", "😂", "⏰"], "en": ["Who is always late?", "Me", "My friends", "All of us", "Nobody"], "fr": ["Qui est toujours en retard ?", "Moi", "Mes amis", "Tout le monde", "Personne"]}, {"e": ["🎁", "💌", "🍽️", "🎮"], "en": ["The best gift for a friend?", "A surprise", "A letter", "A dinner", "A game"], "fr": ["Le meilleur cadeau pour un ami ?", "Une surprise", "Une lettre", "Un resto", "Un jeu"]}, {"e": ["🎤", "🎵", "🕺", "🎸"], "en": ["Our friendship song would be…", "Rap", "Pop", "Disco", "Rock"], "fr": ["La chanson de notre amitié, ce serait…", "Du rap", "De la pop", "Du disco", "Du rock"]}, {"e": ["🏡", "✈️", "👶", "🤝"], "en": ["In 10 years, my best friend and I will be…", "Neighbours", "Travelling together", "Godparents", "Still best friends"], "fr": ["Dans 10 ans, mon meilleur ami et moi serons…", "Voisins", "En voyage ensemble", "Parrain et marraine", "Toujours meilleurs amis"]}]);
-const THEMES = [{ id: 'classic', e: '💛', from: 0, to: 20 }, { id: 'funny', e: '😂', from: 20, to: 35 }, { id: 'love', e: '❤️', from: 35, to: 50 }, { id: 'school', e: '🏫', from: 50, to: 65 }, { id: 'society', e: '🌍', from: 65, to: 80 }, { id: 'bff', e: '👯', from: 80, to: 95 }];
-const themeOf = (id) => THEMES.find((x) => x.id === id) || { id: 'custom', e: '✍️' };
 const qText = (i) => Q[i][lang][0], oText = (i, k) => Q[i][lang][k + 1];
-const CUSTOM_E = ['🟡', '🔵', '🟢', '🔴'];
-// a question of a quiz (theme questions or the creator's own questions)
-const qOf = (qz, i) => qz.custom ? { q: qz.custom[i].q, o: qz.custom[i].o, e: CUSTOM_E } : { q: qText(qz.questions[i]), o: [0, 1, 2, 3].map((k) => oText(qz.questions[i], k)), e: Q[qz.questions[i]].e };
+const CE = ['🟡', '🔵', '🟢', '🔴'];
+const qOf = (qz, i) => qz.custom ? { q: qz.custom[i].q, o: qz.custom[i].o, e: CE } : { q: qText(qz.questions[i]), o: [0, 1, 2, 3].map((k) => oText(qz.questions[i], k)), e: Q[qz.questions[i]].e };
 const nOf = (qz) => qz.n || (qz.custom ? qz.custom.length : qz.questions.length);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const $ = (id) => document.getElementById(id), app = $('app');
 const haptic = (k) => { try { k === 'ok' ? tg.HapticFeedback.notificationOccurred('success') : tg.HapticFeedback.impactOccurred(k || 'light'); } catch (e) {} };
 const toast = (m) => { const d = document.createElement('div'); d.className = 'toast'; d.textContent = m; document.body.appendChild(d); setTimeout(() => d.remove(), 2200); };
+const foot = '<div class="foot">by <a href="https://t.me/jeremstyke">@jeremstyke</a></div>';
+const medal = (i) => ['🥇', '🥈', '🥉'][i] || (i + 1) + '.';
+const board = (b, n) => b && b.length ? b.map((x, i) => `<div class="row"><span>${medal(i)}</span><span class="n">${esc(x.name)}</span><span class="s">${x.score}/${n}</span></div>`).join('') : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`;
 async function api(route, body) {
   const r = await fetch(API + route, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...(body || {}), initData, token: TOKEN }) });
   const j = await r.json().catch(() => ({})); if (!r.ok) { const e = new Error(j.error || 'err'); e.code = j.error; throw e; } return j;
 }
-const foot = '<div class="foot">by <a href="https://t.me/jeremstyke">@jeremstyke</a></div>';
-const medal = (i) => ['🥇', '🥈', '🥉'][i] || (i + 1) + '.';
-const boardHtml = (b, n) => b && b.length ? b.map((x, i) => `<div class="row"><span>${medal(i)}</span><span class="n">${esc(x.name)}</span><span class="s">${x.score}/${n || 10}</span></div>`).join('') : `<p class="muted">${esc(t('nobody'))}</p>`;
 let st = null;
 const quizLink = (id) => `https://t.me/${BOTU}?start=q_${id}`;
 function openOut(u) { try { if (IN_TG && /^https:/.test(u)) { /t\.me\//.test(u) ? tg.openTelegramLink(u) : tg.openLink(u); return; } } catch (e) {} location.href = u; }
-function shareSheet(id, text) {
-  haptic('medium'); api('ev', { k: 'share_open' }).catch(() => {});
+// share: WhatsApp and Telegram first, the other apps in a sheet
+function shareTo(where, id, text) {
+  haptic('medium'); api('ev', { k: 'share_' + where }).catch(() => {});
   const web = SITE + '?q=' + id, full = text + ' ' + web;
-  const d = document.createElement('div'); d.className = 'sheet';
-  d.innerHTML = `<div class="in"><h2>${esc(t('shareOn'))}</h2><div class="shares">
-    <a class="sh wa" data-u="https://wa.me/?text=${encodeURIComponent(full)}" data-k="whatsapp">🟢 ${esc(t('wa'))}</a>
-    <a class="sh ms" data-u="fb-messenger://share/?link=${encodeURIComponent(web)}" data-k="messenger">💬 ${esc(t('ms'))}</a>
-    <a class="sh tg" data-u="https://t.me/share/url?url=${encodeURIComponent(quizLink(id))}&text=${encodeURIComponent(text)}" data-k="telegram">✈️ ${esc(t('tgS'))}</a>
-    <a class="sh sms" data-u="sms:?&body=${encodeURIComponent(full)}" data-k="sms">✉️ ${esc(t('sms'))}</a>
-    <button class="sh cp" id="cpl">${esc(t('copyLink'))}</button></div></div>`;
-  document.body.appendChild(d);
-  d.onclick = (e) => { if (e.target === d) d.remove(); };
-  d.querySelectorAll('[data-u]').forEach((a) => a.onclick = () => { api('ev', { k: 'share_' + a.dataset.k }).catch(() => {}); openOut(a.dataset.u); });
-  d.querySelector('#cpl').onclick = () => { try { navigator.clipboard.writeText(web); toast(t('copied')); } catch (e) {} api('ev', { k: 'share_copy' }).catch(() => {}); };
+  if (where === 'wa') return openOut('https://wa.me/?text=' + encodeURIComponent(full));
+  if (where === 'tg') return openOut('https://t.me/share/url?url=' + encodeURIComponent(quizLink(id)) + '&text=' + encodeURIComponent(text));
+  if (where === 'ms') return openOut('fb-messenger://share/?link=' + encodeURIComponent(web));
+  if (where === 'sms') return openOut('sms:?&body=' + encodeURIComponent(full));
+  if (where === 'copy') { try { navigator.clipboard.writeText(web); toast(t('copied')); } catch (e) {} }
 }
-function share(id) { return shareSheet(id, t('shareText')); }
-function share_old(id) {
-  haptic('medium'); api('ev', { k: 'share' }).catch(() => {});
-  const u = `https://t.me/share/url?url=${encodeURIComponent(quizLink(id))}&text=${encodeURIComponent(t('shareText'))}`;
-  try { tg.openTelegramLink(u); } catch (e) { location.href = u; }
+const shareBtns = (id, text) => `<button class="btn wa" data-s="wa">💬 WhatsApp</button><button class="btn tg" data-s="tg">✈️ Telegram</button><button class="link" data-s="more">${esc(t('more'))}</button>`;
+function bindShare(id, text) {
+  app.querySelectorAll('[data-s]').forEach((b) => b.onclick = () => {
+    if (b.dataset.s !== 'more') return shareTo(b.dataset.s, id, text);
+    const d = document.createElement('div'); d.className = 'sheet';
+    d.innerHTML = `<div class="in"><button class="btn" data-o="ms">⚡ Messenger</button><button class="btn" data-o="sms">✉️ SMS</button><button class="btn" data-o="copy">${esc(t('copy'))}</button></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+    d.querySelectorAll('[data-o]').forEach((x) => x.onclick = () => { shareTo(x.dataset.o, id, text); d.remove(); });
+  });
 }
 
-// home: my quizzes (one per theme) with their ranking, or the theme choice for a first quiz
-function themePicker() {
-  const P = st.prices || { custom: 50 };
-  return `<div class="themes">${THEMES.map((x) => `<div class="th" data-th="${x.id}"><b>${x.e}</b>${esc(t('theme_' + x.id))}</div>`).join('')}<div class="th paid" data-th="custom" style="grid-column:1/3"><b>✍️</b>${esc(t('customBtn').replace(/^\S+\s/, ''))}<small>${esc(t('stars', { p: P.custom }))}</small></div></div>`;
-}
-function bindThemes() { app.querySelectorAll('[data-th]').forEach((x) => x.onclick = () => { haptic(); x.dataset.th === 'custom' ? editor() : createFlow(x.dataset.th); }); }
+// ===== home: question of the day + flames, my ranking, new quiz =====
 function home() {
-  const qs = st.quizzes || [];
-  if (!qs.length) {
-    app.innerHTML = `<div class="big">💛</div><h1>${esc(t('title'))}</h1>
-      <div class="steps"><div><span>1</span>${esc(t('s1'))}</div><div><span>2</span>${esc(t('s2'))}</div><div><span>3</span>${esc(t('s3'))}</div></div>
-      <h2>${esc(t('pickTheme'))}</h2>${themePicker()}${foot}`;
-    return bindThemes();
+  window.scrollTo(0, 0);
+  const q = st.quiz;
+  if (!q) {
+    app.innerHTML = `<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p><button class="btn go" id="new">${esc(t('create'))}</button><div id="dly" style="margin-top:22px"></div>${foot}`;
+    $('new').onclick = createFlow; return dailyCard();
   }
-  const P = st.prices || { details: 25, vip: 250 };
-  app.innerHTML = `<div id="dailyBox"></div><h1>${esc(t('myQuizzes'))}</h1>` + qs.map((q) => { const th = themeOf(q.theme); return `<div class="qz"><div class="hd"><span style="font-size:28px">${th.e}</span><b>${esc(t('theme_' + th.id))}</b><span>${esc(t('answersN', { n: q.plays || 0 }))}</span></div>
-      ${q.board.length ? q.board.slice(0, 3).map((x, i) => `<div class="row"><span>${medal(i)}</span><span class="n">${esc(x.name)}</span><span class="s">${x.score}/${q.n}</span></div>`).join('') : `<p class="muted small" style="margin:6px 0">${esc(t('nobody'))}</p>`}
-      <div class="btns"><button class="btn" data-sh="${q.id}">${esc(t('share'))}</button><button class="btn alt" data-rk="${q.id}">${esc(t('rankingBtn'))}</button></div>
-      ${q.board.length ? `<button class="btn alt" data-dt="${q.id}" style="margin-top:8px;padding:12px;font-size:15px">${esc(q.details ? t('detailsOpen') : t('detailsBtn', { p: P.details }))}</button>` : ''}</div>`; }).join('')
-    + `<h2 style="margin-top:22px">${esc(t('newQuiz'))}</h2>${themePicker()}${vipCard()}${foot}`;
-  bindThemes(); bindVip(); dailyCard();
-  app.querySelectorAll('[data-sh]').forEach((b) => b.onclick = () => share(b.dataset.sh));
-  app.querySelectorAll('[data-rk]').forEach((b) => b.onclick = () => { haptic(); const q = qs.find((x) => x.id === b.dataset.rk); app.innerHTML = `<button class="btn alt" id="bk" style="margin:0 0 6px">${esc(t('back'))}</button><div class="card"><h2>${esc(t('ranking'))}</h2>${boardHtml(q.board, q.n)}</div><button class="btn" id="sh2">${esc(t('share'))}</button>`; $('bk').onclick = home; $('sh2').onclick = () => share(q.id); });
-  app.querySelectorAll('[data-dt]').forEach((b) => b.onclick = () => { const q = qs.find((x) => x.id === b.dataset.dt); q.details ? details(q.id) : buy('details', { id: q.id }, () => details(q.id)); });
+  app.innerHTML = `<div id="dly"></div>
+    <div class="stk"><h2>${esc(t('myRank'))}</h2>${board(q.board, q.n)}</div>
+    <h2 style="margin-top:4px">${esc(t('share'))}</h2>${shareBtns(q.id)}
+    <button class="btn go" id="new" style="margin-top:22px">${esc(t('again'))}</button>${foot}`;
+  bindShare(q.id, t('shareText'));
+  $('new').onclick = createFlow;
+  dailyCard();
 }
-
-// Premium for life: everything unlocked
-function vipCard() {
-  if (st.me && st.me.vip) return `<p class="muted" style="margin-top:18px">${esc(t('vipOn'))} ✨</p>`;
-  return `<div class="vip"><b>${esc(t('vipT'))}</b><p style="margin:6px 0 10px;font-weight:800">${esc(t('vipD'))}</p><button class="btn" id="vipb">${esc(t('vipBtn', { p: (st.prices || {}).vip || 250 }))}</button></div>`;
-}
-function bindVip() { const b = $('vipb'); if (b) b.onclick = () => buy('vip', {}, () => home()); }
-
-// the question of the day: my answer, then guess my friends' answers
 async function dailyCard() {
-  const box = $('dailyBox'); if (!box) return;
+  const box = $('dly'); if (!box) return;
   let d; try { d = await api('daily'); } catch (e) { return; }
   const draw = () => {
-    const qi = d.q, opts = (sel, attr) => `<div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt ${sel === k ? 'ok' : ''}" ${attr}="${k}"><b>${Q[qi].e[k]}</b>${esc(oText(qi, k))}</div>`).join('')}</div>`;
-    const head = `<div class="tag">${esc(t('dailyT'))}${d.streak ? ' · ' + esc(t('streak', { n: d.streak })) : ''}${d.points ? ' · ' + esc(t('points', { n: d.points })) : ''}</div><p class="q" style="min-height:0;margin:8px 0 12px;font-size:21px">${esc(qText(qi))}</p>`;
-    if (d.mine == null) { box.innerHTML = `<div class="daily">${head}<p class="qn">${esc(t('dailyMine'))}</p>${opts(null, 'data-dm')}</div>`; box.querySelectorAll('[data-dm]').forEach((o) => o.onclick = async () => { haptic('ok'); try { d = await api('daily_answer', { answer: Number(o.dataset.dm) }); toast(t('dailyDone')); draw(); } catch (e) { toast(t('err')); } }); return; }
-    const fr = d.friends || [];
-    box.innerHTML = `<div class="daily">${head}<p class="qn" style="text-align:left">${esc(t('dailyDone'))} ${Q[qi].e[d.mine]} ${esc(oText(qi, d.mine))}</p>
-      ${fr.length ? `<p class="qn" style="text-align:left;margin-top:10px">${esc(t('guessFriends'))}</p>` + fr.map((f) => `<div class="row"><span class="n">${esc(f.name)}</span>${f.guessed ? `<span>${f.correct ? '✅' : '❌'} ${Q[qi].e[f.answer]}</span>` : `<button class="btn alt" data-gf="${f.id}" style="margin:0;padding:8px 14px;width:auto;font-size:14px">${esc(t('guessBtn'))}</button>`}</div>`).join('')
-        : `<p class="muted small">${esc(d.friendCount ? t('waitFriends') : t('noFriendsYet'))}</p>`}</div>`;
+    const qi = d.q, opts = (attr) => `<div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" ${attr}="${k}"><b>${Q[qi].e[k]}</b>${esc(oText(qi, k))}</div>`).join('')}</div>`;
+    const flames = (d.flames || []).length ? `<h2 style="margin-top:16px">${esc(t('flames'))}</h2><div class="flames">${d.flames.map((f) => `<div class="fl ${f.today ? '' : 'dim'}"><b>🔥 ${f.n}</b><span>${esc(f.name)}</span></div>`).join('')}</div>` : '';
+    let inner = `<h2>${esc(t('daily'))}</h2><p class="q" style="font-size:22px;margin:4px 0 14px;color:#fff">${esc(qText(qi))}</p>`;
+    if (d.mine == null) inner += `<p class="mute" style="text-align:center;margin:0 0 10px">${esc(t('dailyMine'))}</p>${opts('data-dm')}`;
+    else {
+      const fr = d.friends || [];
+      inner += `<p class="mute" style="margin:0 0 6px">${Q[qi].e[d.mine]} ${esc(oText(qi, d.mine))}</p><p style="font-weight:900;margin:8px 0 4px">${esc(t('dailyDone'))}</p>`
+        + (fr.length ? fr.map((f) => `<div class="row"><span class="n">${esc(f.name)}</span>${f.guessed ? `<span>${f.correct ? '✅' : '❌'} ${Q[qi].e[f.answer]}</span>` : `<button class="gbtn" data-gf="${f.id}">${esc(t('guess'))}</button>`}</div>`).join('') : `<p class="mute">${esc(d.friendCount ? t('waitF') : t('noF'))}</p>`);
+    }
+    box.innerHTML = `<div class="stk daily">${inner}${flames}${(d.flames || []).length ? '' : `<p class="mute small" style="margin:12px 0 0;font-size:14px">${esc(t('flameHint'))}</p>`}</div>`;
+    box.querySelectorAll('[data-dm]').forEach((o) => o.onclick = async () => { haptic('ok'); try { d = await api('daily_answer', { answer: Number(o.dataset.dm) }); draw(); } catch (e) { toast(t('err')); } });
     box.querySelectorAll('[data-gf]').forEach((b) => b.onclick = () => {
-      haptic(); const f = fr.find((x) => String(x.id) === b.dataset.gf);
-      box.innerHTML = `<div class="daily">${head}<p class="qn">${esc(t('guess', { name: f.name }))}</p>${opts(null, 'data-gg')}</div>`;
-      box.querySelectorAll('[data-gg]').forEach((o) => o.onclick = async () => { try { d = await api('daily_guess', { target: f.id, guess: Number(o.dataset.gg) }); const nf = d.friends.find((x) => x.id === f.id); haptic(nf && nf.correct ? 'ok' : 'medium'); toast(nf && nf.correct ? '✅ +1' : '❌'); draw(); } catch (e) { toast(t('err')); } });
+      haptic(); const f = (d.friends || []).find((x) => String(x.id) === b.dataset.gf);
+      box.innerHTML = `<div class="stk daily"><h2>${esc(t('guessWhat', { name: f.name }))}</h2><p class="q" style="font-size:20px;margin:4px 0 14px;color:#fff">${esc(qText(qi))}</p>${opts('data-gg')}</div>`;
+      box.querySelectorAll('[data-gg]').forEach((o) => o.onclick = async () => { try { d = await api('daily_guess', { target: f.id, guess: Number(o.dataset.gg) }); const nf = d.friends.find((x) => x.id === f.id); haptic(nf && nf.correct ? 'ok' : 'medium'); toast(nf && nf.correct ? '✅' : '❌'); draw(); } catch (e) { toast(t('err')); } });
     });
   };
   draw();
 }
 
-// paying in Stars (the owner of the game tests for free); after the payment the state is reloaded
-async function buy(kind, extra, after) {
-  haptic('medium');
-  if (!IN_TG) return toast(t('tgPay'));
-  let r; try { r = await api('invoice', { kind, ...extra }); } catch (e) { return toast(e.code === 'links' ? t('links') : t('err')); }
-  const done = async () => { toast(t('paidOk')); for (let k = 0; k < 8; k++) { await new Promise((ok) => setTimeout(ok, 1200)); try { st = await api('state'); } catch (e) {} if (kind === 'vip' ? st.me.vip : kind !== 'custom' || (st.quizzes || []).some((q) => q.custom && q.id !== (extra.prevId || ''))) break; } after ? after() : home(); };
-  if (r.done) return done();
-  try { tg.openInvoice(r.link, (status) => { if (status === 'paid') done(); }); } catch (e) { toast(t('err')); }
-}
-// each friend's answers (unlocked)
-async function details(id) {
-  let d; try { d = await api('details', { id }); } catch (e) { return toast(t('err')); }
-  const qz = { custom: d.custom, questions: d.questions, n: d.n };
-  chrome(false); window.scrollTo(0, 0);
-  app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">${esc(t('detT'))}</p></div>` + (d.people.length ? d.people.map((p) => `<div class="card"><div class="row"><span class="n">${esc(p.name)}</span><span class="s">${p.score}/${d.n}</span></div>${Array.from({ length: d.n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${p.guesses[i] === d.answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[p.guesses[i]] || ''} ${esc(qq.o[p.guesses[i]] || '')}</div></div>`; }).join('')}</div>`).join('') : `<p class="muted">${esc(t('nobody'))}</p>`);
-  $('bk').onclick = async () => { try { st = await api('state'); } catch (e) {} home(); };
-}
-
-// the creator writes his own questions (5 to 10), then pays to publish
-function editor() {
-  const P = st.prices || { custom: 50 };
-  let rows = []; try { rows = JSON.parse(localStorage.getItem('km_draft') || '[]'); } catch (e) {}
-  if (!rows.length) rows = Array.from({ length: 5 }, () => ({ q: '', o: ['', '', '', ''], a: -1 }));
-  const save = () => { try { localStorage.setItem('km_draft', JSON.stringify(rows)); } catch (e) {} };
-  const draw = () => {
-    chrome(false);
-    app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">✍️ ${esc(t('theme_custom'))}</p></div><h1>${esc(t('edT'))}</h1><p class="sub">${esc(t('edSub'))}</p>`
-      + rows.map((r, i) => `<div class="ed"><p class="qn" style="text-align:left">${esc(t('edQ', { i: i + 1 }))}</p><input class="inp" data-q="${i}" maxlength="120" placeholder="${esc(t('edQPh'))}" value="${esc(r.q)}">`
-        + [0, 1, 2, 3].map((k) => `<div class="orow"><input class="inp" data-o="${i}:${k}" maxlength="40" placeholder="${esc(t('edOPh', { k: k + 1 }))}" value="${esc(r.o[k])}"><button class="ok ${r.a === k ? 'on' : ''}" data-a="${i}:${k}">${r.a === k ? '✅' : '⚪'}</button></div>`).join('') + `</div>`).join('')
-      + (rows.length < 10 ? `<button class="btn alt" id="add">${esc(t('edAdd'))}</button>` : '') + `<button class="btn sun" id="pub">${esc(st.me && st.me.vip ? '🚀 ' + t('nameGo') : t('edPublish', { p: P.custom }))}</button>${foot}`;
-    $('bk').onclick = home;
-    app.querySelectorAll('[data-q]').forEach((x) => x.oninput = () => { rows[x.dataset.q].q = x.value; save(); });
-    app.querySelectorAll('[data-o]').forEach((x) => x.oninput = () => { const [i, k] = x.dataset.o.split(':').map(Number); rows[i].o[k] = x.value; save(); });
-    app.querySelectorAll('[data-a]').forEach((x) => x.onclick = () => { haptic(); const [i, k] = x.dataset.a.split(':').map(Number); rows[i].a = k; save(); app.querySelectorAll(`[data-a^="${i}:"]`).forEach((y) => { y.classList.toggle('on', y === x); y.textContent = y === x ? '✅' : '⚪'; }); });
-    const add = $('add'); if (add) add.onclick = () => { rows.push({ q: '', o: ['', '', '', ''], a: -1 }); save(); draw(); window.scrollTo(0, document.body.scrollHeight); };
-    $('pub').onclick = () => {
-      const full = rows.filter((r) => r.q.trim().length >= 3 && r.o.every((o) => o.trim()) && r.a >= 0);
-      if (full.length < 5) return toast(t('edNeed'));
-      const prevId = ((st.quizzes || []).find((q) => q.custom) || {}).id;
-      buy('custom', { questions: full.map((r) => ({ q: r.q.trim(), o: r.o.map((o) => o.trim()), a: r.a })), prevId }, () => { try { localStorage.removeItem('km_draft'); } catch (e) {} home(); const c = (st.quizzes || []).find((q) => q.custom); if (c) share(c.id); });
-    };
-  };
-  draw();
-}
-
-// creating a quiz of a theme: 10 questions picked at random among the theme's ones
-function createFlow(themeId) {
+// ===== creating a quiz: 10 questions never asked before to this player =====
+function createFlow() {
   haptic();
-  const th = themeOf(themeId || 'classic');
-  const ids = [...Array(th.to - th.from).keys()].map((x) => x + th.from).sort(() => Math.random() - 0.5).slice(0, 10), answers = [];
+  const used = new Set(st.used || []);
+  let pool = [...Array(Q.length).keys()].filter((x) => !used.has(x));
+  if (pool.length < 10) pool = [...Array(Q.length).keys()];
+  const ids = pool.sort(() => Math.random() - 0.5).slice(0, 10), answers = [];
   const step = (i) => {
     if (i === 10) {
-      app.innerHTML = `<div class="big">💾</div><p class="sub">${esc(t('saving'))}</p>`;
-      return api('create', { questions: ids, answers, theme: th.id }).then(async (r) => { haptic('ok'); st = await api('state'); home(); share(r.id); }).catch(() => { toast(t('err')); home(); });
+      app.innerHTML = `<div class="heart">💾</div><p class="lead">${esc(t('saving'))}</p>`;
+      return api('create', { questions: ids, answers, theme: 'mix' }).then(async (r) => { haptic('ok'); st = await api('state'); ready(r.id); }).catch(() => { toast(t('err')); home(); });
     }
     const qi = ids[i];
-    app.innerHTML = `<p class="qn">${th.e} ${esc(t('theme_' + th.id))} · ${esc(t('qOf', { i: i + 1 }))}</p><div class="prog"><i style="width:${i * 10}%"></i></div>
+    app.innerHTML = `<div class="top"><button class="x" id="qx">✕</button><span class="mute">${esc(t('aboutMe'))} · ${t('qOf', { i: i + 1, n: 10 })}</span></div>
+      <div class="dots">${Array.from({ length: 10 }, (_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</div>
       <p class="q">${esc(qText(qi))}</p><div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${Q[qi].e[k]}</b>${esc(oText(qi, k))}</div>`).join('')}</div>`;
-    app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); answers.push(Number(o.dataset.k)); step(i + 1); });
-  };
-  step(0);
-}
-
-// a friend's quiz: guess the answers, then the score, the place in the ranking and the right answers
-function playFlow(qz) {
-  const name = qz.owner, n = nOf(qz);
-  app.innerHTML = `<div class="big">🤔</div><h1>${esc(t('howWell', { name }))}</h1><p class="sub">${esc(t('guessSub', { name }).replace('10', n))}</p><button class="btn" id="go">${esc(t('start'))}</button>${foot}`;
-  const guesses = [];
-  const step = (i) => {
-    if (i === n) {
-      app.innerHTML = `<div class="big">🎯</div><p class="sub">${esc(t('saving'))}</p>`;
-      return api('answer', { id: qz.id, guesses }).then((r) => { haptic('ok'); result(qz, r.score, guesses, r.answers, r.board, r.rank, r.total); }).catch(() => { toast(t('err')); });
-    }
-    const qq = qOf(qz, i);
-    app.innerHTML = `<p class="qn">${esc(t('qOf', { i: i + 1 }).replace('10', n))}</p><div class="prog"><i style="width:${(i / n) * 100}%"></i></div>
-      <p class="q">${esc(t('guess', { name }))}<br><span style="font-size:20px;color:var(--sun)">${esc(qq.q)}</span></p><div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join('')}</div>`;
-    app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); guesses.push(Number(o.dataset.k)); step(i + 1); });
-  };
-  $('go').onclick = () => { haptic('medium'); step(0); };
-}
-function result(qz, score, guesses, answers, board, rank, total) {
-  const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
-  app.innerHTML = `<p class="qn">${esc(t('result'))}</p><div class="score" style="--p:${(score / n) * 100}"><b>${score}/${n}</b></div>
-    <h2>${esc(t(v, { name }))}</h2>${rank ? `<p class="sub">${esc(t('rankYou', { r: rank, t: total }))}</p>` : ''}
-    <button class="btn coral" id="mk">${esc(t('makeYours'))}</button>
-    <button class="btn alt" id="ch">${esc(t('challenge'))}</button>
-    <div class="card"><h2>${esc(t('rankOf', { name }))}</h2>${boardHtml(board, n)}</div>
-    <div class="card">${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}${guesses[i] !== answers[i] ? ` <em>(${esc(t('yourGuess'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
-  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); if ((st.quizzes || []).length) home(); else { app.innerHTML = `<h1>${esc(t('pickTheme'))}</h1>${themePicker()}${foot}`; bindThemes(); } };
-  $('ch').onclick = () => { api('ev', { k: 'challenge' }).catch(() => {}); shareSheet(qz.id, t('challengeText', { s: score + '/' + n, name })); };
-}
-
-
-// ===== screens (tabs: create, question of the day, my quizzes) =====
-let tab = 'create';
-const color = (id) => `var(--c-${id})`;
-function chrome(on) { document.body.classList.toggle('notab', !on); const tb = $('tabs'); tb.style.display = on ? 'flex' : 'none'; if (!on) return;
-  tb.innerHTML = [['create', '✨', t('tabCreate')], ['daily', '📅', t('tabDaily')], ['quizzes', '📋', t('tabQuizzes')]].map(([id, e, l]) => `<div class="${tab === id ? 'on' : ''}" data-tab="${id}"><b>${e}</b>${esc(l)}</div>`).join('');
-  tb.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { haptic(); tab = x.dataset.tab; home(); }); }
-const topBar = () => `<div class="top"><b>💛 ${esc(t('title'))}</b>${st.me && st.me.vip ? '<span class="chip">👑</span>' : ''}</div>`;
-function themePicker() {
-  const P = st.prices || { custom: 50 };
-  return `<div class="themes">${THEMES.map((x) => `<div class="th" style="background:${color(x.id)}" data-th="${x.id}"><b>${x.e}</b>${esc(t('theme_' + x.id))}</div>`).join('')}
-    <div class="th wide" style="background:${color('custom')}" data-th="custom"><b>✍️</b><span>${esc(t('customBtn').replace(/^\S+\s/, ''))}<br><small>${st.me && st.me.vip ? '👑' : esc(t('stars', { p: P.custom }))}</small></span></div></div>`;
-}
-function bindThemes() { app.querySelectorAll('[data-th]').forEach((x) => x.onclick = () => { haptic(); x.dataset.th === 'custom' ? editor() : createFlow(x.dataset.th); }); }
-function home() {
-  const qs = st.quizzes || [];
-  if (!qs.length && tab === 'quizzes') tab = 'create';
-  chrome(true); window.scrollTo(0, 0);
-  if (tab === 'create') {
-    app.innerHTML = topBar() + (qs.length ? '' : `<div class="steps"><div><span>1</span>${esc(t('s1'))}</div><div><span>2</span>${esc(t('s2'))}</div><div><span>3</span>${esc(t('s3'))}</div></div>`)
-      + `<h2>${esc(t('createT'))}</h2>${themePicker()}${foot}`;
-    return bindThemes();
-  }
-  if (tab === 'daily') { app.innerHTML = topBar() + `<div id="dailyBox"><div class="daily"><div class="tag">${esc(t('dailyT'))}</div><p class="q">…</p></div></div>${foot}`; return dailyCard(); }
-  app.innerHTML = topBar() + `<h2>${esc(t('myQuizzes'))}</h2>` + qs.map((q) => { const th = themeOf(q.theme); const lead = q.board[0];
-    return `<div class="qrow" data-q="${q.id}"><div class="ic" style="background:${color(th.id)}">${th.e}</div><div class="tx"><b>${esc(t('theme_' + th.id))}</b><span>${esc(t('answersN', { n: q.plays || 0 }))}${lead ? ' · 🥇 ' + esc(lead.name) : ''}</span></div><div class="go">›</div></div>`; }).join('')
-    + vipCard() + foot;
-  app.querySelectorAll('[data-q]').forEach((x) => x.onclick = () => { haptic(); quizPage(qs.find((q) => q.id === x.dataset.q)); });
-  bindVip();
-}
-// one of my quizzes: share it, its ranking, each friend's answers
-function quizPage(q) {
-  chrome(false); window.scrollTo(0, 0);
-  const th = themeOf(q.theme), P = st.prices || { details: 25 };
-  app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">${th.e} ${esc(t('theme_' + th.id))}</p></div>
-    <button class="btn sun" id="sh" style="margin-top:14px">${esc(t('shareBig'))}</button>
-    <div class="card" style="margin-top:18px"><h2>${esc(t('ranking'))}</h2>${boardHtml(q.board, q.n)}</div>
-    ${q.board.length ? `<button class="btn alt" id="dt">${esc(q.details ? t('detailsOpen') : t('detailsBtn', { p: P.details }))}</button>` : ''}${foot}`;
-  $('bk').onclick = () => { tab = 'quizzes'; home(); };
-  $('sh').onclick = () => share(q.id);
-  const dt = $('dt'); if (dt) dt.onclick = () => q.details ? details(q.id) : buy('details', { id: q.id }, () => details(q.id));
-}
-// the question screens: progress, close button
-const qScreen = (label, i, n, question, opts) => `<div class="qhead"><button class="x" id="qx" aria-label="${esc(t('quit'))}">✕</button><p class="qn">${label}</p></div><div class="prog"><i style="width:${(i / n) * 100}%"></i></div><p class="q">${question}</p><div class="opts">${opts}</div>`;
-function createFlow(themeId) {
-  haptic(); chrome(false);
-  const th = themeOf(themeId || 'classic');
-  const ids = [...Array(th.to - th.from).keys()].map((x) => x + th.from).sort(() => Math.random() - 0.5).slice(0, 10), answers = [];
-  const step = (i) => {
-    if (i === 10) {
-      app.innerHTML = `<div class="big">💾</div><p class="sub">${esc(t('saving'))}</p>`;
-      return api('create', { questions: ids, answers, theme: th.id }).then(async (r) => { haptic('ok'); st = await api('state'); tab = 'quizzes'; const q = (st.quizzes || []).find((x) => x.id === r.id); q ? quizPage(q) : home(); share(r.id); }).catch(() => { toast(t('err')); home(); });
-    }
-    const qi = ids[i];
-    app.innerHTML = qScreen(`${th.e} ${esc(t('theme_' + th.id))} · ${esc(t('qOf', { i: i + 1 }))}`, i, 10, esc(qText(qi)), [0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${Q[qi].e[k]}</b>${esc(oText(qi, k))}</div>`).join(''));
     $('qx').onclick = home;
     app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); answers.push(Number(o.dataset.k)); step(i + 1); });
   };
   step(0);
 }
+function ready(id) {
+  window.scrollTo(0, 0);
+  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns(id)}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
+  bindShare(id, t('shareText')); $('hm').onclick = home;
+}
+
+// ===== a friend's quiz =====
 function playFlow(qz) {
-  chrome(false);
-  const name = qz.owner, n = nOf(qz);
-  app.innerHTML = `<div class="hero"><div class="big">🤔</div><h1>${esc(t('howWell', { name }))}</h1><p class="sub">${esc(t('guessSub', { name }).replace('10', n))}</p></div><button class="btn sun" id="go">${esc(t('start'))}</button>${foot}`;
-  const guesses = [];
+  const name = qz.owner, n = nOf(qz), guesses = [];
+  app.innerHTML = `<div class="heart">🤔</div><h1>${esc(t('invT', { name }))}</h1><p class="lead">${esc(t('invSub', { n }))}</p><button class="btn go" id="go">${esc(t('start'))}</button>${foot}`;
   const step = (i) => {
     if (i === n) {
-      app.innerHTML = `<div class="big">🎯</div><p class="sub">${esc(t('saving'))}</p>`;
-      return api('answer', { id: qz.id, guesses }).then((r) => { haptic('ok'); result(qz, r.score, guesses, r.answers, r.board, r.rank, r.total); }).catch(() => { toast(t('err')); });
+      app.innerHTML = `<div class="heart">🎯</div><p class="lead">${esc(t('saving'))}</p>`;
+      return api('answer', { id: qz.id, guesses }).then((r) => { haptic('ok'); result(qz, r.score, guesses, r.answers, r.board, r.rank, r.total); }).catch(() => toast(t('err')));
     }
     const qq = qOf(qz, i);
-    app.innerHTML = qScreen(esc(t('qOf', { i: i + 1 }).replace('10', n)), i, n, `<span style="font-size:17px;color:var(--mute)">${esc(t('guess', { name }))}</span><br>${esc(qq.q)}`, [0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join(''));
+    app.innerHTML = `<div class="top"><button class="x" id="qx">✕</button><span class="mute">${t('qOf', { i: i + 1, n })}</span></div>
+      <div class="dots">${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</div>
+      <p class="q"><small>${esc(t('guessWhat', { name }))}</small>${esc(qq.q)}</p><div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join('')}</div>`;
     $('qx').onclick = home;
     app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); guesses.push(Number(o.dataset.k)); step(i + 1); });
   };
   $('go').onclick = () => { haptic('medium'); step(0); };
 }
-function result(qz, score, guesses, answers, board, rank, total) {
-  chrome(false); window.scrollTo(0, 0);
+function result(qz, score, guesses, answers, b, rank, total) {
+  window.scrollTo(0, 0);
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
-  app.innerHTML = `<div class="score" style="--p:${(score / n) * 100}"><b>${score}/${n}</b></div>
-    <h1>${esc(t(v, { name }))}</h1>${rank ? `<p class="sub">${esc(t('rankYou', { r: rank, t: total }))}</p>` : ''}
-    <button class="btn sun" id="mk">${esc(t('makeYours'))}</button>
-    <button class="btn alt" id="ch">${esc(t('challenge'))}</button>
-    <div class="card" style="margin-top:18px"><h2>${esc(t('rankOf', { name }))}</h2>${boardHtml(board, n)}</div>
-    <div class="card">${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}${guesses[i] !== answers[i] ? ` <em>(${esc(t('yourGuess'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
-  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); tab = 'create'; home(); };
-  $('ch').onclick = () => { api('ev', { k: 'challenge' }).catch(() => {}); shareSheet(qz.id, t('challengeText', { s: score + '/' + n, name })); };
-}
-function shareSheet(id, text) {
-  haptic('medium'); api('ev', { k: 'share_open' }).catch(() => {});
-  const web = SITE + '?q=' + id, full = text + ' ' + web;
-  const d = document.createElement('div'); d.className = 'sheet';
-  d.innerHTML = `<div class="in"><h2 style="text-align:center">${esc(t('shareOn'))}</h2><div class="shares">
-    <a class="sh wa" data-u="https://wa.me/?text=${encodeURIComponent(full)}" data-k="whatsapp"><i>💬</i>${esc(t('wa'))}</a>
-    <a class="sh ms" data-u="fb-messenger://share/?link=${encodeURIComponent(web)}" data-k="messenger"><i>⚡</i>${esc(t('ms'))}</a>
-    <a class="sh tg" data-u="https://t.me/share/url?url=${encodeURIComponent(quizLink(id))}&text=${encodeURIComponent(text)}" data-k="telegram"><i>✈️</i>${esc(t('tgS'))}</a>
-    <a class="sh sms" data-u="sms:?&body=${encodeURIComponent(full)}" data-k="sms"><i>✉️</i>${esc(t('sms'))}</a></div>
-    <button class="btn alt" id="cpl">${esc(t('copyLink'))}</button></div>`;
-  document.body.appendChild(d);
-  d.onclick = (e) => { if (e.target === d) d.remove(); };
-  d.querySelectorAll('[data-u]').forEach((a) => a.onclick = () => { api('ev', { k: 'share_' + a.dataset.k }).catch(() => {}); openOut(a.dataset.u); });
-  d.querySelector('#cpl').onclick = () => { try { navigator.clipboard.writeText(web); toast(t('copied')); } catch (e) {} api('ev', { k: 'share_copy' }).catch(() => {}); };
-}
-function nameView(intro, then) {
-  chrome(false);
-  app.innerHTML = `${intro}<input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn sun" id="ngo">${esc(t('nameGo'))}</button>
-    <a class="btn alt" href="https://t.me/${BOTU}" style="display:block;text-align:center;text-decoration:none">✈️ ${esc(t('playTg'))}</a>${foot}`;
-  const go = async () => {
-    const name = $('nm').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
-    $('ngo').disabled = true;
-    try { const src = (new URLSearchParams(location.search).get('src') || (new URLSearchParams(location.search).get('q') ? 'quiz' : 'web')); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} then(); }
-    catch (e) { $('ngo').disabled = false; toast(t('err')); }
+  app.innerHTML = `<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: rank, t: total }))}</span>` : ''}</div>
+    <button class="btn go" id="mk">${esc(t('yours'))}</button>
+    <button class="btn" id="ch">${esc(t('challenge'))}</button>
+    <div class="stk" style="margin-top:20px"><h2>🏆 ${esc(name)}</h2>${board(b, n)}</div>
+    <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}</b>${guesses[i] !== answers[i] ? ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
+  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); createFlow(); };
+  $('ch').onclick = () => {
+    const d = document.createElement('div'); d.className = 'sheet'; const text = t('challengeText', { s: score + '/' + n, name });
+    d.innerHTML = `<div class="in"><button class="btn wa" data-o="wa">💬 WhatsApp</button><button class="btn tg" data-o="tg">✈️ Telegram</button><button class="btn" data-o="ms">⚡ Messenger</button><button class="btn" data-o="sms">✉️ SMS</button></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+    d.querySelectorAll('[data-o]').forEach((x) => x.onclick = () => { shareTo(x.dataset.o, qz.id, text); d.remove(); });
   };
-  $('ngo').onclick = go; $('nm').onkeydown = (e) => { if (e.key === 'Enter') go(); };
 }
+
+// ===== start: Telegram players are known; web visitors give their first name once =====
 async function start() {
-  try { st = await api('state'); } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="big">😕</div><p class="sub">${esc(t('err'))}</p>`; return; }
+  try { st = await api('state'); } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
   if (st.me && st.me.lang && S[st.me.lang]) { lang = st.me.lang; document.documentElement.lang = lang; }
   const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || '';
   const qid = (new URLSearchParams(location.search).get('q') || (sp.startsWith('q_') ? sp.slice(2) : '')).replace(/[^a-z0-9]/g, '');
@@ -450,12 +257,17 @@ async function start() {
 }
 function boot() {
   if (IN_TG || TOKEN) return start();
-  const qid = (new URLSearchParams(location.search).get('q') || '').replace(/[^a-z0-9]/g, '');
-  const intro = qid
-    ? `<div class="hero"><div class="big">🤔</div><h1>${esc(t('friendInv'))}</h1><p class="sub">${esc(t('friendInvSub'))}</p></div>`
-    : `<div class="hero"><div class="big">💛</div><h1>${esc(t('title'))}</h1><p class="sub">${esc(t('webSub'))}</p></div>
-       <div class="steps"><div><span>1</span>${esc(t('s1'))}</div><div><span>2</span>${esc(t('s2'))}</div><div><span>3</span>${esc(t('s3'))}</div></div>`;
-  nameView(intro, start);
+  const qid = new URLSearchParams(location.search).get('q');
+  app.innerHTML = `<div class="heart">${qid ? '👀' : '💛'}</div><h1>${esc(qid ? t('invT0') : t('title'))}</h1><p class="lead">${esc(qid ? t('invSub0') : t('sub'))}</p>
+    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn go" id="ngo">${esc(t('goOn'))}</button>
+    <a class="link" href="https://t.me/${BOTU}">${esc(t('playTg'))}</a>${foot}`;
+  const go = async () => {
+    const name = $('nm').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
+    $('ngo').disabled = true;
+    try { const src = new URLSearchParams(location.search).get('src') || (qid ? 'quiz' : 'web'); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} start(); }
+    catch (e) { $('ngo').disabled = false; toast(t('err')); }
+  };
+  $('ngo').onclick = go; $('nm').onkeydown = (e) => { if (e.key === 'Enter') go(); };
 }
 boot();
 </script>
