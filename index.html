@@ -15,71 +15,83 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{--night:#1a1033;--card:#271a4a;--line:rgba(255,255,255,.12);--ink:#fff8ec;--mute:#bfb3dd;--sun:#ffd84d;--coral:#ff6b8b;--mint:#5ef2c2}
+:root{--bg:#f3eeff;--card:#fff;--ink:#2b1b4f;--mute:#7d70a3;--line:#e7defc;--sun:#ffc21a;--coral:#ff4f7b;--mint:#18b67a;--violet:#7c4dff;
+ --c-classic:#ffb800;--c-funny:#ff8a00;--c-love:#ff4f7b;--c-school:#3d8bff;--c-society:#18b67a;--c-bff:#8b5cf6;--c-custom:#2b1b4f}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:var(--night);color:var(--ink);font:17px/1.45 Nunito,ui-rounded,system-ui,sans-serif}
-body{background:radial-gradient(700px 420px at 50% -80px,#4b2a8a 0%,transparent 70%),var(--night);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-.w{max-width:520px;margin:0 auto;padding:22px 16px 40px}
-h1{font:700 30px/1.15 Fredoka,ui-rounded,sans-serif;margin:8px 0 10px;text-align:center}
-h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 14px;text-align:center}
-.big{font-size:74px;text-align:center;line-height:1;margin-top:10px}
-.sub{color:var(--mute);text-align:center;margin:0 0 18px}
-.steps{background:var(--card);border-radius:22px;padding:16px 18px;margin:0 0 18px}
-.steps div{display:flex;gap:12px;align-items:center;margin:8px 0;font-weight:800}
-.steps span{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sun);color:var(--night);display:flex;align-items:center;justify-content:center;font:700 17px Fredoka,sans-serif}
-.btn{display:block;width:100%;border:0;border-radius:18px;padding:17px;font:800 18px Nunito,sans-serif;cursor:pointer;margin:10px 0 0;color:var(--night);background:var(--sun);box-shadow:0 6px 0 #c9a320}
-.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #c9a320}
-.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none}
-.btn.coral{background:var(--coral);color:#fff;box-shadow:0 6px 0 #c7405e}
-.prog{height:10px;background:var(--card);border-radius:99px;overflow:hidden;margin:4px 0 18px}
-.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--coral));border-radius:99px;transition:width .3s}
-.qn{color:var(--mute);font-weight:800;text-align:center;margin:0 0 6px}
-.q{font:700 24px/1.25 Fredoka,sans-serif;text-align:center;margin:0 0 20px;min-height:60px}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:17px/1.45 Nunito,ui-rounded,system-ui,sans-serif}
+body{padding:env(safe-area-inset-top,0) 0 calc(84px + env(safe-area-inset-bottom,0))}
+body.notab{padding-bottom:env(safe-area-inset-bottom,0)}
+.w{max-width:520px;margin:0 auto;padding:14px 16px 30px}
+.top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}.top b{font:700 22px Fredoka,ui-rounded,sans-serif;flex:1}
+.chip{background:var(--card);border-radius:999px;padding:6px 12px;font-weight:800;font-size:14px;box-shadow:0 3px 0 var(--line)}
+h1{font:700 28px/1.15 Fredoka,ui-rounded,sans-serif;margin:6px 0 8px;text-align:center}
+h2{font:700 21px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
+.big{font-size:70px;text-align:center;line-height:1;margin-top:6px}
+.sub{color:var(--mute);text-align:center;margin:0 0 16px;font-weight:700}
+.card{background:var(--card);border-radius:24px;padding:16px;margin:0 0 14px;box-shadow:0 5px 0 var(--line)}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:16px;font:800 18px Nunito,sans-serif;cursor:pointer;margin:10px 0 0;color:#fff;background:var(--violet);box-shadow:0 5px 0 #5a2fd6;text-align:center;text-decoration:none}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #5a2fd6}
+.btn.sun{background:var(--sun);color:var(--ink);box-shadow:0 5px 0 #d99e00}.btn.sun:active{box-shadow:0 2px 0 #d99e00}
+.btn.coral{background:var(--coral);box-shadow:0 5px 0 #d23460}
+.btn.alt{background:var(--card);color:var(--ink);box-shadow:0 5px 0 var(--line);border:2px solid var(--line)}
+.themes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.th{border-radius:22px;padding:18px 12px 16px;text-align:left;cursor:pointer;color:#fff;font:700 18px Fredoka,sans-serif;box-shadow:0 5px 0 rgba(0,0,0,.12);min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+.th b{font-size:38px;line-height:1}.th:active{transform:translateY(3px)}
+.th small{font:800 13px Nunito,sans-serif;opacity:.9}
+.th.wide{grid-column:1/3;flex-direction:row;align-items:center;min-height:0;gap:14px}.th.wide span{flex:1}
+.prog{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 16px}
+.prog i{display:block;height:100%;background:var(--violet);border-radius:99px;transition:width .3s}
+.qhead{display:flex;align-items:center;gap:10px}.qhead .qn{flex:1;text-align:left;margin:0}
+.x{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--card);color:var(--mute);font-size:18px;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+.qn{color:var(--mute);font-weight:800;text-align:center;margin:0 0 6px;font-size:15px}
+.q{font:700 25px/1.25 Fredoka,sans-serif;text-align:center;margin:8px 0 18px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:18px 10px;text-align:center;cursor:pointer;color:var(--ink);font:800 16px Nunito,sans-serif;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
-.opt b{font-size:40px;line-height:1}
-.opt:active{transform:scale(.97)}
-.opt.ok{border-color:var(--mint);background:rgba(94,242,194,.15)}
-.opt.ko{border-color:var(--coral);background:rgba(255,107,139,.15)}
-.card{background:var(--card);border-radius:22px;padding:16px 18px;margin:16px 0}
-.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0}
-.row .n{flex:1;font-weight:800}.row .s{font:700 18px Fredoka,sans-serif;color:var(--sun)}
-.score{width:170px;height:170px;border-radius:50%;margin:14px auto 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--card) 0);position:relative}
-.score::before{content:'';position:absolute;inset:14px;border-radius:50%;background:var(--night)}
-.score b{position:relative;font:700 48px Fredoka,sans-serif}.score span{position:relative;color:var(--mute);font-weight:800}
-.ans{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
-.ans:last-child{border-bottom:0}.ans em{font-style:normal;color:var(--mute)}
-.muted{color:var(--mute);text-align:center}.small{font-size:13px}
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:var(--night);padding:12px 18px;border-radius:14px;font-weight:800;z-index:9}
-.themes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 4px}
-.th{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px 8px;text-align:center;cursor:pointer;font:800 15px Nunito,sans-serif;color:var(--ink)}
-.th b{display:block;font-size:34px;line-height:1;margin-bottom:6px}.th.paid{border-color:rgba(255,216,77,.5)}
-.th small{display:block;color:var(--sun);font-size:12px;margin-top:4px}
-.qz{background:var(--card);border-radius:22px;padding:16px 18px;margin:14px 0}
-.qz .hd{display:flex;align-items:center;gap:10px;margin-bottom:8px}.qz .hd b{font:700 19px Fredoka,sans-serif;flex:1}.qz .hd span{color:var(--mute);font-size:14px;font-weight:800}
-.qz .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.qz .btns .btn{margin:0;padding:12px;font-size:15px}
-.inp{width:100%;background:#1f1440;border:2px solid var(--line);border-radius:14px;color:var(--ink);padding:12px;font:700 16px Nunito,sans-serif;margin:6px 0}
-.ed{background:var(--card);border-radius:20px;padding:14px;margin:12px 0}
-.ed .orow{display:flex;gap:8px;align-items:center}.ed .orow .inp{margin:4px 0}
-.ok{flex:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--mute);font-size:20px;cursor:pointer}
-.ok.on{border-color:var(--mint);background:rgba(94,242,194,.18);color:var(--mint)}
-.shares{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.sh{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:14px 8px;font:800 15px Nunito,sans-serif;color:#fff;cursor:pointer;text-decoration:none}
-.sh.wa{background:#25D366}.sh.ms{background:#0084FF}.sh.sms{background:#8e7cc3}.sh.tg{background:#229ED9}.sh.cp{background:transparent;border:2px solid var(--line);grid-column:1/3}
-.sheet{position:fixed;inset:0;background:rgba(10,5,25,.7);display:flex;align-items:flex-end;z-index:8}
-.sheet .in{background:var(--night);width:100%;max-width:520px;margin:0 auto;border-radius:26px 26px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0))}
-.daily{background:linear-gradient(135deg,#3b2470,#271a4a);border:2px solid rgba(255,216,77,.35);border-radius:22px;padding:16px 18px;margin:0 0 16px}
-.daily .tag{color:var(--sun);font-weight:800;font-size:14px}.daily .opts .opt{min-height:96px}
-.vip{background:linear-gradient(135deg,#ffd84d,#ff9f43);color:var(--night);border-radius:22px;padding:18px;margin:18px 0;text-align:center}
-.vip b{font:700 21px Fredoka,sans-serif;display:block}.vip .btn{background:var(--night);color:var(--sun);box-shadow:none}
-.hero{text-align:center;padding:10px 0 4px}.hero .big{font-size:90px}
-.foot{margin-top:26px;text-align:center;color:var(--mute);font-size:12px}.foot a{color:var(--mute)}
+.opt{background:var(--card);border:3px solid transparent;border-radius:22px;padding:16px 10px;text-align:center;cursor:pointer;color:var(--ink);font:800 16px Nunito,sans-serif;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 0 var(--line)}
+.opt b{font-size:42px;line-height:1}.opt:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.opt.ok{border-color:var(--mint);background:#e7fbf3}
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:2px solid var(--bg)}.row:last-child{border-bottom:0}
+.row .n{flex:1;font-weight:800}.row .s{font:700 18px Fredoka,sans-serif;color:var(--violet)}
+.qrow{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:14px;margin:0 0 12px;cursor:pointer;box-shadow:0 5px 0 var(--line)}
+.qrow .ic{flex:none;width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.qrow .tx{flex:1}.qrow .tx b{display:block;font:700 18px Fredoka,sans-serif}.qrow .tx span{color:var(--mute);font-weight:700;font-size:14px}
+.qrow .go{color:var(--mute);font-size:22px}
+.score{width:170px;height:170px;border-radius:50%;margin:10px auto 8px;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--violet) calc(var(--p)*1%),var(--line) 0);position:relative}
+.score::before{content:'';position:absolute;inset:16px;border-radius:50%;background:var(--bg)}
+.score b{position:relative;font:700 46px Fredoka,sans-serif}
+.ans{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:2px solid var(--bg);font-size:15px}.ans:last-child{border-bottom:0}.ans em{font-style:normal;color:var(--mute)}
+.muted{color:var(--mute);text-align:center;font-weight:700}.small{font-size:14px}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:800;z-index:20;white-space:nowrap}
+.steps{background:var(--card);border-radius:24px;padding:14px 16px;margin:0 0 16px;box-shadow:0 5px 0 var(--line)}
+.steps div{display:flex;gap:12px;align-items:center;margin:8px 0;font-weight:800}
+.steps span{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);display:flex;align-items:center;justify-content:center;font:700 16px Fredoka,sans-serif}
+.inp{width:100%;background:var(--card);border:2px solid var(--line);border-radius:16px;color:var(--ink);padding:14px;font:800 17px Nunito,sans-serif;margin:6px 0}
+.inp:focus{outline:none;border-color:var(--violet)}
+.ed{background:var(--card);border-radius:22px;padding:14px;margin:0 0 12px;box-shadow:0 5px 0 var(--line)}
+.ed .orow{display:flex;gap:8px;align-items:center}.ed .orow .inp{margin:4px 0;padding:11px}
+.ok{flex:none;width:46px;height:46px;border-radius:14px;border:2px solid var(--line);background:var(--card);font-size:20px;cursor:pointer}
+.ok.on{border-color:var(--mint);background:#e7fbf3}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0));box-shadow:0 -4px 20px rgba(43,27,79,.08);z-index:5}
+.tabs div{flex:1;max-width:170px;text-align:center;padding:6px 0;border-radius:16px;cursor:pointer;color:var(--mute);font-weight:800;font-size:13px}
+.tabs div b{display:block;font-size:24px;line-height:1.1}.tabs div.on{color:var(--violet);background:#efe8ff}
+.shares{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
+.sh{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:transparent;cursor:pointer;color:var(--ink);font:800 13px Nunito,sans-serif;text-decoration:none}
+.sh i{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-style:normal;color:#fff}
+.sh.wa i{background:#25D366}.sh.ms i{background:#0084FF}.sh.tg i{background:#229ED9}.sh.sms i{background:#8e7cc3}
+.sheet{position:fixed;inset:0;background:rgba(43,27,79,.45);display:flex;align-items:flex-end;z-index:10}
+.sheet .in{background:var(--bg);width:100%;max-width:520px;margin:0 auto;border-radius:28px 28px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0))}
+.daily{background:linear-gradient(135deg,#7c4dff,#b14dff);color:#fff;border-radius:26px;padding:18px;margin:0 0 14px;box-shadow:0 6px 0 #5a2fd6}
+.daily .tag{font-weight:800;font-size:14px;opacity:.95}.daily .q{color:#fff;margin:10px 0 16px}
+.daily .opt{min-height:100px}
+.daily .qn,.daily .muted{color:rgba(255,255,255,.92)}.daily .row{border-color:rgba(255,255,255,.18)}.daily .row .n{color:#fff}
+.vip{background:linear-gradient(135deg,#ffc21a,#ff8a00);color:var(--ink);border-radius:24px;padding:18px;margin:6px 0 14px;text-align:center;box-shadow:0 5px 0 #d97a00}
+.vip b{font:700 21px Fredoka,sans-serif;display:block}.vip p{margin:6px 0 4px;font-weight:800}.vip .btn{background:var(--ink);box-shadow:none}
+.hero{text-align:center;padding:10px 0 4px}
+.foot{margin-top:22px;text-align:center;color:var(--mute);font-size:12px;font-weight:700}.foot a{color:var(--mute)}
 </style>
 </head>
-<body><div class="w" id="app"><div class="big">💛</div><p class="sub">…</p></div>
+<body><div class="w" id="app"><div class="big">💛</div><p class="sub">…</p></div><div class="tabs" id="tabs" style="display:none"></div>
 <script>
-const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#1a1033'); tg.setBackgroundColor('#1a1033'); } catch (e) {}
+const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#f3eeff'); tg.setBackgroundColor('#f3eeff'); } catch (e) {}
 const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
 const initData = (tg && tg.initData) || '';
@@ -88,8 +100,8 @@ const tgLang = ((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDat
 let lang = tgLang === 'fr' ? 'fr' : 'en';
 document.documentElement.lang = lang;
 const S = {
-  en: { title: 'Who knows you best?', s1: 'Answer 10 questions about yourself', s2: 'Share your quiz with your friends', s3: 'See who knows you best!', create: '✨ Create my quiz', ready: 'Your quiz is ready!', readySub: 'Share it with your friends and groups to see who knows you best.', share: '📤 Share my quiz', copy: '🔗 Copy my link', copied: 'Link copied!', ranking: '🏆 Who knows me best', rankOf: '🏆 Who knows {name} best', nobody: 'No answer yet. Share your quiz! 👆', plays: 'answers', redo: '🔄 Make a new quiz', aboutYou: 'About you', qOf: 'Question {i} of 10', saving: 'Saving…', howWell: 'How well do you know {name}?', guessSub: 'Guess {name}\'s 10 answers!', start: '🎯 Let\'s go!', guess: 'What did {name} answer?', you: 'You', result: 'Your score', yourGuess: 'you said', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You still have a lot to learn about {name} 😅', makeYours: '✨ Now create YOUR quiz', back: '← Back', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', shareText: '💛 How well do you know me? Take my quiz and find out!', tgOnly: 'Open this game in Telegram 💛', pickTheme: 'Choose your quiz', newQuiz: '➕ New quiz', myQuizzes: 'My quizzes', answersN: '{n} answers', rankingBtn: '🏆 Ranking', customTh: 'Your questions', customBtn: '✍️ With YOUR questions', stars: '{p} ⭐', detailsBtn: '👀 What each friend answered · {p} ⭐', detailsOpen: '👀 What each friend answered', edT: '✍️ Your own questions', edSub: 'Write 5 to 10 questions about yourself, with 4 answers each, and tap ✅ next to the right one.', edQ: 'Question {i}', edQPh: 'e.g. The nickname my mum gives me?', edOPh: 'Answer {k}', edAdd: '➕ Add a question', edPublish: '🚀 Publish my quiz · {p} ⭐', edNeed: 'Fill at least 5 complete questions and tick the right answer ✅.', links: 'No links in the questions, please.', paidOk: '✅ Payment received!', detT: '👀 What each friend answered', rankYou: 'You are #{r} out of {t}', challenge: '📤 Challenge my friends on this quiz', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', themeAgain: 'Make another one 👇', theme_classic: 'Classic', theme_funny: 'Funny', theme_love: 'Love', theme_school: 'School', theme_society: 'Society', theme_bff: 'Best friends', theme_custom: 'Your questions', yourName: 'Your first name', friendInv: 'A friend sent you their quiz! 💛', friendInvSub: 'Type your first name to answer their questions and find out how well you know them.', nameGo: 'Continue', nameNeed: 'Type your first name 🙂', webSub: 'Create your quiz in 1 minute, share it on WhatsApp, Messenger, Telegram or by SMS, and find out who knows you best.', playTg: 'Play on Telegram', shareOn: 'Share on…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copy the link', dailyT: '📅 Question of the day', dailyMine: 'What is YOUR answer?', dailyDone: '✅ Answer saved!', streak: '🔥 {n} days in a row', points: '⭐ {n} points', guessFriends: '👀 Guess what your friends answered', guessBtn: 'Guess', noFriendsYet: 'Share your quizzes: your friends will appear here every day.', waitFriends: 'Your friends have not answered today\'s question yet. Come back later!', vipT: '👑 Premium for life', vipD: 'Your own questions, every friend\'s answers and all the future quizzes. Forever.', vipBtn: 'Unlock everything · {p} ⭐', vipOn: '👑 Premium for life', tgPay: 'Payments are available in the Telegram version 💛' },
-  fr: { title: 'Qui te connaît le mieux ?', s1: 'Réponds à 10 questions sur toi', s2: 'Partage ton quiz à tes amis', s3: 'Découvre qui te connaît le mieux !', create: '✨ Créer mon quiz', ready: 'Ton quiz est prêt !', readySub: 'Partage-le à tes amis et dans tes groupes pour savoir qui te connaît le mieux.', share: '📤 Partager mon quiz', copy: '🔗 Copier mon lien', copied: 'Lien copié !', ranking: '🏆 Qui me connaît le mieux', rankOf: '🏆 Qui connaît le mieux {name}', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', plays: 'réponses', redo: '🔄 Faire un nouveau quiz', aboutYou: 'Sur toi', qOf: 'Question {i} sur 10', saving: 'Enregistrement…', howWell: 'Tu connais vraiment {name} ?', guessSub: 'Devine les 10 réponses de {name} !', start: '🎯 C\'est parti !', guess: 'Qu\'a répondu {name} ?', you: 'Toi', result: 'Ton score', yourGuess: 'tu as dit', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as encore beaucoup à apprendre sur {name} 😅', makeYours: '✨ Crée TON quiz maintenant', back: '← Retour', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz pour le savoir !', tgOnly: 'Ouvre ce jeu dans Telegram 💛', pickTheme: 'Choisis ton quiz', newQuiz: '➕ Nouveau quiz', myQuizzes: 'Mes quiz', answersN: '{n} réponses', rankingBtn: '🏆 Classement', customTh: 'Tes questions', customBtn: '✍️ Avec TES questions', stars: '{p} ⭐', detailsBtn: '👀 Ce que chacun a répondu · {p} ⭐', detailsOpen: '👀 Ce que chacun a répondu', edT: '✍️ Tes propres questions', edSub: 'Écris de 5 à 10 questions sur toi, avec 4 réponses chacune, et touche ✅ à côté de la bonne.', edQ: 'Question {i}', edQPh: 'Ex : le surnom que me donne ma mère ?', edOPh: 'Réponse {k}', edAdd: '➕ Ajouter une question', edPublish: '🚀 Publier mon quiz · {p} ⭐', edNeed: 'Remplis au moins 5 questions complètes et coche la bonne réponse ✅.', links: 'Pas de liens dans les questions.', paidOk: '✅ Paiement reçu !', detT: '👀 Ce que chacun a répondu', rankYou: 'Tu es {r}e sur {t}', challenge: '📤 Défier mes amis sur ce quiz', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', themeAgain: 'Fais-en un autre 👇', theme_classic: 'Classique', theme_funny: 'Drôle', theme_love: 'Amour', theme_school: 'École', theme_society: 'Société', theme_bff: 'Meilleurs amis', theme_custom: 'Tes questions', yourName: 'Ton prénom', friendInv: 'Un ami t\'a envoyé son quiz ! 💛', friendInvSub: 'Écris ton prénom pour répondre à ses questions et découvrir si tu le connais vraiment.', nameGo: 'Continuer', nameNeed: 'Écris ton prénom 🙂', webSub: 'Crée ton quiz en 1 minute, partage-le sur WhatsApp, Messenger, Telegram ou par SMS, et découvre qui te connaît le mieux.', playTg: 'Jouer sur Telegram', shareOn: 'Partager sur…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copier le lien', dailyT: '📅 La question du jour', dailyMine: 'Quelle est TA réponse ?', dailyDone: '✅ Réponse enregistrée !', streak: '🔥 {n} jours d\'affilée', points: '⭐ {n} points', guessFriends: '👀 Devine ce qu\'ont répondu tes amis', guessBtn: 'Deviner', noFriendsYet: 'Partage tes quiz : tes amis apparaîtront ici chaque jour.', waitFriends: 'Tes amis n\'ont pas encore répondu à la question du jour. Reviens plus tard !', vipT: '👑 Premium à vie', vipD: 'Tes propres questions, les réponses de chaque ami et tous les futurs quiz. Pour toujours.', vipBtn: 'Tout débloquer · {p} ⭐', vipOn: '👑 Premium à vie', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
+  en: { title: 'Who knows you best?', s1: 'Answer 10 questions about yourself', s2: 'Share your quiz with your friends', s3: 'See who knows you best!', create: '✨ Create my quiz', ready: 'Your quiz is ready!', readySub: 'Share it with your friends and groups to see who knows you best.', share: '📤 Share my quiz', copy: '🔗 Copy my link', copied: 'Link copied!', ranking: '🏆 Who knows me best', rankOf: '🏆 Who knows {name} best', nobody: 'No answer yet. Share your quiz! 👆', plays: 'answers', redo: '🔄 Make a new quiz', aboutYou: 'About you', qOf: 'Question {i} of 10', saving: 'Saving…', howWell: 'How well do you know {name}?', guessSub: 'Guess {name}\'s 10 answers!', start: '🎯 Let\'s go!', guess: 'What did {name} answer?', you: 'You', result: 'Your score', yourGuess: 'you said', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You still have a lot to learn about {name} 😅', makeYours: '✨ Now create YOUR quiz', back: '← Back', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', shareText: '💛 How well do you know me? Take my quiz and find out!', tgOnly: 'Open this game in Telegram 💛', pickTheme: 'Choose your quiz', newQuiz: '➕ New quiz', myQuizzes: 'My quizzes', answersN: '{n} answers', rankingBtn: '🏆 Ranking', customTh: 'Your questions', customBtn: '✍️ With YOUR questions', stars: '{p} ⭐', detailsBtn: '👀 What each friend answered · {p} ⭐', detailsOpen: '👀 What each friend answered', edT: '✍️ Your own questions', edSub: 'Write 5 to 10 questions about yourself, with 4 answers each, and tap ✅ next to the right one.', edQ: 'Question {i}', edQPh: 'e.g. The nickname my mum gives me?', edOPh: 'Answer {k}', edAdd: '➕ Add a question', edPublish: '🚀 Publish my quiz · {p} ⭐', edNeed: 'Fill at least 5 complete questions and tick the right answer ✅.', links: 'No links in the questions, please.', paidOk: '✅ Payment received!', detT: '👀 What each friend answered', rankYou: 'You are #{r} out of {t}', challenge: '📤 Challenge my friends on this quiz', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', themeAgain: 'Make another one 👇', theme_classic: 'Classic', theme_funny: 'Funny', theme_love: 'Love', theme_school: 'School', theme_society: 'Society', theme_bff: 'Best friends', tabCreate: 'Create', tabDaily: 'Daily', tabQuizzes: 'My quizzes', createT: 'Create a quiz', createSub: 'Choose a theme, answer 10 questions about you, then share it!', noQuizzes: 'You have no quiz yet.', shareBig: '📤 Share this quiz', quit: 'Quit', theme_custom: 'Your questions', yourName: 'Your first name', friendInv: 'A friend sent you their quiz! 💛', friendInvSub: 'Type your first name to answer their questions and find out how well you know them.', nameGo: 'Continue', nameNeed: 'Type your first name 🙂', webSub: 'Create your quiz in 1 minute, share it on WhatsApp, Messenger, Telegram or by SMS, and find out who knows you best.', playTg: 'Play on Telegram', shareOn: 'Share on…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copy the link', dailyT: '📅 Question of the day', dailyMine: 'What is YOUR answer?', dailyDone: '✅ Answer saved!', streak: '🔥 {n} days in a row', points: '⭐ {n} points', guessFriends: '👀 Guess what your friends answered', guessBtn: 'Guess', noFriendsYet: 'Share your quizzes: your friends will appear here every day.', waitFriends: 'Your friends have not answered today\'s question yet. Come back later!', vipT: '👑 Premium for life', vipD: 'Your own questions, every friend\'s answers and all the future quizzes. Forever.', vipBtn: 'Unlock everything · {p} ⭐', vipOn: '👑 Premium for life', tgPay: 'Payments are available in the Telegram version 💛' },
+  fr: { title: 'Qui te connaît le mieux ?', s1: 'Réponds à 10 questions sur toi', s2: 'Partage ton quiz à tes amis', s3: 'Découvre qui te connaît le mieux !', create: '✨ Créer mon quiz', ready: 'Ton quiz est prêt !', readySub: 'Partage-le à tes amis et dans tes groupes pour savoir qui te connaît le mieux.', share: '📤 Partager mon quiz', copy: '🔗 Copier mon lien', copied: 'Lien copié !', ranking: '🏆 Qui me connaît le mieux', rankOf: '🏆 Qui connaît le mieux {name}', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', plays: 'réponses', redo: '🔄 Faire un nouveau quiz', aboutYou: 'Sur toi', qOf: 'Question {i} sur 10', saving: 'Enregistrement…', howWell: 'Tu connais vraiment {name} ?', guessSub: 'Devine les 10 réponses de {name} !', start: '🎯 C\'est parti !', guess: 'Qu\'a répondu {name} ?', you: 'Toi', result: 'Ton score', yourGuess: 'tu as dit', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as encore beaucoup à apprendre sur {name} 😅', makeYours: '✨ Crée TON quiz maintenant', back: '← Retour', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz pour le savoir !', tgOnly: 'Ouvre ce jeu dans Telegram 💛', pickTheme: 'Choisis ton quiz', newQuiz: '➕ Nouveau quiz', myQuizzes: 'Mes quiz', answersN: '{n} réponses', rankingBtn: '🏆 Classement', customTh: 'Tes questions', customBtn: '✍️ Avec TES questions', stars: '{p} ⭐', detailsBtn: '👀 Ce que chacun a répondu · {p} ⭐', detailsOpen: '👀 Ce que chacun a répondu', edT: '✍️ Tes propres questions', edSub: 'Écris de 5 à 10 questions sur toi, avec 4 réponses chacune, et touche ✅ à côté de la bonne.', edQ: 'Question {i}', edQPh: 'Ex : le surnom que me donne ma mère ?', edOPh: 'Réponse {k}', edAdd: '➕ Ajouter une question', edPublish: '🚀 Publier mon quiz · {p} ⭐', edNeed: 'Remplis au moins 5 questions complètes et coche la bonne réponse ✅.', links: 'Pas de liens dans les questions.', paidOk: '✅ Paiement reçu !', detT: '👀 Ce que chacun a répondu', rankYou: 'Tu es {r}e sur {t}', challenge: '📤 Défier mes amis sur ce quiz', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', themeAgain: 'Fais-en un autre 👇', theme_classic: 'Classique', theme_funny: 'Drôle', theme_love: 'Amour', theme_school: 'École', theme_society: 'Société', theme_bff: 'Meilleurs amis', tabCreate: 'Créer', tabDaily: 'Du jour', tabQuizzes: 'Mes quiz', createT: 'Crée un quiz', createSub: 'Choisis un thème, réponds à 10 questions sur toi, puis partage-le !', noQuizzes: 'Tu n\'as pas encore de quiz.', shareBig: '📤 Partager ce quiz', quit: 'Quitter', theme_custom: 'Tes questions', yourName: 'Ton prénom', friendInv: 'Un ami t\'a envoyé son quiz ! 💛', friendInvSub: 'Écris ton prénom pour répondre à ses questions et découvrir si tu le connais vraiment.', nameGo: 'Continuer', nameNeed: 'Écris ton prénom 🙂', webSub: 'Crée ton quiz en 1 minute, partage-le sur WhatsApp, Messenger, Telegram ou par SMS, et découvre qui te connaît le mieux.', playTg: 'Jouer sur Telegram', shareOn: 'Partager sur…', wa: 'WhatsApp', ms: 'Messenger', sms: 'SMS', tgS: 'Telegram', copyLink: '🔗 Copier le lien', dailyT: '📅 La question du jour', dailyMine: 'Quelle est TA réponse ?', dailyDone: '✅ Réponse enregistrée !', streak: '🔥 {n} jours d\'affilée', points: '⭐ {n} points', guessFriends: '👀 Devine ce qu\'ont répondu tes amis', guessBtn: 'Deviner', noFriendsYet: 'Partage tes quiz : tes amis apparaîtront ici chaque jour.', waitFriends: 'Tes amis n\'ont pas encore répondu à la question du jour. Reviens plus tard !', vipT: '👑 Premium à vie', vipD: 'Tes propres questions, les réponses de chaque ami et tous les futurs quiz. Pour toujours.', vipBtn: 'Tout débloquer · {p} ⭐', vipOn: '👑 Premium à vie', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
 };
 const t = (k, v) => { let s = S[lang][k] || S.en[k] || k; for (const [a, b] of Object.entries(v || {})) s = s.split('{' + a + '}').join(b); return s; };
 // the 20 questions: emoji and text for each of the 4 answers
@@ -226,7 +238,8 @@ async function buy(kind, extra, after) {
 async function details(id) {
   let d; try { d = await api('details', { id }); } catch (e) { return toast(t('err')); }
   const qz = { custom: d.custom, questions: d.questions, n: d.n };
-  app.innerHTML = `<button class="btn alt" id="bk" style="margin:0 0 6px">${esc(t('back'))}</button><h1>${esc(t('detT'))}</h1>` + (d.people.length ? d.people.map((p) => `<div class="card"><div class="row"><span class="n">${esc(p.name)}</span><span class="s">${p.score}/${d.n}</span></div>${Array.from({ length: d.n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${p.guesses[i] === d.answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[p.guesses[i]] || ''} ${esc(qq.o[p.guesses[i]] || '')}</div></div>`; }).join('')}</div>`).join('') : `<p class="muted">${esc(t('nobody'))}</p>`);
+  chrome(false); window.scrollTo(0, 0);
+  app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">${esc(t('detT'))}</p></div>` + (d.people.length ? d.people.map((p) => `<div class="card"><div class="row"><span class="n">${esc(p.name)}</span><span class="s">${p.score}/${d.n}</span></div>${Array.from({ length: d.n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${p.guesses[i] === d.answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[p.guesses[i]] || ''} ${esc(qq.o[p.guesses[i]] || '')}</div></div>`; }).join('')}</div>`).join('') : `<p class="muted">${esc(t('nobody'))}</p>`);
   $('bk').onclick = async () => { try { st = await api('state'); } catch (e) {} home(); };
 }
 
@@ -237,10 +250,11 @@ function editor() {
   if (!rows.length) rows = Array.from({ length: 5 }, () => ({ q: '', o: ['', '', '', ''], a: -1 }));
   const save = () => { try { localStorage.setItem('km_draft', JSON.stringify(rows)); } catch (e) {} };
   const draw = () => {
-    app.innerHTML = `<button class="btn alt" id="bk" style="margin:0 0 6px">${esc(t('back'))}</button><h1>${esc(t('edT'))}</h1><p class="sub">${esc(t('edSub'))}</p>`
+    chrome(false);
+    app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">✍️ ${esc(t('theme_custom'))}</p></div><h1>${esc(t('edT'))}</h1><p class="sub">${esc(t('edSub'))}</p>`
       + rows.map((r, i) => `<div class="ed"><p class="qn" style="text-align:left">${esc(t('edQ', { i: i + 1 }))}</p><input class="inp" data-q="${i}" maxlength="120" placeholder="${esc(t('edQPh'))}" value="${esc(r.q)}">`
         + [0, 1, 2, 3].map((k) => `<div class="orow"><input class="inp" data-o="${i}:${k}" maxlength="40" placeholder="${esc(t('edOPh', { k: k + 1 }))}" value="${esc(r.o[k])}"><button class="ok ${r.a === k ? 'on' : ''}" data-a="${i}:${k}">${r.a === k ? '✅' : '⚪'}</button></div>`).join('') + `</div>`).join('')
-      + (rows.length < 10 ? `<button class="btn alt" id="add">${esc(t('edAdd'))}</button>` : '') + `<button class="btn" id="pub">${esc(t('edPublish', { p: P.custom }))}</button>${foot}`;
+      + (rows.length < 10 ? `<button class="btn alt" id="add">${esc(t('edAdd'))}</button>` : '') + `<button class="btn sun" id="pub">${esc(st.me && st.me.vip ? '🚀 ' + t('nameGo') : t('edPublish', { p: P.custom }))}</button>${foot}`;
     $('bk').onclick = home;
     app.querySelectorAll('[data-q]').forEach((x) => x.oninput = () => { rows[x.dataset.q].q = x.value; save(); });
     app.querySelectorAll('[data-o]').forEach((x) => x.oninput = () => { const [i, k] = x.dataset.o.split(':').map(Number); rows[i].o[k] = x.value; save(); });
@@ -303,8 +317,113 @@ function result(qz, score, guesses, answers, board, rank, total) {
   $('ch').onclick = () => { api('ev', { k: 'challenge' }).catch(() => {}); shareSheet(qz.id, t('challengeText', { s: score + '/' + n, name })); };
 }
 
+
+// ===== screens (tabs: create, question of the day, my quizzes) =====
+let tab = 'create';
+const color = (id) => `var(--c-${id})`;
+function chrome(on) { document.body.classList.toggle('notab', !on); const tb = $('tabs'); tb.style.display = on ? 'flex' : 'none'; if (!on) return;
+  tb.innerHTML = [['create', '✨', t('tabCreate')], ['daily', '📅', t('tabDaily')], ['quizzes', '📋', t('tabQuizzes')]].map(([id, e, l]) => `<div class="${tab === id ? 'on' : ''}" data-tab="${id}"><b>${e}</b>${esc(l)}</div>`).join('');
+  tb.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { haptic(); tab = x.dataset.tab; home(); }); }
+const topBar = () => `<div class="top"><b>💛 ${esc(t('title'))}</b>${st.me && st.me.vip ? '<span class="chip">👑</span>' : ''}</div>`;
+function themePicker() {
+  const P = st.prices || { custom: 50 };
+  return `<div class="themes">${THEMES.map((x) => `<div class="th" style="background:${color(x.id)}" data-th="${x.id}"><b>${x.e}</b>${esc(t('theme_' + x.id))}</div>`).join('')}
+    <div class="th wide" style="background:${color('custom')}" data-th="custom"><b>✍️</b><span>${esc(t('customBtn').replace(/^\S+\s/, ''))}<br><small>${st.me && st.me.vip ? '👑' : esc(t('stars', { p: P.custom }))}</small></span></div></div>`;
+}
+function bindThemes() { app.querySelectorAll('[data-th]').forEach((x) => x.onclick = () => { haptic(); x.dataset.th === 'custom' ? editor() : createFlow(x.dataset.th); }); }
+function home() {
+  const qs = st.quizzes || [];
+  if (!qs.length && tab === 'quizzes') tab = 'create';
+  chrome(true); window.scrollTo(0, 0);
+  if (tab === 'create') {
+    app.innerHTML = topBar() + (qs.length ? '' : `<div class="steps"><div><span>1</span>${esc(t('s1'))}</div><div><span>2</span>${esc(t('s2'))}</div><div><span>3</span>${esc(t('s3'))}</div></div>`)
+      + `<h2>${esc(t('createT'))}</h2>${themePicker()}${foot}`;
+    return bindThemes();
+  }
+  if (tab === 'daily') { app.innerHTML = topBar() + `<div id="dailyBox"><div class="daily"><div class="tag">${esc(t('dailyT'))}</div><p class="q">…</p></div></div>${foot}`; return dailyCard(); }
+  app.innerHTML = topBar() + `<h2>${esc(t('myQuizzes'))}</h2>` + qs.map((q) => { const th = themeOf(q.theme); const lead = q.board[0];
+    return `<div class="qrow" data-q="${q.id}"><div class="ic" style="background:${color(th.id)}">${th.e}</div><div class="tx"><b>${esc(t('theme_' + th.id))}</b><span>${esc(t('answersN', { n: q.plays || 0 }))}${lead ? ' · 🥇 ' + esc(lead.name) : ''}</span></div><div class="go">›</div></div>`; }).join('')
+    + vipCard() + foot;
+  app.querySelectorAll('[data-q]').forEach((x) => x.onclick = () => { haptic(); quizPage(qs.find((q) => q.id === x.dataset.q)); });
+  bindVip();
+}
+// one of my quizzes: share it, its ranking, each friend's answers
+function quizPage(q) {
+  chrome(false); window.scrollTo(0, 0);
+  const th = themeOf(q.theme), P = st.prices || { details: 25 };
+  app.innerHTML = `<div class="qhead"><button class="x" id="bk">←</button><p class="qn">${th.e} ${esc(t('theme_' + th.id))}</p></div>
+    <button class="btn sun" id="sh" style="margin-top:14px">${esc(t('shareBig'))}</button>
+    <div class="card" style="margin-top:18px"><h2>${esc(t('ranking'))}</h2>${boardHtml(q.board, q.n)}</div>
+    ${q.board.length ? `<button class="btn alt" id="dt">${esc(q.details ? t('detailsOpen') : t('detailsBtn', { p: P.details }))}</button>` : ''}${foot}`;
+  $('bk').onclick = () => { tab = 'quizzes'; home(); };
+  $('sh').onclick = () => share(q.id);
+  const dt = $('dt'); if (dt) dt.onclick = () => q.details ? details(q.id) : buy('details', { id: q.id }, () => details(q.id));
+}
+// the question screens: progress, close button
+const qScreen = (label, i, n, question, opts) => `<div class="qhead"><button class="x" id="qx" aria-label="${esc(t('quit'))}">✕</button><p class="qn">${label}</p></div><div class="prog"><i style="width:${(i / n) * 100}%"></i></div><p class="q">${question}</p><div class="opts">${opts}</div>`;
+function createFlow(themeId) {
+  haptic(); chrome(false);
+  const th = themeOf(themeId || 'classic');
+  const ids = [...Array(th.to - th.from).keys()].map((x) => x + th.from).sort(() => Math.random() - 0.5).slice(0, 10), answers = [];
+  const step = (i) => {
+    if (i === 10) {
+      app.innerHTML = `<div class="big">💾</div><p class="sub">${esc(t('saving'))}</p>`;
+      return api('create', { questions: ids, answers, theme: th.id }).then(async (r) => { haptic('ok'); st = await api('state'); tab = 'quizzes'; const q = (st.quizzes || []).find((x) => x.id === r.id); q ? quizPage(q) : home(); share(r.id); }).catch(() => { toast(t('err')); home(); });
+    }
+    const qi = ids[i];
+    app.innerHTML = qScreen(`${th.e} ${esc(t('theme_' + th.id))} · ${esc(t('qOf', { i: i + 1 }))}`, i, 10, esc(qText(qi)), [0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${Q[qi].e[k]}</b>${esc(oText(qi, k))}</div>`).join(''));
+    $('qx').onclick = home;
+    app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); answers.push(Number(o.dataset.k)); step(i + 1); });
+  };
+  step(0);
+}
+function playFlow(qz) {
+  chrome(false);
+  const name = qz.owner, n = nOf(qz);
+  app.innerHTML = `<div class="hero"><div class="big">🤔</div><h1>${esc(t('howWell', { name }))}</h1><p class="sub">${esc(t('guessSub', { name }).replace('10', n))}</p></div><button class="btn sun" id="go">${esc(t('start'))}</button>${foot}`;
+  const guesses = [];
+  const step = (i) => {
+    if (i === n) {
+      app.innerHTML = `<div class="big">🎯</div><p class="sub">${esc(t('saving'))}</p>`;
+      return api('answer', { id: qz.id, guesses }).then((r) => { haptic('ok'); result(qz, r.score, guesses, r.answers, r.board, r.rank, r.total); }).catch(() => { toast(t('err')); });
+    }
+    const qq = qOf(qz, i);
+    app.innerHTML = qScreen(esc(t('qOf', { i: i + 1 }).replace('10', n)), i, n, `<span style="font-size:17px;color:var(--mute)">${esc(t('guess', { name }))}</span><br>${esc(qq.q)}`, [0, 1, 2, 3].map((k) => `<div class="opt" data-k="${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join(''));
+    $('qx').onclick = home;
+    app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); guesses.push(Number(o.dataset.k)); step(i + 1); });
+  };
+  $('go').onclick = () => { haptic('medium'); step(0); };
+}
+function result(qz, score, guesses, answers, board, rank, total) {
+  chrome(false); window.scrollTo(0, 0);
+  const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
+  app.innerHTML = `<div class="score" style="--p:${(score / n) * 100}"><b>${score}/${n}</b></div>
+    <h1>${esc(t(v, { name }))}</h1>${rank ? `<p class="sub">${esc(t('rankYou', { r: rank, t: total }))}</p>` : ''}
+    <button class="btn sun" id="mk">${esc(t('makeYours'))}</button>
+    <button class="btn alt" id="ch">${esc(t('challenge'))}</button>
+    <div class="card" style="margin-top:18px"><h2>${esc(t('rankOf', { name }))}</h2>${boardHtml(board, n)}</div>
+    <div class="card">${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div><b>${esc(qq.q)}</b><br>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}${guesses[i] !== answers[i] ? ` <em>(${esc(t('yourGuess'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
+  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); tab = 'create'; home(); };
+  $('ch').onclick = () => { api('ev', { k: 'challenge' }).catch(() => {}); shareSheet(qz.id, t('challengeText', { s: score + '/' + n, name })); };
+}
+function shareSheet(id, text) {
+  haptic('medium'); api('ev', { k: 'share_open' }).catch(() => {});
+  const web = SITE + '?q=' + id, full = text + ' ' + web;
+  const d = document.createElement('div'); d.className = 'sheet';
+  d.innerHTML = `<div class="in"><h2 style="text-align:center">${esc(t('shareOn'))}</h2><div class="shares">
+    <a class="sh wa" data-u="https://wa.me/?text=${encodeURIComponent(full)}" data-k="whatsapp"><i>💬</i>${esc(t('wa'))}</a>
+    <a class="sh ms" data-u="fb-messenger://share/?link=${encodeURIComponent(web)}" data-k="messenger"><i>⚡</i>${esc(t('ms'))}</a>
+    <a class="sh tg" data-u="https://t.me/share/url?url=${encodeURIComponent(quizLink(id))}&text=${encodeURIComponent(text)}" data-k="telegram"><i>✈️</i>${esc(t('tgS'))}</a>
+    <a class="sh sms" data-u="sms:?&body=${encodeURIComponent(full)}" data-k="sms"><i>✉️</i>${esc(t('sms'))}</a></div>
+    <button class="btn alt" id="cpl">${esc(t('copyLink'))}</button></div>`;
+  document.body.appendChild(d);
+  d.onclick = (e) => { if (e.target === d) d.remove(); };
+  d.querySelectorAll('[data-u]').forEach((a) => a.onclick = () => { api('ev', { k: 'share_' + a.dataset.k }).catch(() => {}); openOut(a.dataset.u); });
+  d.querySelector('#cpl').onclick = () => { try { navigator.clipboard.writeText(web); toast(t('copied')); } catch (e) {} api('ev', { k: 'share_copy' }).catch(() => {}); };
+}
 function nameView(intro, then) {
-  app.innerHTML = `${intro}<input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn" id="ngo">${esc(t('nameGo'))}</button>
+  chrome(false);
+  app.innerHTML = `${intro}<input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn sun" id="ngo">${esc(t('nameGo'))}</button>
     <a class="btn alt" href="https://t.me/${BOTU}" style="display:block;text-align:center;text-decoration:none">✈️ ${esc(t('playTg'))}</a>${foot}`;
   const go = async () => {
     const name = $('nm').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
