@@ -7,7 +7,7 @@
 <meta name="description" content="Create your quiz in 1 minute, share it with your friends and find out who knows you best! Free, on Telegram and on the web.">
 <meta property="og:title" content="💛 Who knows me best? Take my quiz!">
 <meta property="og:description" content="Answer 10 questions about me and find out how well you really know me.">
-<meta property="og:image" content="https://jeremstyke.github.io/whoknowsme/og.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jeremstyke/whoknowsme/main/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffdd4a">
@@ -65,7 +65,7 @@ h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
 <body><div class="w" id="app"><div class="heart">💛</div></div>
 <script>
 const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#ffdd4a'); tg.setBackgroundColor('#ffdd4a'); } catch (e) {}
-const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
+const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://pote-ia-bot-en-production.up.railway.app/km/';
 const initData = (tg && tg.initData) || '', IN_TG = !!initData;
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
 let lang = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en').slice(0, 2).toLowerCase() === 'fr') ? 'fr' : 'en';
