@@ -386,6 +386,28 @@ if (!IN_TG && 'serviceWorker' in navigator && /github\.io$/.test(location.hostna
 // ===== home: question of the day + flames, my ranking, new quiz =====
 let tab = 'today';
 try { tab = localStorage.getItem('km_tab') || 'today'; } catch (e) {}
+const AD_BLOCK = 'int-52253';
+let adCtl = null, adAfterResult = false;
+try { if (!localStorage.getItem('km_first')) localStorage.setItem('km_first', String(Date.now())); } catch (e) {}
+function adLoad() {
+  if (!IN_TG || window.Adsgram || document.getElementById('adsgram-sdk')) return;
+  const sc = document.createElement('script'); sc.id = 'adsgram-sdk'; sc.src = 'https://sad.adsgram.ai/js/sad.min.js'; sc.async = true; document.head.appendChild(sc);
+}
+function showAd(where) {
+  return new Promise((done) => {
+    try {
+      if (!IN_TG || !window.Adsgram) return done();
+      const now = Date.now(), first = Number(localStorage.getItem('km_first') || now), last = Number(localStorage.getItem('km_ad_last') || 0);
+      if (now - first < 10 * 60000 || now - last < 3 * 60000) return done();
+      if (!adCtl) adCtl = window.Adsgram.init({ blockId: AD_BLOCK });
+      localStorage.setItem('km_ad_last', String(now));
+      let over = false; const end = () => { if (!over) { over = true; done(); } };
+      setTimeout(end, 45000);
+      adCtl.show().then(() => { api('ev', { k: 'ad_' + where }).catch(() => {}); end(); }).catch(() => { api('ev', { k: 'ad_none' }).catch(() => {}); end(); });
+    } catch (e) { done(); }
+  });
+}
+adLoad();
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
@@ -557,6 +579,7 @@ async function quizPage(id) {
 }
 function simpleHome() {
   setTabs(false); igShow(true); window.scrollTo(0, 0);
+  if (adAfterResult) { adAfterResult = false; showAd('home'); }
   const q = st.quiz;
   if (!q) {
     app.innerHTML = `${installBanner()}<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p><button class="btn go" id="new">${esc(t('create'))}</button>${foot}`;
@@ -713,7 +736,7 @@ function createFlow() {
   const step = (i) => {
     if (i === 10) {
       app.innerHTML = `<div class="heart">💾</div><p class="lead">${esc(t('saving'))}</p>`;
-      return api('create', { questions: ids, answers, theme: 'mix', over }).then(async (r) => { haptic('ok'); st = await api('state'); ready(r.id); }).catch(() => { toast(t('err')); home(); });
+      return api('create', { questions: ids, answers, theme: 'mix', over }).then(async (r) => { haptic('ok'); st = await api('state'); await showAd('create'); ready(r.id); }).catch(() => { toast(t('err')); home(); });
     }
     const qi = ids[i];
     app.innerHTML = `<div class="top"><button class="x" id="qx">✕</button><span class="mute">${esc(t('aboutMe'))} · ${t('qOf', { i: i + 1, n: 10 })}</span></div>
@@ -773,6 +796,7 @@ function playFlow(qz) {
   $('go').onclick = () => { if (rel == null) return; haptic('medium'); step(0); };
 }
 function result(qz, score, guesses, answers, b, rank, total) {
+  adAfterResult = true;
   window.scrollTo(0, 0);
   setTabs(false);
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
