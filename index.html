@@ -131,8 +131,11 @@ body.withig .w{padding-bottom:96px}
 .slide .opts{gap:8px}.slide .opt{min-height:74px;padding:8px 6px;font-size:13px}.slide .opt b{font-size:24px}
 .cdots{display:flex;justify-content:center;gap:6px;margin-top:10px}.cdots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4)}.cdots i.on{background:#fff}
 .moodsel{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px}.moodsel .md{min-width:84px}
-.rbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rx{border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:5px 10px;font:900 14px Nunito,sans-serif;cursor:pointer}.rx.on{background:#fff;color:var(--ink)}.rx.cm{margin-left:auto}
-.stk:not(.daily) .rx{border-color:var(--ink);background:var(--paper);color:var(--ink)}.stk:not(.daily) .rx.on{background:var(--sun)}
+.rbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+@keyframes rxpop{0%{transform:scale(1)}40%{transform:scale(1.4)}100%{transform:scale(1.12)}}
+@keyframes rxfly{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(-50%,-110px) scale(1.6);opacity:0}}
+.rx.pop{animation:rxpop .35s ease}.rxfly{position:fixed;font-size:36px;pointer-events:none;z-index:999;animation:rxfly .9s ease-out forwards}.rx{border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:5px 10px;font:900 14px Nunito,sans-serif;cursor:pointer}.rx.on{background:#fff;color:var(--ink);transform:scale(1.12);box-shadow:0 0 0 3px #ffdd4a;border-color:#fff}.rx.cm{margin-left:auto}
+.stk:not(.daily) .rx{border-color:var(--ink);background:var(--paper);color:var(--ink)}.stk:not(.daily) .rx.on{background:var(--sun);box-shadow:0 0 0 3px var(--ink)}
 .spic{width:100%;max-height:300px;object-fit:cover;border-radius:16px;border:3px solid var(--ink);margin:0 0 10px;cursor:pointer;display:block}
 .cmt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:2px dashed rgba(29,18,56,.12)}.cmt b{font-size:14px}.cmt p{margin:2px 0 0;font-weight:700;word-wrap:break-word}.cmr{border:0;background:none;font-size:16px;cursor:pointer;opacity:.6}
 body.withtabs .igbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}body.withtabs.withig .w{padding-bottom:180px}
@@ -569,8 +572,26 @@ function bindDq() {
     d.innerHTML = `<div class="in"><h2>${esc(t('dqMineT'))}</h2><p style="font-weight:900;margin:0">${esc(qq.q)}</p><p style="margin:4px 0 10px">${qq.e[DQ.mine.answer]} ${esc(qq.o[DQ.mine.answer])}</p>${an.length ? `<p style="font-weight:900;margin:0 0 4px">${esc(t('dqResults', { ok: an.filter((a) => a.correct).length, n: an.length }))}</p>${an.map((a) => `<div class="row"><span class="n">${esc(a.name)}</span><span>${a.correct ? '✅' : '❌'}</span></div>`).join('')}` : `<p class="mute" style="margin:0">${esc(t('dqWait'))}</p>`}<button class="btn" id="dqok">OK</button></div>`;
     document.body.appendChild(d); d.onclick = (e) => { if (e.target === d || e.target.id === 'dqok') d.remove(); };
   };
-  app.querySelectorAll('[data-rx]').forEach((x) => x.onclick = async () => { const [o, e] = x.dataset.rx.split(':').map(Number); haptic(); try { await api('react', { owner: o, emoji: e }); dqReload(); } catch (er) { toast(t('err')); } });
-  app.querySelectorAll('[data-cmt]').forEach((x) => x.onclick = () => { const o = x.dataset.cmt; if (o === 'me' || !Number(o)) return; const f = (DQ.feed || []).find((y) => String(y.uid) === o); commentsSheet(Number(o), f ? f.name : ((st.me && st.me.name) || '')); });
+  const bindRx = (root) => {
+  root.querySelectorAll('[data-rx]').forEach((x) => x.onclick = (ev) => {
+    const [o, e] = x.dataset.rx.split(':').map(Number);
+    const f = (DQ.feed || []).find((y) => y.uid === o); if (!f) return;
+    // instant: update the counts and my reaction, animate, then tell the server
+    const r = f.react || (f.react = { counts: [0, 0, 0, 0], mine: null }), before = JSON.stringify(r);
+    if (r.mine === e) { r.counts[e] = Math.max(0, r.counts[e] - 1); r.mine = null; }
+    else { if (r.mine != null) r.counts[r.mine] = Math.max(0, r.counts[r.mine] - 1); r.counts[e]++; r.mine = e; }
+    haptic(r.mine === e ? 'ok' : 'light');
+    const bar = x.closest('.rbar'); const tmp = document.createElement('div'); tmp.innerHTML = reactBar(o, r, f.comments); const nb = tmp.firstElementChild; bar.replaceWith(nb);
+    if (r.mine === e) {
+      const b2 = nb.querySelector(`[data-rx="${o}:${e}"]`); if (b2) b2.classList.add('pop');
+      const rc = x.getBoundingClientRect(), fl = document.createElement('div'); fl.className = 'rxfly'; fl.textContent = REACTS[e]; fl.style.left = (rc.left + rc.width / 2) + 'px'; fl.style.top = (rc.top - 10) + 'px'; document.body.appendChild(fl); setTimeout(() => fl.remove(), 950);
+    }
+    bindRx(nb);
+    api('react', { owner: o, emoji: e }).catch(() => { f.react = JSON.parse(before); toast(t('err')); dqReload(); });
+  });
+  root.querySelectorAll('[data-cmt]').forEach((x) => x.onclick = () => { const o = x.dataset.cmt; if (o === 'me' || !Number(o)) return; const f = (DQ.feed || []).find((y) => String(y.uid) === o); commentsSheet(Number(o), f ? f.name : ((st.me && st.me.name) || '')); });
+  };
+  bindRx(app);
   app.querySelectorAll('[data-fph]').forEach((x) => x.onclick = () => { const f = (DQ.feed || []).find((y) => String(y.uid) === x.dataset.fph); if (f) photoView(f); });
   const myph = $('myph'); if (myph) myph.onclick = () => takePhoto({ photoOk: DQ.myDay && DQ.myDay.photoOk }, async (route, body) => { try { await api(route, body); await dqReload(); if (route === 'photo') toast(DQ && DQ.myDay && DQ.myDay.photo && DQ.myDay.photo.pending ? t('phPending') : '📸 ✅'); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } });
   app.querySelectorAll('[data-myph]').forEach((x) => x.onclick = () => photoView({ pic: DQ.myDay.photo, name: (st.me && st.me.name) || '', mood: DQ.myMood }));
@@ -1191,7 +1212,9 @@ function result(qz, score, guesses, answers, b, rank, total) {
 
 // ===== start: Telegram players are known; web visitors give their first name once =====
 async function start() {
-  try { const [s1, d1, f1, q1] = await Promise.all([api('state'), SOCIAL ? api('today').catch(() => null) : null, SOCIAL ? api('friends').catch(() => null) : null, api('dq_state').catch(() => null)]); st = s1; dailyPre = d1; friendsPre = f1; dqPre = q1; } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
+  const dqBg = api('dq_state').catch(() => null);
+  try { st = await api('state'); dailyPre = null; friendsPre = null; } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
+  dqBg.then((d) => { if (!d) return; DQ = d; dqPre = null; const b = $('dqbox'); if (b) { b.innerHTML = dqCards() || peopleEmpty(); bindDq(); } });
   if (st.me && st.me.lang && S[st.me.lang] && st.me.lang !== lang && !LANGS.includes(lang)) setLang(st.me.lang);
   const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || '';
   const cid = (new URLSearchParams(location.search).get('c') || (sp.startsWith('c_') ? sp.slice(2) : '')).replace(/[^a-z0-9]/g, '');
