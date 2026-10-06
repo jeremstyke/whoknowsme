@@ -409,6 +409,7 @@ function showAd(where) {
 }
 adLoad();
 for (const [l, v] of Object.entries({"en": {"fpKnows": "💛 Knows me", "fpIKnow": "🎯 I know them", "fpNotYet": "not answered yet", "fpQuizzes": "📝 {n} quizzes created", "fpPlay": "🎯 Take their quiz", "tapProfile": "Tap a name to see their profile 👀"}, "fr": {"fpKnows": "💛 Me connaît", "fpIKnow": "🎯 Je le connais", "fpNotYet": "pas encore répondu", "fpQuizzes": "📝 {n} quiz créés", "fpPlay": "🎯 Répondre à son quiz", "tapProfile": "Touche un nom pour voir son profil 👀"}, "es": {"fpKnows": "💛 Me conoce", "fpIKnow": "🎯 Lo conozco", "fpNotYet": "aún sin responder", "fpQuizzes": "📝 {n} quizzes creados", "fpPlay": "🎯 Responder su quiz", "tapProfile": "Toca un nombre para ver su perfil 👀"}, "pt": {"fpKnows": "💛 Me conhece", "fpIKnow": "🎯 Eu conheço", "fpNotYet": "ainda não respondido", "fpQuizzes": "📝 {n} quizzes criados", "fpPlay": "🎯 Responder o quiz", "tapProfile": "Toque em um nome para ver o perfil 👀"}, "de": {"fpKnows": "💛 Kennt mich", "fpIKnow": "🎯 Ich kenne", "fpNotYet": "noch nicht beantwortet", "fpQuizzes": "📝 {n} Quiz erstellt", "fpPlay": "🎯 Sein Quiz spielen", "tapProfile": "Tippe auf einen Namen für das Profil 👀"}, "it": {"fpKnows": "💛 Mi conosce", "fpIKnow": "🎯 Lo conosco", "fpNotYet": "non ancora risposto", "fpQuizzes": "📝 {n} quiz creati", "fpPlay": "🎯 Rispondi al suo quiz", "tapProfile": "Tocca un nome per vedere il profilo 👀"}, "ru": {"fpKnows": "💛 Знает меня", "fpIKnow": "🎯 Я знаю", "fpNotYet": "ещё не ответил", "fpQuizzes": "📝 Создано квизов: {n}", "fpPlay": "🎯 Пройти его квиз", "tapProfile": "Нажми на имя, чтобы открыть профиль 👀"}, "ar": {"fpKnows": "💛 يعرفني", "fpIKnow": "🎯 أعرفه", "fpNotYet": "لم يُجب بعد", "fpQuizzes": "📝 {n} اختبارات", "fpPlay": "🎯 أجب على اختباره", "tapProfile": "اضغط على اسم لرؤية ملفه 👀"}, "tr": {"fpKnows": "💛 Beni tanıyor", "fpIKnow": "🎯 Onu tanıyorum", "fpNotYet": "henüz cevaplanmadı", "fpQuizzes": "📝 {n} test oluşturdu", "fpPlay": "🎯 Testini çöz", "tapProfile": "Profilini görmek için bir isme dokun 👀"}, "id": {"fpKnows": "💛 Mengenalku", "fpIKnow": "🎯 Aku mengenalnya", "fpNotYet": "belum dijawab", "fpQuizzes": "📝 {n} kuis dibuat", "fpPlay": "🎯 Jawab kuisnya", "tapProfile": "Ketuk nama untuk melihat profilnya 👀"}})) S[l] = { ...(S[l] || {}), ...v };
+for (const [l, v] of Object.entries({"en": {"gBest": "Recommended: find your account everywhere", "orTxt": "or", "nameOnly": "Just my first name", "gSaveT": "💾 Save your account", "gSaveS": "Connect Google to find your account on any phone, browser or in the app.", "gLinked": "✅ Google account: {e}", "gErr": "Google sign-in failed, try again."}, "fr": {"gBest": "Recommandé : retrouve ton compte partout", "orTxt": "ou", "nameOnly": "Juste avec mon prénom", "gSaveT": "💾 Sauvegarde ton compte", "gSaveS": "Connecte Google pour retrouver ton compte sur n'importe quel téléphone, navigateur ou dans l'appli.", "gLinked": "✅ Compte Google : {e}", "gErr": "La connexion Google a échoué, réessaie."}, "es": {"gBest": "Recomendado: encuentra tu cuenta en todas partes", "orTxt": "o", "nameOnly": "Solo con mi nombre", "gSaveT": "💾 Guarda tu cuenta", "gSaveS": "Conecta Google para encontrar tu cuenta en cualquier móvil, navegador o en la app.", "gLinked": "✅ Cuenta de Google: {e}", "gErr": "Error con Google, inténtalo de nuevo."}, "pt": {"gBest": "Recomendado: encontre sua conta em qualquer lugar", "orTxt": "ou", "nameOnly": "Só com meu nome", "gSaveT": "💾 Salve sua conta", "gSaveS": "Conecte o Google para encontrar sua conta em qualquer celular, navegador ou no app.", "gLinked": "✅ Conta Google: {e}", "gErr": "Falha no login com Google, tente de novo."}, "de": {"gBest": "Empfohlen: dein Konto überall wiederfinden", "orTxt": "oder", "nameOnly": "Nur mit meinem Vornamen", "gSaveT": "💾 Konto sichern", "gSaveS": "Verbinde Google, um dein Konto auf jedem Handy, Browser oder in der App wiederzufinden.", "gLinked": "✅ Google-Konto: {e}", "gErr": "Google-Anmeldung fehlgeschlagen, versuch es nochmal."}, "it": {"gBest": "Consigliato: ritrova il tuo account ovunque", "orTxt": "o", "nameOnly": "Solo con il mio nome", "gSaveT": "💾 Salva il tuo account", "gSaveS": "Collega Google per ritrovare il tuo account su qualsiasi telefono, browser o nell'app.", "gLinked": "✅ Account Google: {e}", "gErr": "Accesso con Google non riuscito, riprova."}, "ru": {"gBest": "Рекомендуем: твой аккаунт будет везде", "orTxt": "или", "nameOnly": "Только по имени", "gSaveT": "💾 Сохрани аккаунт", "gSaveS": "Подключи Google, чтобы найти свой аккаунт на любом телефоне, в браузере или в приложении.", "gLinked": "✅ Аккаунт Google: {e}", "gErr": "Не удалось войти через Google, попробуй ещё раз."}, "ar": {"gBest": "موصى به: تجد حسابك في كل مكان", "orTxt": "أو", "nameOnly": "فقط باسمي", "gSaveT": "💾 احفظ حسابك", "gSaveS": "اربط Google لتجد حسابك على أي هاتف أو متصفح أو في التطبيق.", "gLinked": "✅ حساب Google: {e}", "gErr": "فشل تسجيل الدخول عبر Google، حاول مجددًا."}, "tr": {"gBest": "Önerilen: hesabını her yerde bul", "orTxt": "veya", "nameOnly": "Sadece adımla", "gSaveT": "💾 Hesabını kaydet", "gSaveS": "Hesabını her telefonda, tarayıcıda veya uygulamada bulmak için Google'ı bağla.", "gLinked": "✅ Google hesabı: {e}", "gErr": "Google ile giriş başarısız, tekrar dene."}, "id": {"gBest": "Disarankan: temukan akunmu di mana saja", "orTxt": "atau", "nameOnly": "Cukup dengan nama depanku", "gSaveT": "💾 Simpan akunmu", "gSaveS": "Hubungkan Google untuk menemukan akunmu di ponsel, browser, atau aplikasi mana pun.", "gLinked": "✅ Akun Google: {e}", "gErr": "Login Google gagal, coba lagi."}})) S[l] = { ...(S[l] || {}), ...v };
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
@@ -507,10 +508,12 @@ function profileSheet() {
     d.innerHTML = `<div class="in" style="text-align:center"><h2>${esc(t('pfTitle'))}</h2><div style="margin:4px 0 12px">${pic(st.me.photo, st.me.name, 110)}</div>
       <button class="btn go" id="pcam">${esc(t('pfPhotoCam'))}</button><button class="btn" id="pgal">${esc(t('pfPhotoGal'))}</button>${st.me.photo ? `<button class="link" id="pdel">${esc(t('pfPhotoDel'))}</button>` : ''}
       <input class="inp" id="pnm" maxlength="30" value="${esc(st.me.name || '')}" style="margin-top:16px;text-align:center"><button class="btn ink" id="psv">${esc(t('pfSave'))}</button>
+      ${googleCard('gbtn2')}
       ${codeCard()}
       ${!IN_TG && st.me.web ? `<button class="btn tg" id="plink" style="margin-top:18px">${esc(t('linkTg'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('linkTgSub'))}</p>` : ''}
       ${IN_TG ? `<button class="btn" id="papp" style="margin-top:18px">${esc(t('useApp'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('useAppSub'))}</p>` : ''}</div>`;
     const pl = d.querySelector('#plink'); if (pl) pl.onclick = () => { d.remove(); linkTelegram(); };
+    googleBtn('gbtn2');
     const pa = d.querySelector('#papp'); if (pa) pa.onclick = async () => { haptic('medium'); try { const r = await api('web_code'); tg.openLink(r.url); } catch (e) { toast(t('err')); } };
     const pick = (camera) => {
       const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; if (camera) inp.setAttribute('capture', 'user');
@@ -782,8 +785,8 @@ function createFlow() {
 function ready(id) {
   window.scrollTo(0, 0);
   setTabs(false);
-  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}${notifCard()}${codeCard()}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
-  bindShare(id, t('shareText')); bindInstall(); $('hm').onclick = () => { tab = 'quiz'; home(); };
+  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}${notifCard()}${googleCard('gbtn3')}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
+  bindShare(id, t('shareText')); bindInstall(); googleBtn('gbtn3'); $('hm').onclick = () => { tab = 'quiz'; home(); };
 }
 
 // ===== a friend's quiz =====
@@ -862,7 +865,32 @@ async function tgWait(code, url) {
     await new Promise((ok) => setTimeout(ok, 2500));
   }
 }
+let GID = null;
+async function googleBtn(elId) {
+  if (IN_TG) return;
+  try {
+    if (GID === null) { const r = await fetch(API + 'google_conf', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); GID = (await r.json()).id || ''; }
+    if (!GID) return;
+    if (!window.google || !google.accounts) await new Promise((ok, ko) => { const sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.onload = ok; sc.onerror = ko; document.head.appendChild(sc); });
+    const redirect = STANDALONE;
+    google.accounts.id.initialize({ client_id: GID, ux_mode: redirect ? 'redirect' : 'popup', login_uri: redirect ? API.replace(/api\/?$/, 'google_redirect') : undefined,
+      callback: async (resp) => {
+        try {
+          const r = await fetch(API + 'google_login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ credential: resp.credential, token: TOKEN || '', lang, src: new URLSearchParams(location.search).get('src') || 'google' }) }).then((x) => x.json());
+          if (!r.token) throw new Error('google');
+          TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {}
+          haptic('ok'); document.querySelectorAll('.sheet').forEach((s) => s.remove()); start();
+        } catch (e) { toast(t('gErr')); }
+      } });
+    const el = document.getElementById(elId);
+    if (el) google.accounts.id.renderButton(el, { theme: 'filled_black', size: 'large', shape: 'pill', text: 'continue_with', width: Math.min(320, el.offsetWidth || 300), locale: lang });
+  } catch (e) {}
+}
+const googleCard = (id) => (!IN_TG && st && st.me && !st.me.google ? `<div class="stk" style="text-align:center;margin-top:16px"><h2 style="margin-bottom:6px">${esc(t('gSaveT'))}</h2><p class="mute" style="margin:0 0 12px;font-size:14px">${esc(t('gSaveS'))}</p><div id="${id}" style="display:flex;justify-content:center;min-height:44px"></div></div>` : (!IN_TG && st && st.me && st.me.google ? `<p class="mute" style="text-align:center;margin:14px 0 0;font-size:13px">${esc(t('gLinked', { e: st.me.google }))}</p>` : ''));
 async function boot() {
+  // back from Google (installed app): the token comes in the address
+  if (!IN_TG && /gt=/.test(location.hash)) { const m = /gt=([^&]+)/.exec(location.hash); if (m) { TOKEN = decodeURIComponent(m[1]); try { localStorage.setItem('km_token', TOKEN); } catch (e) {} } try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+  if (!IN_TG && /gerr=1/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} setTimeout(() => toast(t('gErr')), 500); }
   if (!IN_TG && !TOKEN) { try { const p = JSON.parse(localStorage.getItem('km_login') || 'null'); if (p && Date.now() - p.at < 20 * 60000) return tgWait(p.code, p.url); } catch (e) {} }
   setTabs(false);
   const lc = !IN_TG && new URLSearchParams(location.search).get('link');
@@ -873,9 +901,12 @@ async function boot() {
   if (IN_TG || TOKEN) return start();
   const qid = new URLSearchParams(location.search).get('q');
   app.innerHTML = `${installBanner()}<div class="heart">${qid ? '👀' : '💛'}</div><h1>${esc(qid ? t('invT0') : t('title'))}</h1><p class="lead">${esc(qid ? t('invSub0') : t('sub'))}</p>
-    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn go" id="ngo">${esc(t('goOn'))}</button>
-    <button class="btn" id="hvcode" style="margin-top:18px">${esc(t('haveCode'))}</button>
-    <button class="btn tg" id="hvtg">${esc(t('haveTg'))}</button>${foot}`;
+    <div class="stk" style="text-align:center"><p style="font-weight:900;margin:0 0 12px">${esc(t('gBest'))}</p><div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div></div>
+    <p class="mute" style="text-align:center;margin:4px 0 8px;font-weight:900">${esc(t('orTxt'))}</p>
+    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('nameOnly'))}" autocomplete="given-name"><button class="btn go" id="ngo">${esc(t('goOn'))}</button>
+    <button class="btn tg" id="hvtg" style="margin-top:14px">${esc(t('haveTg'))}</button>
+    <button class="link" id="hvcode">${esc(t('haveCode'))}</button>${foot}`;
+  googleBtn('gbtn');
   $('hvtg').onclick = tgLogin;
   $('hvcode').onclick = () => {
     const d = document.createElement('div'); d.className = 'sheet';
