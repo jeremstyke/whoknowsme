@@ -408,6 +408,7 @@ function showAd(where) {
   });
 }
 adLoad();
+for (const [l, v] of Object.entries({"en": {"fpKnows": "💛 Knows me", "fpIKnow": "🎯 I know them", "fpNotYet": "not answered yet", "fpQuizzes": "📝 {n} quizzes created", "fpPlay": "🎯 Take their quiz", "tapProfile": "Tap a name to see their profile 👀"}, "fr": {"fpKnows": "💛 Me connaît", "fpIKnow": "🎯 Je le connais", "fpNotYet": "pas encore répondu", "fpQuizzes": "📝 {n} quiz créés", "fpPlay": "🎯 Répondre à son quiz", "tapProfile": "Touche un nom pour voir son profil 👀"}, "es": {"fpKnows": "💛 Me conoce", "fpIKnow": "🎯 Lo conozco", "fpNotYet": "aún sin responder", "fpQuizzes": "📝 {n} quizzes creados", "fpPlay": "🎯 Responder su quiz", "tapProfile": "Toca un nombre para ver su perfil 👀"}, "pt": {"fpKnows": "💛 Me conhece", "fpIKnow": "🎯 Eu conheço", "fpNotYet": "ainda não respondido", "fpQuizzes": "📝 {n} quizzes criados", "fpPlay": "🎯 Responder o quiz", "tapProfile": "Toque em um nome para ver o perfil 👀"}, "de": {"fpKnows": "💛 Kennt mich", "fpIKnow": "🎯 Ich kenne", "fpNotYet": "noch nicht beantwortet", "fpQuizzes": "📝 {n} Quiz erstellt", "fpPlay": "🎯 Sein Quiz spielen", "tapProfile": "Tippe auf einen Namen für das Profil 👀"}, "it": {"fpKnows": "💛 Mi conosce", "fpIKnow": "🎯 Lo conosco", "fpNotYet": "non ancora risposto", "fpQuizzes": "📝 {n} quiz creati", "fpPlay": "🎯 Rispondi al suo quiz", "tapProfile": "Tocca un nome per vedere il profilo 👀"}, "ru": {"fpKnows": "💛 Знает меня", "fpIKnow": "🎯 Я знаю", "fpNotYet": "ещё не ответил", "fpQuizzes": "📝 Создано квизов: {n}", "fpPlay": "🎯 Пройти его квиз", "tapProfile": "Нажми на имя, чтобы открыть профиль 👀"}, "ar": {"fpKnows": "💛 يعرفني", "fpIKnow": "🎯 أعرفه", "fpNotYet": "لم يُجب بعد", "fpQuizzes": "📝 {n} اختبارات", "fpPlay": "🎯 أجب على اختباره", "tapProfile": "اضغط على اسم لرؤية ملفه 👀"}, "tr": {"fpKnows": "💛 Beni tanıyor", "fpIKnow": "🎯 Onu tanıyorum", "fpNotYet": "henüz cevaplanmadı", "fpQuizzes": "📝 {n} test oluşturdu", "fpPlay": "🎯 Testini çöz", "tapProfile": "Profilini görmek için bir isme dokun 👀"}, "id": {"fpKnows": "💛 Mengenalku", "fpIKnow": "🎯 Aku mengenalnya", "fpNotYet": "belum dijawab", "fpQuizzes": "📝 {n} kuis dibuat", "fpPlay": "🎯 Jawab kuisnya", "tapProfile": "Ketuk nama untuk melihat profilnya 👀"}})) S[l] = { ...(S[l] || {}), ...v };
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
@@ -577,6 +578,18 @@ async function quizPage(id) {
   bindShare(id, t('shareText'));
   app.querySelectorAll('[data-bi]').forEach((x) => x.onclick = () => personAnswers({ id }, Number(x.dataset.bi)));
 }
+async function friendProfile(id) {
+  haptic();
+  let p; try { p = await api('friend_profile', { id }); } catch (e) { return toast(t('err')); }
+  const d = document.createElement('div'); d.className = 'sheet';
+  const stat = (label, v) => `<div class="sx" style="flex:1"><b>${v == null ? '–' : v + '%'}</b><span>${esc(label)}${v == null ? '<br>' + esc(t('fpNotYet')) : ''}</span></div>`;
+  d.innerHTML = `<div class="in" style="text-align:center">${pic(p.photo, p.name, 110)}<h2 style="margin:10px 0 2px">${esc(p.name)}</h2>${p.rel != null ? `<p class="mute" style="margin:0 0 10px">${relTxt(p.rel)}</p>` : ''}
+    <div style="display:flex;gap:10px;margin:8px 0">${stat(t('fpKnows'), p.knowsMe)}${stat(t('fpIKnow'), p.iKnow)}</div>
+    <p style="font-weight:900;margin:6px 0 0">${esc(t('fpQuizzes', { n: p.quizzes }))}</p>
+    ${p.playQuiz ? `<button class="btn go" id="fpplay">${esc(t('fpPlay'))}</button>` : ''}<button class="btn" id="fpok">OK</button></div>`;
+  document.body.appendChild(d); d.onclick = (e) => { if (e.target === d || e.target.id === 'fpok') d.remove(); };
+  const pl = d.querySelector('#fpplay'); if (pl) pl.onclick = async () => { d.remove(); try { const qz = await api('quiz', { id: p.playQuiz }); igShow(false); playFlow(qz); } catch (e) { toast(t('err')); } };
+}
 function simpleHome() {
   setTabs(false); igShow(true); window.scrollTo(0, 0);
   if (adAfterResult) { adAfterResult = false; showAd('home'); }
@@ -588,13 +601,14 @@ function simpleHome() {
   if (dqPre) { DQ = dqPre; dqPre = null; }
   if (!DQ) api('dq_state').then((d) => { DQ = d; if (!$('dqbox')) return; $('dqbox').innerHTML = dqCards(); bindDq(); }).catch(() => {});
   app.innerHTML = `<div class="mebar" id="mebar">${pic(st.me && st.me.photo, st.me && st.me.name, 48)}<b>${esc((st.me && st.me.name) || '')}</b><span>${esc(t('myProf'))}</span></div>${installBanner()}${notifCard()}<div id="dqbox">${dqCards()}</div><h1 style="margin-top:8px">${esc(t('simpleT'))}</h1><p class="lead">${esc(t('simpleS'))}</p>${shareBtns()}
-    <div class="stk" style="margin-top:22px"><h2>${esc(t('myRank'))}</h2>${(st.quizzes || []).length > 1 ? `<p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('allRankS'))}</p>` : ''}${(st.overall || []).length ? st.overall.map((x, i) => `<div class="row"><span>${medal(i)}</span>${pic(x.photo, x.name, 34)}<span class="n">${esc(x.name)}${x.rel != null ? `<small>${relTxt(x.rel)}</small>` : ''}</span><span class="s">${x.pct}%${(st.quizzes || []).length > 1 ? `<small style="display:block;font:800 11px Nunito,sans-serif;color:var(--mute);text-align:right">${esc(t('quizzesN', { n: x.count }))}</small>` : ''}</span></div>`).join('') : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`}</div>
+    <div class="stk" style="margin-top:22px"><h2>${esc(t('myRank'))}</h2>${(st.quizzes || []).length > 1 ? `<p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('allRankS'))}</p>` : ''}${(st.overall || []).length ? st.overall.map((x, i) => `<div class="row" data-pf="${x.uid}" style="cursor:pointer"><span>${medal(i)}</span>${pic(x.photo, x.name, 34)}<span class="n">${esc(x.name)}${x.rel != null ? `<small>${relTxt(x.rel)}</small>` : ''}</span><span class="s">${x.pct}%${(st.quizzes || []).length > 1 ? `<small style="display:block;font:800 11px Nunito,sans-serif;color:var(--mute);text-align:right">${esc(t('quizzesN', { n: x.count }))}</small>` : ''}</span></div>`).join('') + `<p class="mute" style="margin:8px 0 0;font-size:13px">${esc(t('tapProfile'))}</p>` : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`}</div>
     <div class="stk"><h2>${esc(t('quizzesT'))}</h2>${(st.quizzes || []).map((z) => `<div class="row" data-qz="${z.id}" style="cursor:pointer"><span class="n">${esc(t('quizOf', { d: new Date(z.at).toLocaleDateString(lang, { day: 'numeric', month: 'short' }) }))}<small>${esc(t('nAns', { n: z.plays }))}</small></span><span class="s">›</span></div>`).join('')}</div>
     <button class="btn go" id="new">${esc(t('again'))}</button>${foot}`;
   bindShare(q.id, t('shareText'));
   bindDq();
   $('mebar').onclick = profileSheet;
   app.querySelectorAll('[data-qz]').forEach((x) => x.onclick = () => quizPage(x.dataset.qz));
+  app.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pf)));
   $('new').onclick = createFlow;
   bindInstall();
 }
