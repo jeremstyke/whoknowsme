@@ -415,15 +415,18 @@ if (!IN_TG && 'serviceWorker' in navigator && /github\.io$/.test(location.hostna
 // ===== home: question of the day + flames, my ranking, new quiz =====
 let tab = 'today';
 try { tab = localStorage.getItem('km_tab') || 'today'; } catch (e) {}
+const ADS_ON = false; // Adsgram refused the app: interstitial switched off
 const AD_BLOCK = 'int-52253';
 let adCtl = null, adAfterResult = false;
 try { if (!localStorage.getItem('km_first')) localStorage.setItem('km_first', String(Date.now())); } catch (e) {}
 function adLoad() {
+  if (!ADS_ON) return;
   if (!IN_TG || window.Adsgram || document.getElementById('adsgram-sdk')) return;
   const sc = document.createElement('script'); sc.id = 'adsgram-sdk'; sc.src = 'https://sad.adsgram.ai/js/sad.min.js'; sc.async = true; document.head.appendChild(sc);
 }
 function showAd(where) {
   return new Promise((done) => {
+    if (!ADS_ON) return done();
     try {
       if (!IN_TG || !window.Adsgram) return done();
       const now = Date.now(), first = Number(localStorage.getItem('km_first') || now), last = Number(localStorage.getItem('km_ad_last') || 0);
