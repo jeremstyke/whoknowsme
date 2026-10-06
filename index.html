@@ -334,7 +334,7 @@ async function linkTelegram() {
   for (let k = 0; k < 80; k++) {
     await new Promise((ok) => setTimeout(ok, 2500));
     if (!document.body.contains(d)) return;
-    try { const c = await api('link_check', { code: r.code }); if (c.done && c.token) { TOKEN = c.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} d.remove(); haptic('ok'); toast(t('linkDone')); return start(); } } catch (e) {}
+    try { const c = await api('link_check', { code: r.code }); if (c.done && c.token) { TOKEN = c.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} d.remove(); haptic('ok'); toast(t('linkDone')); return start(); } } catch (e) {}
   }
   d.remove();
 }
@@ -638,7 +638,7 @@ function logout() {
   d.innerHTML = `<div class="in" style="text-align:center"><h2>${esc(t('logoutT'))}</h2><p style="font-weight:800;margin:0">${esc(g ? t('logoutG') : t('logoutS', { c: c || '' }))}</p>${!g && c ? `<p style="font:700 32px Fredoka,sans-serif;letter-spacing:4px;margin:10px 0 0">${esc(c)}</p>` : ''}<button class="btn go" id="lok">${esc(t('logoutOk'))}</button><button class="link" id="lno">${esc(t('cancel'))}</button></div>`;
   document.body.appendChild(d); d.onclick = (e) => { if (e.target === d || e.target.id === 'lno') d.remove(); };
   d.querySelector('#lok').onclick = () => {
-    try { localStorage.removeItem('km_token'); localStorage.removeItem('km_push'); localStorage.removeItem('km_login'); } catch (e) {}
+    try { localStorage.removeItem('km_token'); localStorage.removeItem('km_push'); localStorage.removeItem('km_login'); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {}
     try { if (window.google && google.accounts) google.accounts.id.disableAutoSelect(); } catch (e) {}
     TOKEN = ''; st = null; DQ = null; d.remove(); igShow(false); boot();
   };
@@ -891,7 +891,7 @@ async function coupleInviteScreen(cid) {
   const go = async () => {
     const nm = $('nm').value.trim(); if (nm.length < 2) return toast(t('nameNeed'));
     $('ngo').disabled = true;
-    try { const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: nm, lang, src: 'couple' }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} start(); }
+    try { const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: nm, lang, src: 'couple' }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} start(); }
     catch (e) { $('ngo').disabled = false; toast(t('err')); }
   };
   $('ngo').onclick = go; $('nm').onkeydown = (e) => { if (e.key === 'Enter') go(); };
@@ -1211,15 +1211,32 @@ function result(qz, score, guesses, answers, b, rank, total) {
 }
 
 // ===== start: Telegram players are known; web visitors give their first name once =====
+// what the app last saw is kept on the phone: the home shows at once, then quietly refreshes
+const cacheGet = (k) => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+const cacheSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const onHome = () => getComputedStyle($('tabs')).display !== 'none' && !document.querySelector('.sheet,.viewer');
 async function start() {
-  const dqBg = api('dq_state').catch(() => null);
-  try { st = await api('state'); dailyPre = null; friendsPre = null; } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
-  dqBg.then((d) => { if (!d) return; DQ = d; dqPre = null; const b = $('dqbox'); if (b) { b.innerHTML = dqCards() || peopleEmpty(); bindDq(); } });
-  if (st.me && st.me.lang && S[st.me.lang] && st.me.lang !== lang && !LANGS.includes(lang)) setLang(st.me.lang);
   const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || '';
   const cid = (new URLSearchParams(location.search).get('c') || (sp.startsWith('c_') ? sp.slice(2) : '')).replace(/[^a-z0-9]/g, '');
-  if (cid && !window.__cpDone) { window.__cpDone = true; return coupleOpen(cid); }
   const qid = (new URLSearchParams(location.search).get('q') || (sp.startsWith('q_') ? sp.slice(2) : '')).replace(/[^a-z0-9]/g, '');
+  const plain = !(cid && !window.__cpDone) && !qid && !window.__goCreate;
+  const cached = plain ? cacheGet('km_st') : null;
+  let fromCache = false;
+  if (cached && cached.me) { st = cached; DQ = cacheGet('km_dq'); fromCache = true; home(); }
+  const dqBg = api('dq_state').catch(() => null);
+  let fresh;
+  try { fresh = await api('state'); dailyPre = null; friendsPre = null; }
+  catch (e) {
+    if (fromCache && e && e.code !== 'auth') return; // offline or slow network: keep what is shown
+    if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (er) {} return boot(); }
+    app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return;
+  }
+  const changed = JSON.stringify(fresh) !== JSON.stringify(st);
+  st = fresh; cacheSet('km_st', st);
+  dqBg.then((d) => { if (!d) return; const ch = JSON.stringify(d) !== JSON.stringify(DQ); DQ = d; dqPre = null; cacheSet('km_dq', d); const b = $('dqbox'); if (b && ch && !document.querySelector('.sheet,.viewer')) { b.innerHTML = dqCards() || peopleEmpty(); bindDq(); } });
+  if (st.me && st.me.lang && S[st.me.lang] && st.me.lang !== lang && !LANGS.includes(lang)) setLang(st.me.lang);
+  if (fromCache) { if (changed && onHome()) { const sc = $('scroller'), y = sc ? sc.scrollTop : 0; simpleHome(); if (sc) sc.scrollTop = y; } return; }
+  if (cid && !window.__cpDone) { window.__cpDone = true; return coupleOpen(cid); }
   if (qid) {
     try {
       const qz = await api('quiz', { id: qid });
@@ -1248,7 +1265,7 @@ async function tgWait(code, url) {
     try {
       const c = await fetch(API + 'login_check', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) }).then((x) => x.json());
       if (c.error) { try { localStorage.removeItem('km_login'); } catch (e) {} if (!stop) { stop = true; boot(); } return; }
-      if (c.done && c.token) { TOKEN = c.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_login'); } catch (e) {} haptic('ok'); return start(); }
+      if (c.done && c.token) { TOKEN = c.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); localStorage.removeItem('km_login'); } catch (e) {} haptic('ok'); return start(); }
     } catch (e) {}
     await new Promise((ok) => setTimeout(ok, 2500));
   }
@@ -1266,7 +1283,7 @@ async function googleBtn(elId) {
         try {
           const r = await fetch(API + 'google_login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ credential: resp.credential, token: TOKEN || '', lang, src: new URLSearchParams(location.search).get('src') || 'google' }) }).then((x) => x.json());
           if (!r.token) throw new Error('google');
-          TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {}
+          TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {}
           haptic('ok'); document.querySelectorAll('.sheet').forEach((s) => s.remove()); start();
         } catch (e) { toast(t('gErr')); }
       } });
@@ -1290,7 +1307,7 @@ function codeSheet() {
   const inp = d.querySelector('#rcode'); setTimeout(() => inp.focus(), 50);
   const go = async () => {
     const code = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); if (code.length !== 6) return toast(t('codeBad'));
-    try { const r = await fetch(API + 'recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) }).then((x) => x.json()); if (!r.token) return toast(r.error === 'slow' ? t('codeSlow') : t('codeBad')); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} d.remove(); haptic('ok'); start(); }
+    try { const r = await fetch(API + 'recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) }).then((x) => x.json()); if (!r.token) return toast(r.error === 'slow' ? t('codeSlow') : t('codeBad')); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} d.remove(); haptic('ok'); start(); }
     catch (e) { toast(t('err')); }
   };
   d.querySelector('#rgo').onclick = go; inp.onkeydown = (e) => { if (e.key === 'Enter') go(); };
@@ -1319,20 +1336,20 @@ async function inviteScreen(qid) {
   $('ngo').onclick = async () => {
     const nm = $('nm').value.trim(); if (nm.length < 2 || rel == null) return;
     $('ngo').disabled = true;
-    try { const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: nm, lang, src: new URLSearchParams(location.search).get('src') || 'quiz' }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} window.__preRel = rel; start(); }
+    try { const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: nm, lang, src: new URLSearchParams(location.search).get('src') || 'quiz' }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} window.__preRel = rel; start(); }
     catch (e) { $('ngo').disabled = false; toast(t('err')); }
   };
   return true;
 }
 async function boot() {
   // back from Google (installed app): the token comes in the address
-  if (!IN_TG && /gt=/.test(location.hash)) { const m = /gt=([^&]+)/.exec(location.hash); if (m) { TOKEN = decodeURIComponent(m[1]); try { localStorage.setItem('km_token', TOKEN); } catch (e) {} } try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+  if (!IN_TG && /gt=/.test(location.hash)) { const m = /gt=([^&]+)/.exec(location.hash); if (m) { TOKEN = decodeURIComponent(m[1]); try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} } try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
   if (!IN_TG && /gerr=1/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} setTimeout(() => toast(t('gErr')), 500); }
   if (!IN_TG && !TOKEN) { try { const p = JSON.parse(localStorage.getItem('km_login') || 'null'); if (p && Date.now() - p.at < 20 * 60000) return tgWait(p.code, p.url); } catch (e) {} }
   setTabs(false);
   const lc = !IN_TG && new URLSearchParams(location.search).get('link');
   if (lc) {
-    try { const r = await fetch(API + 'link_claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: lc }) }).then((x) => x.json()); if (r.token) { TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} } } catch (e) {}
+    try { const r = await fetch(API + 'link_claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: lc }) }).then((x) => x.json()); if (r.token) { TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} } } catch (e) {}
     try { history.replaceState(null, '', location.pathname); } catch (e) {}
   }
   if (IN_TG || TOKEN) return start();
@@ -1347,7 +1364,7 @@ async function boot() {
   const go = async () => {
     const name = $('nm').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
     $('ngo').disabled = true;
-    try { const src = new URLSearchParams(location.search).get('src') || (qid ? 'quiz' : 'web'); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} if (!qid) window.__goCreate = true; start(); }
+    try { const src = new URLSearchParams(location.search).get('src') || (qid ? 'quiz' : 'web'); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); localStorage.removeItem('km_st'); localStorage.removeItem('km_dq'); } catch (e) {} if (!qid) window.__goCreate = true; start(); }
     catch (e) { $('ngo').disabled = false; toast(t('err')); }
   };
   $('ngo').onclick = go; $('nm').onkeydown = (e) => { if (e.key === 'Enter') go(); };
