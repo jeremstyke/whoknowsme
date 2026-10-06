@@ -144,13 +144,18 @@ body.withtabs .igbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}body.wi
 .igin b{display:block;font:900 14px Nunito,sans-serif}.igin small{display:block;font-weight:800;font-size:12px;color:var(--mute)}.igin .igtag{font-size:9px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#ff8a1f}
 .igin .iggo{margin-left:auto;flex:none;padding:7px 12px;border-radius:99px;background:#ff8a1f;color:#1d0f00;font:900 13px Nunito,sans-serif;border:2px solid var(--ink)}
 details.acc{margin-top:20px;text-align:start}details.acc summary{cursor:pointer;font:700 18px Fredoka,sans-serif;list-style:none;padding:10px 0;border-top:2px dashed rgba(29,18,56,.15)}details.acc summary::-webkit-details-marker{display:none}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+#scroller{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 .foot{margin-top:22px;text-align:center;font-weight:800;font-size:13px}.foot a{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.btn,.opt{transition:none}}
 </style>
 </head>
-<body><div class="w" id="app"><div class="heart">💛</div></div><nav class="tabs" id="tabs" style="display:none"></nav><div class="igbar" id="igbar"></div>
+<body><div id="scroller"><div class="w" id="app"><div class="heart">💛</div></div></div><nav class="tabs" id="tabs" style="display:none"></nav><div class="igbar" id="igbar"></div>
 <script>
 const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#ffdd4a'); tg.setBackgroundColor('#ffdd4a'); } catch (e) {}
+// Telegram: scrolling the page must not drag or close the mini app
+try { if (tg.disableVerticalSwipes) tg.disableVerticalSwipes(); } catch (e) {}
+const toTop = () => { const sc = document.getElementById('scroller'); if (sc) sc.scrollTo(0, 0); };
 const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
 const initData = (tg && tg.initData) || '', IN_TG = !!initData;
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
@@ -292,7 +297,7 @@ function takePhoto(f, call) {
 
 // ===== profiles =====
 async function profileView(id, inTab) {
-  window.scrollTo(0, 0);
+  toTop();
   if (!inTab) setTabs(false);
   let p; try { p = await api('profile', { id: id || 0 }); } catch (e) { return toast(t('err')); }
   const s = p.stats, top = s.topComps || [];
@@ -326,7 +331,7 @@ async function linkTelegram() {
   d.remove();
 }
 function profileEdit(p) {
-  window.scrollTo(0, 0);
+  toTop();
   setTabs(false);
   let av = p.avatar == null ? 0 : p.avatar, col = p.color || 0, tags = [...p.tags];
   const draw = () => {
@@ -436,6 +441,7 @@ const MOODN = {"en": ["Feeling lazy", "On fire", "So hungry", "In love", "Annoye
 for (const [l, v] of Object.entries({"en": {"tbPeople": "My people", "cmT": "💬 Comments", "cmPh": "Write a comment…", "cmSend": "Send", "cmRefused": "Comment refused: keep it kind 😉", "cmBanned": "Comments are turned off on your account.", "cmSlow": "Slow down! Try again later.", "cmNone": "No comment yet. Be the first!", "myDayT": "📸 Your photo of the day", "peopleEmpty": "Your people show up here once they took your quiz. Share it!"}, "fr": {"tbPeople": "Mes proches", "cmT": "💬 Commentaires", "cmPh": "Écris un commentaire…", "cmSend": "Envoyer", "cmRefused": "Commentaire refusé : reste gentil 😉", "cmBanned": "Les commentaires sont désactivés sur ton compte.", "cmSlow": "Doucement ! Réessaie plus tard.", "cmNone": "Pas encore de commentaire. Lance-toi !", "myDayT": "📸 Ta photo du jour", "peopleEmpty": "Tes proches apparaissent ici dès qu'ils ont répondu à ton quiz. Partage-le !"}, "es": {"tbPeople": "Mi gente", "cmT": "💬 Comentarios", "cmPh": "Escribe un comentario…", "cmSend": "Enviar", "cmRefused": "Comentario rechazado: sé amable 😉", "cmBanned": "Los comentarios están desactivados en tu cuenta.", "cmSlow": "¡Más despacio! Inténtalo luego.", "cmNone": "Aún no hay comentarios. ¡Sé el primero!", "myDayT": "📸 Tu foto del día", "peopleEmpty": "Tu gente aparece aquí cuando responde tu quiz. ¡Compártelo!"}, "pt": {"tbPeople": "Minha galera", "cmT": "💬 Comentários", "cmPh": "Escreva um comentário…", "cmSend": "Enviar", "cmRefused": "Comentário recusado: seja gentil 😉", "cmBanned": "Os comentários estão desativados na sua conta.", "cmSlow": "Calma! Tente mais tarde.", "cmNone": "Nenhum comentário ainda. Seja o primeiro!", "myDayT": "📸 Sua foto do dia", "peopleEmpty": "Sua galera aparece aqui quando responder o seu quiz. Compartilhe!"}, "de": {"tbPeople": "Meine Leute", "cmT": "💬 Kommentare", "cmPh": "Schreib einen Kommentar…", "cmSend": "Senden", "cmRefused": "Kommentar abgelehnt: bleib nett 😉", "cmBanned": "Kommentare sind für dein Konto deaktiviert.", "cmSlow": "Langsam! Versuch es später.", "cmNone": "Noch kein Kommentar. Sei der Erste!", "myDayT": "📸 Dein Foto des Tages", "peopleEmpty": "Deine Leute erscheinen hier, sobald sie dein Quiz gespielt haben. Teile es!"}, "it": {"tbPeople": "I miei", "cmT": "💬 Commenti", "cmPh": "Scrivi un commento…", "cmSend": "Invia", "cmRefused": "Commento rifiutato: sii gentile 😉", "cmBanned": "I commenti sono disattivati sul tuo account.", "cmSlow": "Piano! Riprova più tardi.", "cmNone": "Ancora nessun commento. Inizia tu!", "myDayT": "📸 La tua foto del giorno", "peopleEmpty": "I tuoi appaiono qui quando rispondono al tuo quiz. Condividilo!"}, "ru": {"tbPeople": "Близкие", "cmT": "💬 Комментарии", "cmPh": "Напиши комментарий…", "cmSend": "Отправить", "cmRefused": "Комментарий отклонён: будь вежлив 😉", "cmBanned": "Комментарии отключены для твоего аккаунта.", "cmSlow": "Помедленнее! Попробуй позже.", "cmNone": "Пока нет комментариев. Будь первым!", "myDayT": "📸 Твоё фото дня", "peopleEmpty": "Твои близкие появятся здесь, когда пройдут твой квиз. Поделись им!"}, "ar": {"tbPeople": "أحبائي", "cmT": "💬 التعليقات", "cmPh": "اكتب تعليقًا…", "cmSend": "إرسال", "cmRefused": "تم رفض التعليق: كن لطيفًا 😉", "cmBanned": "التعليقات معطلة في حسابك.", "cmSlow": "على مهلك! حاول لاحقًا.", "cmNone": "لا تعليقات بعد. كن الأول!", "myDayT": "📸 صورتك اليومية", "peopleEmpty": "سيظهر أحباؤك هنا بعد أن يجيبوا على اختبارك. شاركه!"}, "tr": {"tbPeople": "Yakınlarım", "cmT": "💬 Yorumlar", "cmPh": "Bir yorum yaz…", "cmSend": "Gönder", "cmRefused": "Yorum reddedildi: nazik ol 😉", "cmBanned": "Hesabında yorumlar kapalı.", "cmSlow": "Yavaş! Sonra tekrar dene.", "cmNone": "Henüz yorum yok. İlk sen ol!", "myDayT": "📸 Günün fotoğrafın", "peopleEmpty": "Yakınların testini çözünce burada görünür. Paylaş!"}, "id": {"tbPeople": "Orang terdekat", "cmT": "💬 Komentar", "cmPh": "Tulis komentar…", "cmSend": "Kirim", "cmRefused": "Komentar ditolak: tetap sopan ya 😉", "cmBanned": "Komentar dinonaktifkan di akunmu.", "cmSlow": "Pelan-pelan! Coba lagi nanti.", "cmNone": "Belum ada komentar. Jadilah yang pertama!", "myDayT": "📸 Foto hari ini", "peopleEmpty": "Orang terdekatmu muncul di sini setelah menjawab kuismu. Bagikan!"}})) S[l] = { ...(S[l] || {}), ...v };
 for (const [l, v] of Object.entries({"en": {"phPending": "⏳ Sent! Your photo will be visible once it is approved.", "avPending": "⏳ Your new profile picture is waiting for approval."}, "fr": {"phPending": "⏳ Envoyée ! Ta photo sera visible dès qu'elle sera validée.", "avPending": "⏳ Ta nouvelle photo de profil attend d'être validée."}, "es": {"phPending": "⏳ ¡Enviada! Tu foto será visible cuando sea aprobada.", "avPending": "⏳ Tu nueva foto de perfil espera ser aprobada."}, "pt": {"phPending": "⏳ Enviada! Sua foto ficará visível quando for aprovada.", "avPending": "⏳ Sua nova foto de perfil está aguardando aprovação."}, "de": {"phPending": "⏳ Gesendet! Dein Foto ist sichtbar, sobald es freigegeben wurde.", "avPending": "⏳ Dein neues Profilbild wartet auf Freigabe."}, "it": {"phPending": "⏳ Inviata! La tua foto sarà visibile appena approvata.", "avPending": "⏳ La tua nuova foto profilo è in attesa di approvazione."}, "ru": {"phPending": "⏳ Отправлено! Фото появится после проверки.", "avPending": "⏳ Новое фото профиля ждёт проверки."}, "ar": {"phPending": "⏳ تم الإرسال! ستظهر صورتك بعد الموافقة عليها.", "avPending": "⏳ صورة ملفك الجديدة بانتظار الموافقة."}, "tr": {"phPending": "⏳ Gönderildi! Fotoğrafın onaylanınca görünecek.", "avPending": "⏳ Yeni profil fotoğrafın onay bekliyor."}, "id": {"phPending": "⏳ Terkirim! Fotomu akan terlihat setelah disetujui.", "avPending": "⏳ Foto profil barumu menunggu persetujuan."}})) S[l] = { ...(S[l] || {}), ...v };
 for (const [l, v] of Object.entries({"en": {"myDayT2": "☀️ My day", "tMood": "My mood", "tPhoto": "My photo", "tDq": "My question", "tDqSent": "Question sent", "accT": "⚙️ My account", "haveAcc": "I already have an account", "playAs": "Your first name to play"}, "fr": {"myDayT2": "☀️ Ma journée", "tMood": "Mon humeur", "tPhoto": "Ma photo", "tDq": "Ma question", "tDqSent": "Question envoyée", "accT": "⚙️ Mon compte", "haveAcc": "J'ai déjà un compte", "playAs": "Ton prénom pour jouer"}, "es": {"myDayT2": "☀️ Mi día", "tMood": "Mi humor", "tPhoto": "Mi foto", "tDq": "Mi pregunta", "tDqSent": "Pregunta enviada", "accT": "⚙️ Mi cuenta", "haveAcc": "Ya tengo una cuenta", "playAs": "Tu nombre para jugar"}, "pt": {"myDayT2": "☀️ Meu dia", "tMood": "Meu humor", "tPhoto": "Minha foto", "tDq": "Minha pergunta", "tDqSent": "Pergunta enviada", "accT": "⚙️ Minha conta", "haveAcc": "Já tenho uma conta", "playAs": "Seu nome para jogar"}, "de": {"myDayT2": "☀️ Mein Tag", "tMood": "Meine Laune", "tPhoto": "Mein Foto", "tDq": "Meine Frage", "tDqSent": "Frage gesendet", "accT": "⚙️ Mein Konto", "haveAcc": "Ich habe schon ein Konto", "playAs": "Dein Vorname zum Spielen"}, "it": {"myDayT2": "☀️ La mia giornata", "tMood": "Il mio umore", "tPhoto": "La mia foto", "tDq": "La mia domanda", "tDqSent": "Domanda inviata", "accT": "⚙️ Il mio account", "haveAcc": "Ho già un account", "playAs": "Il tuo nome per giocare"}, "ru": {"myDayT2": "☀️ Мой день", "tMood": "Настроение", "tPhoto": "Моё фото", "tDq": "Мой вопрос", "tDqSent": "Вопрос отправлен", "accT": "⚙️ Мой аккаунт", "haveAcc": "У меня уже есть аккаунт", "playAs": "Твоё имя для игры"}, "ar": {"myDayT2": "☀️ يومي", "tMood": "مزاجي", "tPhoto": "صورتي", "tDq": "سؤالي", "tDqSent": "تم إرسال السؤال", "accT": "⚙️ حسابي", "haveAcc": "لدي حساب بالفعل", "playAs": "اسمك للعب"}, "tr": {"myDayT2": "☀️ Günüm", "tMood": "Ruh halim", "tPhoto": "Fotoğrafım", "tDq": "Sorum", "tDqSent": "Soru gönderildi", "accT": "⚙️ Hesabım", "haveAcc": "Zaten hesabım var", "playAs": "Oynamak için adın"}, "id": {"myDayT2": "☀️ Hariku", "tMood": "Mood-ku", "tPhoto": "Fotoku", "tDq": "Pertanyaanku", "tDqSent": "Pertanyaan terkirim", "accT": "⚙️ Akunku", "haveAcc": "Aku sudah punya akun", "playAs": "Nama depanmu untuk bermain"}})) S[l] = { ...(S[l] || {}), ...v };
+for (const [l, v] of Object.entries({"en": {"bridgeT": "👯 {name} is now one of your people", "bridgeS": "See their mood and photo of the day, and guess their question of the day.", "bridgeBtn": "👀 See their day"}, "fr": {"bridgeT": "👯 {name} fait maintenant partie de tes proches", "bridgeS": "Vois son humeur et sa photo du jour, et devine sa question du jour.", "bridgeBtn": "👀 Voir sa journée"}, "es": {"bridgeT": "👯 {name} ya es parte de tu gente", "bridgeS": "Mira su humor y su foto del día, y adivina su pregunta del día.", "bridgeBtn": "👀 Ver su día"}, "pt": {"bridgeT": "👯 {name} agora faz parte da sua galera", "bridgeS": "Veja o humor e a foto do dia, e adivinhe a pergunta do dia.", "bridgeBtn": "👀 Ver o dia"}, "de": {"bridgeT": "👯 {name} gehört jetzt zu deinen Leuten", "bridgeS": "Sieh die Laune und das Foto des Tages und rate die Frage des Tages.", "bridgeBtn": "👀 Den Tag ansehen"}, "it": {"bridgeT": "👯 {name} ora fa parte dei tuoi", "bridgeS": "Guarda il suo umore e la foto del giorno, e indovina la sua domanda del giorno.", "bridgeBtn": "👀 Vedi la sua giornata"}, "ru": {"bridgeT": "👯 {name} теперь среди твоих близких", "bridgeS": "Смотри настроение и фото дня и угадывай вопрос дня.", "bridgeBtn": "👀 Посмотреть день"}, "ar": {"bridgeT": "👯 أصبح {name} من أحبائك", "bridgeS": "شاهد مزاجه وصورته اليومية، وخمّن سؤاله اليومي.", "bridgeBtn": "👀 شاهد يومه"}, "tr": {"bridgeT": "👯 {name} artık yakınlarından", "bridgeS": "Ruh halini ve günün fotoğrafını gör, günün sorusunu tahmin et.", "bridgeBtn": "👀 Gününü gör"}, "id": {"bridgeT": "👯 {name} sekarang orang terdekatmu", "bridgeS": "Lihat mood dan foto hari ini, dan tebak pertanyaan hari ini.", "bridgeBtn": "👀 Lihat harinya"}})) S[l] = { ...(S[l] || {}), ...v };
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
@@ -561,7 +567,7 @@ function bindDq() {
 }
 // sending my question of the day: a question never used, another one, or my own answer
 function dqSendFlow() {
-  haptic(); setTabs(false); window.scrollTo(0, 0);
+  haptic(); setTabs(false); toTop();
   const used = new Set(st.used || []);
   let pool = [...Array(Q.length).keys()].filter((x) => !used.has(x)).sort(() => Math.random() - 0.5);
   if (!pool.length) pool = [...Array(Q.length).keys()].sort(() => Math.random() - 0.5);
@@ -668,7 +674,7 @@ async function shareResult(qz, name, score, n, rank, total) {
   shareSheetFor(qz.id, text);
 }
 async function quizPage(id) {
-  haptic(); window.scrollTo(0, 0);
+  haptic(); toTop();
   let qz; try { qz = await api('quiz', { id }); } catch (e) { return toast(t('err')); }
   const z = (st.quizzes || []).find((x) => x.id === id), n = nOf(qz), b = qz.board || [];
   app.innerHTML = `<div class="top"><button class="x" id="qpb">←</button><span class="mute">${z ? esc(t('quizOf', { d: new Date(z.at).toLocaleDateString(lang, { day: 'numeric', month: 'short' }) })) : ''}</span></div>
@@ -697,7 +703,7 @@ async function friendProfile(id) {
 }
 function simpleHome() {
   if (!st.quiz) tab2 = tab2 === 'me' ? 'me' : 'quiz';
-  setTabs(true); igShow(true); window.scrollTo(0, 0);
+  setTabs(true); igShow(true); toTop();
   if (adAfterResult) { adAfterResult = false; showAd('home'); }
   if (dqPre) { DQ = dqPre; dqPre = null; }
   if (tab2 === 'people') return peopleTab();
@@ -785,7 +791,7 @@ function nextMission() {
 }
 async function home() {
   if (!SOCIAL) return simpleHome();
-  setTabs(false); window.scrollTo(0, 0);
+  setTabs(false); toTop();
   if (dailyPre) { D = dailyPre; dailyPre = null; }
   if (friendsPre) { F = friendsPre; friendsPre = null; }
   if (!D || !F) { draw1(); const [d, f] = await Promise.all([api('today').catch(() => null), api('friends').catch(() => null)]); D = d || D; F = f || F; }
@@ -938,7 +944,7 @@ function createFlow() {
   step(0);
 }
 function ready(id) {
-  window.scrollTo(0, 0);
+  toTop();
   setTabs(false);
   app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}${notifCard()}${googleCard('gbtn3')}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
   bindShare(id, t('shareText')); bindInstall(); googleBtn('gbtn3'); $('hm').onclick = () => { tab = 'quiz'; home(); };
@@ -970,16 +976,18 @@ function playFlow(qz) {
 }
 function result(qz, score, guesses, answers, b, rank, total) {
   adAfterResult = true;
-  window.scrollTo(0, 0);
+  toTop();
   setTabs(false);
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
   app.innerHTML = `${installBanner()}<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: ord(rank), t: total }))}</span>` : ''}</div>
     <button class="btn go" id="mk">${esc(t('yours'))}</button>
-    <button class="btn" id="ch">${esc(t('shareRes'))}</button>${googleCard('gbtnr')}
+    <button class="btn" id="ch">${esc(t('shareRes'))}</button>
+    ${qz.mine ? '' : `<div class="stk daily" style="margin-top:18px;text-align:center"><h2>${esc(t('bridgeT', { name }))}</h2><p style="margin:0 0 4px;font-weight:800;opacity:.92">${esc(t('bridgeS'))}</p><button class="btn" id="seeday" style="background:var(--paper);color:var(--ink)">${esc(t('bridgeBtn'))}</button></div>`}${googleCard('gbtnr')}
     <div class="stk" style="margin-top:20px"><h2>🏆 ${esc(name)}</h2>${board(b, n)}</div>
     <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${isOk(guesses[i], answers[i]) ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${ansText(qq, answers[i])}</b>${isOk(guesses[i], answers[i]) ? '' : ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>`}</div></div>`; }).join('')}</div>${igInline()}${foot}`;
   $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); tab = 'quiz'; createFlow(); };
   $('ch').onclick = () => shareResult(qz, name, score, n, rank, total);
+  const sd = $('seeday'); if (sd) sd.onclick = async () => { api('ev', { k: 'see_day' }).catch(() => {}); tab2 = 'people'; try { localStorage.setItem('km_tab2', 'people'); } catch (e) {} try { st = await api('state'); } catch (e) {} DQ = null; simpleHome(); };
   googleBtn('gbtnr');
 }
 
