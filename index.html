@@ -131,6 +131,11 @@ body.withig .w{padding-bottom:96px}
 .slide .opts{gap:8px}.slide .opt{min-height:74px;padding:8px 6px;font-size:13px}.slide .opt b{font-size:24px}
 .cdots{display:flex;justify-content:center;gap:6px;margin-top:10px}.cdots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4)}.cdots i.on{background:#fff}
 .moodsel{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px}.moodsel .md{min-width:84px}
+.rbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rx{border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:5px 10px;font:900 14px Nunito,sans-serif;cursor:pointer}.rx.on{background:#fff;color:var(--ink)}.rx.cm{margin-left:auto}
+.stk:not(.daily) .rx{border-color:var(--ink);background:var(--paper);color:var(--ink)}.stk:not(.daily) .rx.on{background:var(--sun)}
+.spic{width:100%;max-height:300px;object-fit:cover;border-radius:16px;border:3px solid var(--ink);margin:0 0 10px;cursor:pointer;display:block}
+.cmt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:2px dashed rgba(29,18,56,.12)}.cmt b{font-size:14px}.cmt p{margin:2px 0 0;font-weight:700;word-wrap:break-word}.cmr{border:0;background:none;font-size:16px;cursor:pointer;opacity:.6}
+body.withtabs .igbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}body.withtabs.withig .w{padding-bottom:180px}
 .foot{margin-top:22px;text-align:center;font-weight:800;font-size:13px}.foot a{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.btn,.opt{transition:none}}
 </style>
@@ -420,6 +425,7 @@ for (const [l, v] of Object.entries({"en": {"logout": "🚪 Sign out", "logoutT"
 for (const [l, v] of Object.entries({"en": {"fpDqT": "📩 Their question of the day", "fpDqNone": "No question of the day yet today.", "fpDqLocked": "Take their quiz to be able to guess their questions of the day.", "fpDqGuess": "Guess", "fpDqYou": "You answered:"}, "fr": {"fpDqT": "📩 Sa question du jour", "fpDqNone": "Pas encore de question du jour aujourd'hui.", "fpDqLocked": "Réponds à son quiz pour pouvoir deviner ses questions du jour.", "fpDqGuess": "Deviner", "fpDqYou": "Ta réponse :"}, "es": {"fpDqT": "📩 Su pregunta del día", "fpDqNone": "Todavía no hay pregunta del día hoy.", "fpDqLocked": "Responde su quiz para poder adivinar sus preguntas del día.", "fpDqGuess": "Adivinar", "fpDqYou": "Tu respuesta:"}, "pt": {"fpDqT": "📩 A pergunta do dia", "fpDqNone": "Ainda não há pergunta do dia hoje.", "fpDqLocked": "Responda o quiz para poder adivinhar as perguntas do dia.", "fpDqGuess": "Adivinhar", "fpDqYou": "Sua resposta:"}, "de": {"fpDqT": "📩 Die Frage des Tages", "fpDqNone": "Heute noch keine Frage des Tages.", "fpDqLocked": "Spiel das Quiz, um die Fragen des Tages zu raten.", "fpDqGuess": "Raten", "fpDqYou": "Deine Antwort:"}, "it": {"fpDqT": "📩 La sua domanda del giorno", "fpDqNone": "Ancora nessuna domanda del giorno oggi.", "fpDqLocked": "Rispondi al suo quiz per indovinare le sue domande del giorno.", "fpDqGuess": "Indovina", "fpDqYou": "La tua risposta:"}, "ru": {"fpDqT": "📩 Вопрос дня", "fpDqNone": "Сегодня вопроса дня ещё нет.", "fpDqLocked": "Пройди его квиз, чтобы угадывать вопросы дня.", "fpDqGuess": "Угадать", "fpDqYou": "Твой ответ:"}, "ar": {"fpDqT": "📩 سؤاله اليومي", "fpDqNone": "لا يوجد سؤال يومي بعد اليوم.", "fpDqLocked": "أجب على اختباره لتتمكن من تخمين أسئلته اليومية.", "fpDqGuess": "خمّن", "fpDqYou": "إجابتك:"}, "tr": {"fpDqT": "📩 Günün sorusu", "fpDqNone": "Bugün henüz günün sorusu yok.", "fpDqLocked": "Günün sorularını tahmin etmek için testini çöz.", "fpDqGuess": "Tahmin et", "fpDqYou": "Cevabın:"}, "id": {"fpDqT": "📩 Pertanyaan hari ini", "fpDqNone": "Belum ada pertanyaan hari ini.", "fpDqLocked": "Jawab kuisnya dulu untuk menebak pertanyaan hariannya.", "fpDqGuess": "Tebak", "fpDqYou": "Jawabanmu:"}})) S[l] = { ...(S[l] || {}), ...v };
 for (const [l, v] of Object.entries({"en": {"feedT": "👀 Today with your people", "moodQ": "😊 Your mood today?", "moodMine": "Your mood: {m}", "moodChange": "change"}, "fr": {"feedT": "👀 Aujourd'hui chez tes proches", "moodQ": "😊 Ton humeur du jour ?", "moodMine": "Ton humeur : {m}", "moodChange": "changer"}, "es": {"feedT": "👀 Hoy con tu gente", "moodQ": "😊 ¿Tu humor de hoy?", "moodMine": "Tu humor: {m}", "moodChange": "cambiar"}, "pt": {"feedT": "👀 Hoje com a sua galera", "moodQ": "😊 Seu humor de hoje?", "moodMine": "Seu humor: {m}", "moodChange": "mudar"}, "de": {"feedT": "👀 Heute bei deinen Leuten", "moodQ": "😊 Deine Laune heute?", "moodMine": "Deine Laune: {m}", "moodChange": "ändern"}, "it": {"feedT": "👀 Oggi dai tuoi", "moodQ": "😊 Il tuo umore di oggi?", "moodMine": "Il tuo umore: {m}", "moodChange": "cambia"}, "ru": {"feedT": "👀 Сегодня у твоих близких", "moodQ": "😊 Твоё настроение сегодня?", "moodMine": "Твоё настроение: {m}", "moodChange": "изменить"}, "ar": {"feedT": "👀 اليوم عند أحبائك", "moodQ": "😊 مزاجك اليوم؟", "moodMine": "مزاجك: {m}", "moodChange": "تغيير"}, "tr": {"feedT": "👀 Bugün yakınlarında", "moodQ": "😊 Bugünkü ruh halin?", "moodMine": "Ruh halin: {m}", "moodChange": "değiştir"}, "id": {"feedT": "👀 Hari ini di orang terdekatmu", "moodQ": "😊 Mood-mu hari ini?", "moodMine": "Mood-mu: {m}", "moodChange": "ubah"}})) S[l] = { ...(S[l] || {}), ...v };
 const MOODN = {"en": ["Feeling lazy", "On fire", "So hungry", "In love", "Annoyed", "Party mood", "Working hard", "A bit sad", "Sick", "Laughing so hard", "Super busy", "Chilling"], "fr": ["Grosse flemme", "En feu", "J'ai trop faim", "Amoureux", "Énervé", "Envie de faire la fête", "Je bosse dur", "Un peu triste", "Malade", "Mort de rire", "Je cours partout", "Tranquille"], "es": ["Mucha pereza", "A tope", "Tengo mucha hambre", "Enamorado", "Molesto", "Con ganas de fiesta", "Trabajando duro", "Un poco triste", "Enfermo", "Muerto de risa", "A mil por hora", "Tranquilo"], "pt": ["Com preguiça", "Com tudo", "Morrendo de fome", "Apaixonado", "Irritado", "Clima de festa", "Trabalhando muito", "Meio triste", "Doente", "Morrendo de rir", "Correria total", "De boa"], "de": ["Null Bock", "Voll im Flow", "Riesenhunger", "Verliebt", "Genervt", "Partylaune", "Viel Arbeit", "Etwas traurig", "Krank", "Lache mich kaputt", "Total im Stress", "Entspannt"], "it": ["Che pigrizia", "In forma", "Ho una fame", "Innamorato", "Arrabbiato", "Voglia di festa", "Lavoro duro", "Un po' triste", "Malato", "Muoio dal ridere", "Di corsa", "Tranquillo"], "ru": ["Лень", "В ударе", "Очень голоден", "Влюблён", "Раздражён", "Хочу тусить", "Много работы", "Немного грустно", "Болею", "Умираю со смеху", "Весь в делах", "Расслаблен"], "ar": ["كسل شديد", "في قمة نشاطي", "جائع جداً", "عاشق", "منزعج", "مزاج حفلات", "أعمل بجد", "حزين قليلاً", "مريض", "أموت من الضحك", "مشغول جداً", "مرتاح"], "tr": ["Çok tembelim", "Çok iyiyim", "Çok açım", "Aşığım", "Sinirliyim", "Parti modu", "Çok çalışıyorum", "Biraz üzgünüm", "Hastayım", "Gülmekten ölüyorum", "Çok yoğunum", "Rahatım"], "id": ["Lagi malas", "Lagi semangat", "Lapar banget", "Lagi jatuh cinta", "Kesal", "Mau pesta", "Kerja keras", "Agak sedih", "Sakit", "Ngakak banget", "Sibuk banget", "Santai"]};
+for (const [l, v] of Object.entries({"en": {"tbPeople": "My people", "cmT": "💬 Comments", "cmPh": "Write a comment…", "cmSend": "Send", "cmRefused": "Comment refused: keep it kind 😉", "cmBanned": "Comments are turned off on your account.", "cmSlow": "Slow down! Try again later.", "cmNone": "No comment yet. Be the first!", "myDayT": "📸 Your photo of the day", "peopleEmpty": "Your people show up here once they took your quiz. Share it!"}, "fr": {"tbPeople": "Mes proches", "cmT": "💬 Commentaires", "cmPh": "Écris un commentaire…", "cmSend": "Envoyer", "cmRefused": "Commentaire refusé : reste gentil 😉", "cmBanned": "Les commentaires sont désactivés sur ton compte.", "cmSlow": "Doucement ! Réessaie plus tard.", "cmNone": "Pas encore de commentaire. Lance-toi !", "myDayT": "📸 Ta photo du jour", "peopleEmpty": "Tes proches apparaissent ici dès qu'ils ont répondu à ton quiz. Partage-le !"}, "es": {"tbPeople": "Mi gente", "cmT": "💬 Comentarios", "cmPh": "Escribe un comentario…", "cmSend": "Enviar", "cmRefused": "Comentario rechazado: sé amable 😉", "cmBanned": "Los comentarios están desactivados en tu cuenta.", "cmSlow": "¡Más despacio! Inténtalo luego.", "cmNone": "Aún no hay comentarios. ¡Sé el primero!", "myDayT": "📸 Tu foto del día", "peopleEmpty": "Tu gente aparece aquí cuando responde tu quiz. ¡Compártelo!"}, "pt": {"tbPeople": "Minha galera", "cmT": "💬 Comentários", "cmPh": "Escreva um comentário…", "cmSend": "Enviar", "cmRefused": "Comentário recusado: seja gentil 😉", "cmBanned": "Os comentários estão desativados na sua conta.", "cmSlow": "Calma! Tente mais tarde.", "cmNone": "Nenhum comentário ainda. Seja o primeiro!", "myDayT": "📸 Sua foto do dia", "peopleEmpty": "Sua galera aparece aqui quando responder o seu quiz. Compartilhe!"}, "de": {"tbPeople": "Meine Leute", "cmT": "💬 Kommentare", "cmPh": "Schreib einen Kommentar…", "cmSend": "Senden", "cmRefused": "Kommentar abgelehnt: bleib nett 😉", "cmBanned": "Kommentare sind für dein Konto deaktiviert.", "cmSlow": "Langsam! Versuch es später.", "cmNone": "Noch kein Kommentar. Sei der Erste!", "myDayT": "📸 Dein Foto des Tages", "peopleEmpty": "Deine Leute erscheinen hier, sobald sie dein Quiz gespielt haben. Teile es!"}, "it": {"tbPeople": "I miei", "cmT": "💬 Commenti", "cmPh": "Scrivi un commento…", "cmSend": "Invia", "cmRefused": "Commento rifiutato: sii gentile 😉", "cmBanned": "I commenti sono disattivati sul tuo account.", "cmSlow": "Piano! Riprova più tardi.", "cmNone": "Ancora nessun commento. Inizia tu!", "myDayT": "📸 La tua foto del giorno", "peopleEmpty": "I tuoi appaiono qui quando rispondono al tuo quiz. Condividilo!"}, "ru": {"tbPeople": "Близкие", "cmT": "💬 Комментарии", "cmPh": "Напиши комментарий…", "cmSend": "Отправить", "cmRefused": "Комментарий отклонён: будь вежлив 😉", "cmBanned": "Комментарии отключены для твоего аккаунта.", "cmSlow": "Помедленнее! Попробуй позже.", "cmNone": "Пока нет комментариев. Будь первым!", "myDayT": "📸 Твоё фото дня", "peopleEmpty": "Твои близкие появятся здесь, когда пройдут твой квиз. Поделись им!"}, "ar": {"tbPeople": "أحبائي", "cmT": "💬 التعليقات", "cmPh": "اكتب تعليقًا…", "cmSend": "إرسال", "cmRefused": "تم رفض التعليق: كن لطيفًا 😉", "cmBanned": "التعليقات معطلة في حسابك.", "cmSlow": "على مهلك! حاول لاحقًا.", "cmNone": "لا تعليقات بعد. كن الأول!", "myDayT": "📸 صورتك اليومية", "peopleEmpty": "سيظهر أحباؤك هنا بعد أن يجيبوا على اختبارك. شاركه!"}, "tr": {"tbPeople": "Yakınlarım", "cmT": "💬 Yorumlar", "cmPh": "Bir yorum yaz…", "cmSend": "Gönder", "cmRefused": "Yorum reddedildi: nazik ol 😉", "cmBanned": "Hesabında yorumlar kapalı.", "cmSlow": "Yavaş! Sonra tekrar dene.", "cmNone": "Henüz yorum yok. İlk sen ol!", "myDayT": "📸 Günün fotoğrafın", "peopleEmpty": "Yakınların testini çözünce burada görünür. Paylaş!"}, "id": {"tbPeople": "Orang terdekat", "cmT": "💬 Komentar", "cmPh": "Tulis komentar…", "cmSend": "Kirim", "cmRefused": "Komentar ditolak: tetap sopan ya 😉", "cmBanned": "Komentar dinonaktifkan di akunmu.", "cmSlow": "Pelan-pelan! Coba lagi nanti.", "cmNone": "Belum ada komentar. Jadilah yang pertama!", "myDayT": "📸 Foto hari ini", "peopleEmpty": "Orang terdekatmu muncul di sini setelah menjawab kuismu. Bagikan!"}})) S[l] = { ...(S[l] || {}), ...v };
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
@@ -435,8 +441,8 @@ function setTabs(on) {
   igShow(false);
   document.body.classList.toggle('withtabs', on);
   const nav = $('tabs'); nav.style.display = on ? 'flex' : 'none'; if (!on) return;
-  nav.innerHTML = [['today', '☀️', t('tbToday')], ['friends', '👯', t('tbFriends')], ['quiz', '📝', t('tbQuiz')], ['me', '👤', t('tbMe')]].map(([k, e, l]) => `<div class="${tab === k ? 'on' : ''}" data-tab="${k}"><b>${e}</b>${esc(l)}</div>`).join('');
-  nav.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { haptic(); tab = x.dataset.tab; try { localStorage.setItem('km_tab', tab); } catch (e) {} home(); });
+  nav.innerHTML = [['quiz', '📝', t('tbQuiz')], ['people', '👯', t('tbPeople')], ['me', '👤', t('tbMe')]].map(([k, e, l]) => `<div class="${tab2 === k ? 'on' : ''}" data-tab="${k}"><b>${e}</b>${esc(l)}</div>`).join('');
+  nav.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { haptic(); tab2 = x.dataset.tab; try { localStorage.setItem('km_tab2', tab2); } catch (e) {} simpleHome(); });
 }
 const SOCIAL = false;
 let D = null, F = null;
@@ -468,13 +474,15 @@ function dqCards() {
   // my mood of the day
   html += DQ.myMood == null || dqMoodEdit ? `<div class="stk"><h2>${esc(t('moodQ'))}</h2><div class="moodsel">${MOODS.map((m, k) => `<div class="md" data-mymood="${k}"><b>${m[0]}</b>${esc(moodTxt(k))}</div>`).join('')}</div></div>`
     : `<div class="stk" style="padding:12px 16px"><p style="margin:0;font-weight:900">${esc(t('moodMine', { m: MOODS[DQ.myMood][0] + ' ' + moodTxt(DQ.myMood) }))} <button class="link" id="mchg" style="display:inline;margin:0 0 0 6px;padding:0">${esc(t('moodChange'))}</button></p></div>`;
+  const md = DQ.myDay;
+  if (md && !md.photoBan) html += `<div class="stk"><h2>${esc(t('myDayT'))}</h2>${md.photo ? `<img class="spic" src="${esc(md.photo.url)}" alt="" data-myph="1">` : `<button class="btn go" id="myph">${esc(t('myPhotoBtn'))}</button>`}${reactBar(st.me && st.me.uid != null ? st.me.uid : 'me', md.react, md.comments).replace(/data-rx="[^"]*"/g, 'data-noop="1"')}</div>`;
   // today with my people: mood and question of the day, one card each, scrolling
   if (feed.length) html += `<div class="stk daily"><h2>${esc(t('feedT'))}</h2><div class="car" id="car">${feed.map((f) => {
       let q = '';
       if (!f.dq) q = `<p style="margin:0;opacity:.9;font-weight:800">${esc(t('fpDqNone'))}</p>`;
       else if (f.dq.locked) q = `<p style="font-weight:900;margin:0 0 4px">${esc(qText(f.dq.qid))}</p><p style="margin:0;opacity:.9;font-size:14px;font-weight:800">${esc(t('fpDqLocked'))}</p>`;
       else { const qq = dqOf(f.dq); q = `<p style="font-weight:900;margin:0 0 8px">${esc(qq.q)}</p>` + (f.dq.done ? `<p style="margin:0;font-weight:900">${f.dq.done.correct ? '✅' : '❌'} ${qq.e[f.dq.done.answer]} ${esc(qq.o[f.dq.done.answer])}</p>` : `<div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" data-fg="${f.dq.id}:${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join('')}</div>`); }
-      return `<div class="slide"><div class="shd" data-pfx="${f.uid}" style="cursor:pointer">${pic(f.photo, f.name, 46)}<div><b>${esc(f.name)}</b><span>${f.mood != null ? MOODS[f.mood][0] + ' ' + esc(moodTxt(f.mood)) : '…'}</span></div></div>${q}</div>`;
+      return `<div class="slide"><div class="shd" data-pfx="${f.uid}" style="cursor:pointer">${pic(f.photo, f.name, 46)}<div><b>${esc(f.name)}</b><span>${f.mood != null ? MOODS[f.mood][0] + ' ' + esc(moodTxt(f.mood)) : '…'}</span></div></div>${f.pic && f.pic.url ? `<img class="spic" src="${esc(f.pic.url)}" alt="" data-fph="${f.uid}">` : ''}${q}${reactBar(f.uid, f.react, f.comments)}</div>`;
     }).join('')}</div>${feed.length > 1 ? `<div class="cdots">${feed.map((_, k) => `<i class="${k === 0 ? 'on' : ''}"></i>`).join('')}</div>` : ''}</div>`;
   if (DQ.mine) { const qq = dqOf({ qid: DQ.mine.qid, text: DQ.mine.text, k: DQ.mine.answer }), an = DQ.mine.answers || [];
     html += `<div class="stk"><h2>${esc(t('dqMineT'))}</h2><p style="font-weight:900;margin:0">${esc(qq.q)}</p><p style="margin:4px 0 8px">${qq.e[DQ.mine.answer]} ${esc(qq.o[DQ.mine.answer])}</p>${an.length ? `<p style="font-weight:900;margin:0 0 4px">${esc(t('dqResults', { ok: an.filter((a) => a.correct).length, n: an.length }))}</p>${an.map((a) => `<div class="row"><span class="n">${esc(a.name)}</span><span>${a.correct ? '✅' : '❌'}</span></div>`).join('')}` : `<p class="mute" style="margin:0;font-size:15px">${esc(t('dqWait'))}</p>`}</div>`; }
@@ -508,6 +516,11 @@ function bindDq() {
     try { DQ = await api('dq_answer', { id, guess: k }); const np = (DQ.pending || []).find((p) => p.id === id); const ok = np && np.done && np.done.correct; haptic(ok ? 'ok' : 'medium'); toast(ok ? '✅' : '❌'); redraw(); } catch (e) { toast(t('err')); }
   });
   app.querySelectorAll('[data-pfx]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pfx)));
+  app.querySelectorAll('[data-rx]').forEach((x) => x.onclick = async () => { const [o, e] = x.dataset.rx.split(':').map(Number); haptic(); try { await api('react', { owner: o, emoji: e }); dqReload(); } catch (er) { toast(t('err')); } });
+  app.querySelectorAll('[data-cmt]').forEach((x) => x.onclick = () => { const o = x.dataset.cmt; if (o === 'me' || !Number(o)) return; const f = (DQ.feed || []).find((y) => String(y.uid) === o); commentsSheet(Number(o), f ? f.name : ((st.me && st.me.name) || '')); });
+  app.querySelectorAll('[data-fph]').forEach((x) => x.onclick = () => { const f = (DQ.feed || []).find((y) => String(y.uid) === x.dataset.fph); if (f) photoView(f); });
+  const myph = $('myph'); if (myph) myph.onclick = () => takePhoto({ photoOk: DQ.myDay && DQ.myDay.photoOk }, async (route, body) => { try { await api(route, body); dqReload(); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } });
+  app.querySelectorAll('[data-myph]').forEach((x) => x.onclick = () => photoView({ pic: DQ.myDay.photo, name: (st.me && st.me.name) || '', mood: DQ.myMood }));
   bindCarousel();
   const s = $('dqs'); if (s) s.onclick = dqSendFlow;
   app.querySelectorAll('[data-dqg]').forEach((b) => b.onclick = () => {
@@ -556,9 +569,9 @@ function logout() {
     TOKEN = ''; st = null; DQ = null; d.remove(); igShow(false); boot();
   };
 }
-function profileSheet() {
-  haptic();
-  const d = document.createElement('div'); d.className = 'sheet';
+function profileSheet(inPage) {
+  if (!inPage) haptic();
+  const d = inPage ? $('mepage') : document.createElement('div'); if (!inPage) d.className = 'sheet';
   const draw = () => {
     d.innerHTML = `<div class="in" style="text-align:center"><h2>${esc(t('pfTitle'))}</h2><div style="margin:4px 0 12px">${pic(st.me.photo, st.me.name, 110)}</div>
       <button class="btn go" id="pcam">${esc(t('pfPhotoCam'))}</button><button class="btn" id="pgal">${esc(t('pfPhotoGal'))}</button>${st.me.photo ? `<button class="link" id="pdel">${esc(t('pfPhotoDel'))}</button>` : ''}
@@ -596,7 +609,7 @@ function profileSheet() {
       try { await api('profile_save', { name }); st.me.name = name; haptic('ok'); toast(t('pfSaved')); d.remove(); home(); } catch (e) { toast(t('err')); }
     };
   };
-  document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+  if (!inPage) { document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); }; }
   draw();
 }
 // my result as a picture (1080 x 1080), shared with the phone's menu, or the usual share buttons
@@ -654,26 +667,79 @@ async function friendProfile(id) {
   const pl = d.querySelector('#fpplay'); if (pl) pl.onclick = async () => { d.remove(); try { const qz = await api('quiz', { id: p.playQuiz }); igShow(false); playFlow(qz); } catch (e) { toast(t('err')); } };
 }
 function simpleHome() {
-  setTabs(false); igShow(true); window.scrollTo(0, 0);
+  if (!st.quiz) tab2 = tab2 === 'me' ? 'me' : 'quiz';
+  setTabs(true); igShow(true); window.scrollTo(0, 0);
   if (adAfterResult) { adAfterResult = false; showAd('home'); }
+  if (dqPre) { DQ = dqPre; dqPre = null; }
+  if (tab2 === 'people') return peopleTab();
+  if (tab2 === 'me') return meTab();
+  quizTab();
+}
+// ===== 3 tabs: my quiz, my people, profile =====
+let tab2 = 'quiz';
+try { tab2 = localStorage.getItem('km_tab2') || 'quiz'; } catch (e) {}
+const REACTS = ['❤️', '😂', '😮', '🔥'];
+const reactBar = (owner, r, n) => `<div class="rbar">${REACTS.map((e, k) => `<button class="rx ${r && r.mine === k ? 'on' : ''}" data-rx="${owner}:${k}">${e}${r && r.counts[k] ? ' ' + r.counts[k] : ''}</button>`).join('')}<button class="rx cm" data-cmt="${owner}">💬${n ? ' ' + n : ''}</button></div>`;
+async function dqReload() { try { DQ = await api('dq_state'); } catch (e) {} const b = $('dqbox'); if (b) { b.innerHTML = dqCards() || peopleEmpty(); bindDq(); } }
+const peopleEmpty = () => `<div class="stk" style="text-align:center"><div class="heart" style="margin-top:0">👯</div><p style="font-weight:800;margin:0">${esc(t('peopleEmpty'))}</p></div>${st && st.quiz ? shareBtns() : ''}`;
+function quizTab() {
   const q = st.quiz;
   if (!q) {
-    app.innerHTML = `${installBanner()}<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p><button class="btn go" id="new">${esc(t('create'))}</button>${foot}`;
+    app.innerHTML = `<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p><button class="btn go" id="new">${esc(t('create'))}</button>${foot}`;
     $('new').onclick = createFlow; return;
   }
-  if (dqPre) { DQ = dqPre; dqPre = null; }
-  if (!DQ) api('dq_state').then((d) => { DQ = d; if (!$('dqbox')) return; $('dqbox').innerHTML = dqCards(); bindDq(); }).catch(() => {});
-  app.innerHTML = `<div class="mebar" id="mebar">${pic(st.me && st.me.photo, st.me && st.me.name, 48)}<b>${esc((st.me && st.me.name) || '')}</b><span>${esc(t('myProf'))}</span></div>${installBanner()}${notifCard()}<div id="dqbox">${dqCards()}</div><h1 style="margin-top:8px">${esc(t('simpleT'))}</h1><p class="lead">${esc(t('simpleS'))}</p>${shareBtns()}
+  app.innerHTML = `${notifCard()}<h1 style="margin-top:8px">${esc(t('simpleT'))}</h1><p class="lead">${esc(t('simpleS'))}</p>${shareBtns()}
     <div class="stk" style="margin-top:22px"><h2>${esc(t('myRank'))}</h2>${(st.quizzes || []).length > 1 ? `<p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('allRankS'))}</p>` : ''}${(st.overall || []).length ? st.overall.map((x, i) => `<div class="row" data-pf="${x.uid}" style="cursor:pointer"><span>${medal(i)}</span>${pic(x.photo, x.name, 34)}<span class="n">${esc(x.name)}${x.rel != null ? `<small>${relTxt(x.rel)}</small>` : ''}</span><span class="s">${x.pct}%${(st.quizzes || []).length > 1 ? `<small style="display:block;font:800 11px Nunito,sans-serif;color:var(--mute);text-align:right">${esc(t('quizzesN', { n: x.count }))}</small>` : ''}</span></div>`).join('') + `<p class="mute" style="margin:8px 0 0;font-size:13px">${esc(t('tapProfile'))}</p>` : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`}</div>
     <div class="stk"><h2>${esc(t('quizzesT'))}</h2>${(st.quizzes || []).map((z) => `<div class="row" data-qz="${z.id}" style="cursor:pointer"><span class="n">${esc(t('quizOf', { d: new Date(z.at).toLocaleDateString(lang, { day: 'numeric', month: 'short' }) }))}<small>${esc(t('nAns', { n: z.plays }))}</small></span><span class="s">›</span></div>`).join('')}</div>
     <button class="btn go" id="new">${esc(t('again'))}</button>${foot}`;
   bindShare(q.id, t('shareText'));
-  bindDq();
-  $('mebar').onclick = profileSheet;
-  app.querySelectorAll('[data-qz]').forEach((x) => x.onclick = () => quizPage(x.dataset.qz));
-  app.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pf)));
   $('new').onclick = createFlow;
   bindInstall();
+  app.querySelectorAll('[data-qz]').forEach((x) => x.onclick = () => quizPage(x.dataset.qz));
+  app.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pf)));
+}
+function peopleTab() {
+  app.innerHTML = `<div id="dqbox">${DQ ? (dqCards() || peopleEmpty()) : '<div class="stk"><h2>…</h2></div>'}</div>${foot}`;
+  if (st.quiz) bindShare(st.quiz.id, t('shareText'));
+  if (DQ) bindDq();
+  dqReload().then(() => { if (st.quiz) bindShare(st.quiz.id, t('shareText')); });
+}
+function meTab() {
+  app.innerHTML = `<div id="mepage" class="stk"></div>${foot}`;
+  profileSheet(true);
+}
+// comments of a person's day
+async function commentsSheet(owner, name) {
+  haptic();
+  const d = document.createElement('div'); d.className = 'sheet';
+  document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+  const draw = async () => {
+    let r; try { r = await api('comments', { owner }); } catch (e) { d.remove(); return toast(t('err')); }
+    d.innerHTML = `<div class="in" style="max-height:85vh;display:flex;flex-direction:column"><h2>${esc(t('cmT'))} · ${esc(name)}</h2>
+      <div style="overflow:auto;flex:1;min-height:60px">${r.comments.length ? r.comments.map((c) => `<div class="cmt">${pic(c.photo, c.name, 32)}<div style="flex:1;min-width:0"><b>${esc(c.name)}</b><p>${esc(c.text)}</p></div>${c.mine ? '' : `<button class="cmr" data-cr="${c.id}">🚩</button>`}</div>`).join('') : `<p class="mute" style="margin:6px 0">${esc(t('cmNone'))}</p>`}</div>
+      <div style="display:flex;gap:8px;margin-top:10px"><input class="inp" id="cmi" maxlength="200" placeholder="${esc(t('cmPh'))}" style="margin:0;flex:1"><button class="btn go" id="cms" style="width:auto;margin:0;padding:0 18px">${esc(t('cmSend'))}</button></div></div>`;
+    const inp = d.querySelector('#cmi');
+    const send = async () => {
+      const text = inp.value.trim(); if (!text) return;
+      d.querySelector('#cms').disabled = true;
+      try { await api('comment', { owner, text }); haptic('ok'); await draw(); dqReload(); }
+      catch (e) { d.querySelector('#cms').disabled = false; toast(e.code === 'refused' ? t('cmRefused') : e.code === 'banned' ? t('cmBanned') : e.code === 'slow' ? t('cmSlow') : t('err')); }
+    };
+    d.querySelector('#cms').onclick = send; inp.onkeydown = (e) => { if (e.key === 'Enter') send(); };
+    d.querySelectorAll('[data-cr]').forEach((b) => b.onclick = async () => { try { await api('comment_report', { id: Number(b.dataset.cr) }); toast(t('reportOk')); await draw(); dqReload(); } catch (e) { toast(t('err')); } });
+  };
+  draw();
+}
+// a photo of the day, full screen, with report and block
+function photoView(f) {
+  const d = document.createElement('div'); d.className = 'viewer';
+  d.innerHTML = `<img src="${esc(f.pic.url)}" alt=""><p style="color:#fff;font-weight:900;margin:12px 0 0">${esc(f.name)}${f.mood != null ? ' ' + MOODS[f.mood][0] : ''}</p>${f.uid ? `<div class="bar"><button class="mini" id="vrp">${esc(t('report'))}</button><button class="mini" id="vbk">${esc(t('blockB'))}</button></div>` : ''}`;
+  document.body.appendChild(d);
+  d.onclick = (e) => { if (e.target === d || e.target.tagName === 'IMG') d.remove(); };
+  if (f.uid) {
+    d.querySelector('#vrp').onclick = async () => { d.remove(); try { await api('report', { photo: f.pic.id }); toast(t('reportOk')); } catch (e) {} dqReload(); };
+    d.querySelector('#vbk').onclick = async () => { d.remove(); try { await api('block', { id: f.uid }); toast(t('blockOk')); } catch (e) {} dqReload(); };
+  }
 }
 const todayKey = () => new Date().toISOString().slice(0, 10);
 const skipped = (k) => { try { return localStorage.getItem('km_skip_' + k) === todayKey(); } catch (e) { return false; } };
