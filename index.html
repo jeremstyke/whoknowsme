@@ -457,7 +457,12 @@ function igShow(on) {
 }
 const igInline = () => { if (!igSeen) { igSeen = true; api('ev', { k: 'ig_view' }).catch(() => {}); } return `<a class="igin" href="${IG_URL}" target="_blank" rel="noopener sponsored" data-ig="1"><div style="min-width:0"><span class="igtag">${esc(t('igTag'))} · Instant Gaming</span><b>${esc(t('igT'))}</b><small>${esc(t('igB'))}</small></div><span class="iggo">${esc(t('igGo'))}</span></a>`; };
 document.addEventListener('click', (e) => { const a = e.target.closest('[data-ig]'); if (!a) return; api('ev', { k: 'ig_click' }).catch(() => {}); if (IN_TG) { e.preventDefault(); try { tg.openLink(IG_URL); } catch (er) { location.href = IG_URL; } } });
+const backBar = () => `<div class="top"><button class="x" data-back="1">←</button><span></span></div>`;
+const goBack = () => { document.querySelectorAll('.sheet,.viewer').forEach((s) => s.remove()); if (st) home(); };
+document.addEventListener('click', (e) => { if (e.target.closest('[data-back]')) { haptic(); goBack(); } });
+try { if (tg && tg.BackButton) tg.BackButton.onClick(goBack); } catch (e) {}
 function setTabs(on) {
+  try { if (tg && tg.BackButton) { if (on || !st) tg.BackButton.hide(); else tg.BackButton.show(); } } catch (e) {}
   igShow(false);
   document.body.classList.toggle('withtabs', on);
   const nav = $('tabs'); nav.style.display = on ? 'flex' : 'none'; if (!on) return;
@@ -752,7 +757,7 @@ function coupleCreate() {
 }
 function coupleReady(id) {
   setTabs(false); toTop();
-  app.innerHTML = `<div class="heart">💑</div><h1>${esc(t('cpReadyT'))}</h1><p class="lead">${esc(t('cpReadyS'))}</p>${coupleShareBtns(id)}<button class="link" id="hm">${esc(t('home'))}</button>${foot}`;
+  app.innerHTML = `${backBar()}<div class="heart">💑</div><h1>${esc(t('cpReadyT'))}</h1><p class="lead">${esc(t('cpReadyS'))}</p>${coupleShareBtns(id)}<button class="link" id="hm">${esc(t('home'))}</button>${foot}`;
   bindCoupleShare(id, t('cpShare'));
   $('hm').onclick = home;
 }
@@ -764,7 +769,7 @@ async function coupleOpen(id) {
 }
 function couplePlay(c) {
   setTabs(false); toTop();
-  app.innerHTML = `${c.ownerPhoto ? `<div style="text-align:center;margin:6px 0 14px">${pic(c.ownerPhoto, c.owner, 120)}</div>` : '<div class="heart">💑</div>'}<h1>${esc(t('cpInvT', { name: c.owner }))}</h1><p class="lead">${esc(t('cpInvS'))}</p><button class="btn go" id="go">${esc(t('start'))}</button>${foot}`;
+  app.innerHTML = `${backBar()}${c.ownerPhoto ? `<div style="text-align:center;margin:6px 0 14px">${pic(c.ownerPhoto, c.owner, 120)}</div>` : '<div class="heart">💑</div>'}<h1>${esc(t('cpInvT', { name: c.owner }))}</h1><p class="lead">${esc(t('cpInvS'))}</p><button class="btn go" id="go">${esc(t('start'))}</button>${foot}`;
   const answers = [];
   const step = (i) => {
     if (i === 10) {
@@ -783,7 +788,7 @@ function couplePlay(c) {
 const coupleRows = (c, mineA, otherA, otherName) => c.questions.map((qi, i) => { const ok = mineA[i] === otherA[i]; return `<div class="ans"><span>${ok ? '💞' : '↔️'}</span><div>${esc(qText(qi))}<br><b>${esc(t('cpYou'))} :</b> ${Q[qi].e[mineA[i]]} ${esc(oText(qi, mineA[i]))}<br><b>${esc(otherName)} :</b> ${Q[qi].e[otherA[i]]} ${esc(oText(qi, otherA[i]))}</div></div>`; }).join('');
 function coupleResult(c, mineA, score) {
   setTabs(false); toTop();
-  app.innerHTML = `<div class="stk" style="text-align:center"><div class="score">${score}%</div><h1 style="font-size:26px">${esc(cpVerdict(score))}</h1><p class="mute" style="margin:0">${esc(t('cpResT', { a: (st.me && st.me.name) || '', b: c.owner }))}</p></div>
+  app.innerHTML = `${backBar()}<div class="stk" style="text-align:center"><div class="score">${score}%</div><h1 style="font-size:26px">${esc(cpVerdict(score))}</h1><p class="mute" style="margin:0">${esc(t('cpResT', { a: (st.me && st.me.name) || '', b: c.owner }))}</p></div>
     <button class="btn go" id="cpmk">${esc(t('cpMake'))}</button><button class="btn" id="cpsh">${esc(t('shareRes'))}</button>
     <div class="stk" style="margin-top:20px"><h2>${esc(t('cpBoth'))}</h2>${coupleRows(c, mineA, c.answers, c.owner)}</div>${igInline()}${foot}`;
   $('cpmk').onclick = coupleCreate;
@@ -1090,7 +1095,7 @@ function createFlow() {
 function ready(id) {
   toTop();
   setTabs(false);
-  app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}${notifCard()}${googleCard('gbtn3')}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
+  app.innerHTML = `${backBar()}<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}${notifCard()}${googleCard('gbtn3')}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
   bindShare(id, t('shareText')); bindInstall(); googleBtn('gbtn3'); $('hm').onclick = () => { tab = 'quiz'; home(); };
 }
 
@@ -1098,7 +1103,7 @@ function ready(id) {
 function playFlow(qz) {
 
   setTabs(false);  const name = qz.owner, n = nOf(qz), guesses = [];
-  app.innerHTML = `${qz.ownerPhoto ? `<div style="text-align:center;margin:6px 0 14px">${pic(qz.ownerPhoto, name, 120)}</div>` : '<div class="heart">🤔</div>'}<h1>${esc(t('invT', { name }))}</h1><p class="lead">${esc(t('invSub', { n }))}</p>
+  app.innerHTML = `${backBar()}${qz.ownerPhoto ? `<div style="text-align:center;margin:6px 0 14px">${pic(qz.ownerPhoto, name, 120)}</div>` : '<div class="heart">🤔</div>'}<h1>${esc(t('invT', { name }))}</h1><p class="lead">${esc(t('invSub', { n }))}</p>
     <div class="stk"><h2 style="text-align:center">${esc(t('relQ', { name }))}</h2><div class="chips" style="justify-content:center">${RELS.map((r, k) => `<span class="ch" data-rel="${k}">${r[0]} ${esc(relName(k))}</span>`).join('')}</div></div>
     <button class="btn go" id="go" disabled>${esc(t('start'))}</button>${foot}`;
   let rel = null;
@@ -1123,7 +1128,7 @@ function result(qz, score, guesses, answers, b, rank, total) {
   toTop();
   setTabs(false);
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
-  app.innerHTML = `${installBanner()}<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: ord(rank), t: total }))}</span>` : ''}</div>
+  app.innerHTML = `${backBar()}<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: ord(rank), t: total }))}</span>` : ''}</div>
     <button class="btn go" id="mk">${esc(t('yours'))}</button>
     <button class="btn" id="ch">${esc(t('shareRes'))}</button>
     ${qz.mine ? '' : `<div class="stk daily" style="margin-top:18px;text-align:center"><h2>${esc(t('bridgeT', { name }))}</h2><p style="margin:0 0 4px;font-weight:800;opacity:.92">${esc(t('bridgeS'))}</p><button class="btn" id="seeday" style="background:var(--paper);color:var(--ink)">${esc(t('bridgeBtn'))}</button></div>`}${googleCard('gbtnr')}
