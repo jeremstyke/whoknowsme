@@ -613,7 +613,7 @@ function profileSheet(inPage) {
       <details class="acc" id="accd"><summary>${esc(t('accT'))} ▾</summary>
       ${googleCard('gbtn2')}
       ${codeCard()}
-      ${!IN_TG && st.me.web ? `<button class="btn tg" id="plink" style="margin-top:18px">${esc(t('linkTg'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('linkTgSub'))}</p>` : ''}
+
       ${IN_TG ? `<button class="btn" id="papp" style="margin-top:18px">${esc(t('useApp'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('useAppSub'))}</p>` : ''}</details></div>`;
     if (!IN_TG) { const lo = document.createElement('button'); lo.className = 'link'; lo.id = 'plogout'; lo.style.marginTop = '18px'; lo.textContent = t('logout'); d.querySelector('#accd').appendChild(lo); lo.onclick = () => { d.remove(); logout(); }; }
     const pl = d.querySelector('#plink'); if (pl) pl.onclick = () => { d.remove(); linkTelegram(); };
@@ -1005,6 +1005,7 @@ async function start() {
       return playFlow(qz);
     } catch (e) { toast(t('noquiz')); }
   }
+  if (window.__goCreate && !(st && st.quiz)) { window.__goCreate = false; return createFlow(); }
   home();
 }
 // signing in with Telegram: a one-time code confirmed by the bot; the wait resumes if the app reloads meanwhile
@@ -1050,7 +1051,15 @@ async function googleBtn(elId) {
     if (el) google.accounts.id.renderButton(el, { theme: 'filled_black', size: 'large', shape: 'pill', text: 'continue_with', width: Math.min(320, el.offsetWidth || 300), locale: lang });
   } catch (e) {}
 }
-const googleCard = (id) => (!IN_TG && st && st.me && !st.me.google ? `<div class="stk" style="text-align:center;margin-top:16px"><h2 style="margin-bottom:6px">${esc(t('gSaveT'))}</h2><p class="mute" style="margin:0 0 12px;font-size:14px">${esc(t('gSaveS'))}</p><div id="${id}" style="display:flex;justify-content:center;min-height:44px"></div></div>` : (!IN_TG && st && st.me && st.me.google ? `<p class="mute" style="text-align:center;margin:14px 0 0;font-size:13px">${esc(t('gLinked', { e: st.me.google }))}</p>` : ''));
+const googleCard = (id) => {
+  if (IN_TG || !st || !st.me) return '';
+  if (st.me.google) return `<p class="mute" style="text-align:center;margin:14px 0 0;font-size:13px">${esc(t('gLinked', { e: st.me.google }))}</p>`;
+  return `<div class="stk" style="text-align:center;margin-top:16px"><h2 style="margin-bottom:6px">${esc(t('gSaveT'))}</h2><p class="mute" style="margin:0 0 12px;font-size:14px">${esc(t('gSaveS'))}</p>
+    <div id="${id}" style="display:flex;justify-content:center;min-height:44px"></div>
+    ${st.me.web ? `<button class="btn tg" data-tglink="1" style="margin-top:12px">${esc(t('linkTg'))}</button>` : ''}
+    ${st.me.web && st.me.code && id !== 'gbtn2' ? `<p class="mute" style="margin:12px 0 2px;font-size:13px">${esc(t('recT'))}</p><p style="font:700 26px Fredoka,sans-serif;letter-spacing:4px;margin:0">${esc(st.me.code)}</p>` : ''}</div>`;
+};
+document.addEventListener('click', (e) => { if (e.target.closest('[data-tglink]')) { document.querySelectorAll('.sheet').forEach((s) => s.remove()); linkTelegram(); } });
 function codeSheet() {
   const d = document.createElement('div'); d.className = 'sheet';
   d.innerHTML = `<div class="in"><h2>${esc(t('codeT'))}</h2><input class="inp" id="rcode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="${esc(t('codePh'))}" style="text-align:center;letter-spacing:4px;font-size:22px;text-transform:uppercase"><button class="btn go" id="rgo">${esc(t('codeGo'))}</button></div>`;
@@ -1106,35 +1115,14 @@ async function boot() {
   if (IN_TG || TOKEN) return start();
   const qid = new URLSearchParams(location.search).get('q');
   if (qid && await inviteScreen(qid.replace(/[^a-z0-9]/g, ''))) return;
-  app.innerHTML = `${installBanner()}<div class="heart">${qid ? '👀' : '💛'}</div><h1>${esc(qid ? t('invT0') : t('title'))}</h1><p class="lead">${esc(qid ? t('invSub0') : t('sub'))}</p>
-    <div class="stk" style="text-align:center"><p style="font-weight:900;margin:0 0 12px">${esc(t('gBest'))}</p><div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div></div>
-    <p class="mute" style="text-align:center;margin:4px 0 8px;font-weight:900">${esc(t('orTxt'))}</p>
-    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('nameOnly'))}" autocomplete="given-name"><button class="btn go" id="ngo">${esc(t('goOn'))}</button>
-    <button class="btn tg" id="hvtg" style="margin-top:14px">${esc(t('haveTg'))}</button>
-    <button class="link" id="hvcode">${esc(t('haveCode'))}</button>${foot}`;
-  googleBtn('gbtn');
-  $('hvtg').onclick = tgLogin;
-  $('hvcode').onclick = () => {
-    const d = document.createElement('div'); d.className = 'sheet';
-    d.innerHTML = `<div class="in"><h2>${esc(t('codeT'))}</h2><input class="inp" id="rcode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="${esc(t('codePh'))}" style="text-align:center;letter-spacing:4px;font-size:22px;text-transform:uppercase"><button class="btn go" id="rgo">${esc(t('codeGo'))}</button></div>`;
-    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
-    const inp = d.querySelector('#rcode'); setTimeout(() => inp.focus(), 50);
-    const go = async () => {
-      const code = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); if (code.length !== 6) return toast(t('codeBad'));
-      try {
-        const res = await fetch(API + 'recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
-        const r = await res.json();
-        if (!r.token) return toast(r.error === 'slow' ? t('codeSlow') : t('codeBad'));
-        TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {}
-        d.remove(); haptic('ok'); start();
-      } catch (e) { toast(t('err')); }
-    };
-    d.querySelector('#rgo').onclick = go; inp.onkeydown = (e) => { if (e.key === 'Enter') go(); };
-  };
+  app.innerHTML = `<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p>
+    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('yourName'))}" autocomplete="given-name"><button class="btn go" id="ngo">${esc(t('create'))}</button>
+    <button class="link" id="hvacc">${esc(t('haveAcc'))}</button>${foot}`;
+  $('hvacc').onclick = accountSheet;
   const go = async () => {
     const name = $('nm').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
     $('ngo').disabled = true;
-    try { const src = new URLSearchParams(location.search).get('src') || (qid ? 'quiz' : 'web'); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} start(); }
+    try { const src = new URLSearchParams(location.search).get('src') || (qid ? 'quiz' : 'web'); const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, lang, src }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} if (!qid) window.__goCreate = true; start(); }
     catch (e) { $('ngo').disabled = false; toast(t('err')); }
   };
   $('ngo').onclick = go; $('nm').onkeydown = (e) => { if (e.key === 'Enter') go(); };
