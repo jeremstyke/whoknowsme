@@ -165,7 +165,7 @@ const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = '
 const initData = (tg && tg.initData) || '', IN_TG = !!initData;
 let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e) {}
 const LANGS = ['en', 'fr', 'es', 'pt', 'de', 'it', 'ru', 'ar', 'tr', 'id'];
-let lang = (() => { let c = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en') + '').slice(0, 2).toLowerCase(); if (c === 'in') c = 'id'; return LANGS.includes(c) ? c : 'en'; })();
+let lang = (() => { const pl = new URLSearchParams(location.search).get('lang'); if (pl && LANGS.includes(pl)) return pl; let c = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en') + '').slice(0, 2).toLowerCase(); if (c === 'in') c = 'id'; return LANGS.includes(c) ? c : 'en'; })();
 const setLang = (l) => { lang = l; document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr'; };
 setLang(lang);
 const S = {
@@ -213,7 +213,7 @@ function openOut(u) { try { if (IN_TG && /^https:/.test(u)) { /t\.me\//.test(u) 
 // share: WhatsApp and Telegram first, the other apps in a sheet
 function shareTo(where, id, text) {
   haptic('medium'); api('ev', { k: 'share_' + where }).catch(() => {});
-  const web = SITE + '?q=' + id;
+  const web = SITE + lang + '/?q=' + id;
   if (where === 'wa') return openOut('https://wa.me/?text=' + encodeURIComponent(text + ' ' + web));
   if (where === 'tg') return openOut('https://t.me/share/url?url=' + encodeURIComponent(quizLink(id)) + '&text=' + encodeURIComponent(text));
   // other apps: the phone's share menu (SMS, Messenger, Instagram…), or the link copied
@@ -683,7 +683,7 @@ async function shareResult(qz, name, score, n, rank, total) {
     const blob = await new Promise((ok) => c.toBlob(ok, 'image/png'));
     if (blob) file = new File([blob], 'result.png', { type: 'image/png' });
   } catch (e) {}
-  const url = SITE + '?q=' + qz.id;
+  const url = SITE + lang + '/?q=' + qz.id;
   if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
     try { await navigator.share({ files: [file], text: text + ' ' + url }); return; } catch (e) { if (e && e.name === 'AbortError') return; }
   }
@@ -725,7 +725,7 @@ async function friendProfile(id) {
 // ===== the couple test =====
 const COUPLE_POOL = [35, 36, 37, 38, 39, 40, 42, 44, 45, 46, 47, 48, 49, 0, 5, 6, 7];
 const cpVerdict = (p) => t(p >= 80 ? 'cpV1' : p >= 60 ? 'cpV2' : p >= 40 ? 'cpV3' : 'cpV4');
-const coupleLink = (id) => SITE + '?c=' + id, coupleTg = (id) => `https://t.me/${BOTU}?startapp=c_${id}`;
+const coupleLink = (id) => SITE + lang + '/?c=' + id, coupleTg = (id) => `https://t.me/${BOTU}?startapp=c_${id}`;
 function coupleShareBtns(id) {
   return `<button class="btn wa" data-cs="wa">💬 WhatsApp</button><button class="btn tg" data-cs="tg">✈️ Telegram</button><button class="btn" data-cs="other">${esc(t('other'))}</button>`;
 }
