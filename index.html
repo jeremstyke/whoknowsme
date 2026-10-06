@@ -520,7 +520,7 @@ function bindDq() {
   app.querySelectorAll('[data-rx]').forEach((x) => x.onclick = async () => { const [o, e] = x.dataset.rx.split(':').map(Number); haptic(); try { await api('react', { owner: o, emoji: e }); dqReload(); } catch (er) { toast(t('err')); } });
   app.querySelectorAll('[data-cmt]').forEach((x) => x.onclick = () => { const o = x.dataset.cmt; if (o === 'me' || !Number(o)) return; const f = (DQ.feed || []).find((y) => String(y.uid) === o); commentsSheet(Number(o), f ? f.name : ((st.me && st.me.name) || '')); });
   app.querySelectorAll('[data-fph]').forEach((x) => x.onclick = () => { const f = (DQ.feed || []).find((y) => String(y.uid) === x.dataset.fph); if (f) photoView(f); });
-  const myph = $('myph'); if (myph) myph.onclick = () => takePhoto({ photoOk: DQ.myDay && DQ.myDay.photoOk }, async (route, body) => { try { await api(route, body); if (route === 'photo') toast(t('phPending')); dqReload(); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } });
+  const myph = $('myph'); if (myph) myph.onclick = () => takePhoto({ photoOk: DQ.myDay && DQ.myDay.photoOk }, async (route, body) => { try { await api(route, body); await dqReload(); if (route === 'photo') toast(DQ && DQ.myDay && DQ.myDay.photo && DQ.myDay.photo.pending ? t('phPending') : '📸 ✅'); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } });
   app.querySelectorAll('[data-myph]').forEach((x) => x.onclick = () => photoView({ pic: DQ.myDay.photo, name: (st.me && st.me.name) || '', mood: DQ.myMood }));
   bindCarousel();
   const s = $('dqs'); if (s) s.onclick = dqSendFlow;
