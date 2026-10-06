@@ -903,7 +903,7 @@ function quizTab() {
     <div class="stk"><div class="qhd"><h2>${lastTag ? t('th_' + lastTag).split(' ')[0] : '🎯'} ${esc(t('tbQuiz'))}</h2><span class="mute">${esc(t('nAns', { n: plays }))}</span></div>
       <p class="mute" style="margin:6px 0 0;font-size:14px">${esc(plays >= 3 ? t('topNewT', { n: plays }) : t('simpleS'))}</p>
       <div class="srow"><button class="btn wa" data-s="wa">💬 WhatsApp</button><button class="btn tg" data-s="tg">✈️ Telegram</button><button class="btn" data-s="other">${esc(t('otherShort'))}</button></div>
-      <button class="link" data-qz="${q.id}" style="margin-top:10px">${esc(t('seeMyQuiz'))} ›</button></div>
+      <details class="acc" id="myqd" style="margin-top:14px"><summary>${esc(t('myAnsT'))} ▾</summary><div id="myqa"><p class="mute" style="margin:6px 0">…</p></div></details></div>
     <div class="stk"><h2>${esc(t('myRank'))}</h2>${(st.quizzes || []).length > 1 ? `<p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('allRankS'))}</p>` : ''}${(st.overall || []).length ? st.overall.map((x, i) => `<div class="row" data-pf="${x.uid}" style="cursor:pointer"><span>${medal(i)}</span>${pic(x.photo, x.name, 34)}<span class="n">${esc(x.name)}${x.rel != null ? `<small>${relTxt(x.rel)}</small>` : ''}</span><span class="s">${x.pct}%${(st.quizzes || []).length > 1 ? `<small style="display:block;font:800 11px Nunito,sans-serif;color:var(--mute);text-align:right">${esc(t('quizzesN', { n: x.count }))}</small>` : ''}</span></div>`).join('') + `<p class="mute" style="margin:8px 0 0;font-size:13px">${esc(t('tapProfile'))}</p>` : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`}</div>
     <div class="stk"><h2>${esc(t('newQuizT'))}</h2><div class="chiprow">${THEME_KEYS.map((k) => { const n = t('th_' + k), e = n.split(' ')[0]; return `<div class="thc ${done.has(k) ? 'done' : ''}" data-th="${k}"><b>${e}</b><span>${esc(n.slice(e.length).trim())}${done.has(k) ? ' ✅' : ''}</span></div>`; }).join('')}<div class="thc" data-th="couple"><b>💑</b><span>${esc(t('cpT').replace(/^💑\s*/, ''))}</span></div></div></div>
     <div class="stk"><h2>${esc(t('quizzesT'))}</h2><div id="qlist">${all.slice(0, 3).map(qrow).join('')}</div>${all.length > 3 ? `<button class="link" id="qall">${esc(t('seeAll'))} (${all.length})</button>` : ''}</div>
@@ -914,6 +914,14 @@ function quizTab() {
   bindInstall();
   bindThemeTiles(app);
   bindQuizRows();
+  // my quiz, right here: questions and my answers (loaded when opened)
+  const md = $('myqd'); if (md) md.addEventListener('toggle', () => {
+    if (!md.open || md.dataset.done) return; md.dataset.done = '1';
+    api('details', { id: q.id }).then((d) => {
+      const qq0 = { custom: d.custom, questions: d.questions, n: d.n, over: d.over };
+      $('myqa').innerHTML = Array.from({ length: d.n }, (_, i) => { const qq = qOf(qq0, i); return `<div class="ans"><span>${i + 1}.</span><div>${esc(qq.q)}<br><b>${ansText(qq, d.answers[i])}</b></div></div>`; }).join('');
+    }).catch(() => { md.dataset.done = ''; toast(t('err')); });
+  });
   app.querySelectorAll('[data-qz]').forEach((x) => x.onclick = () => quizPage(x.dataset.qz));
   app.querySelectorAll('[data-cq]').forEach((x) => x.onclick = () => coupleOpen(x.dataset.cq));
   app.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pf)));
