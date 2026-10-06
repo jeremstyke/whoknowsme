@@ -967,7 +967,7 @@ async function duelTab() {
 }
 function duelWho(star) {
   haptic();
-  const s = (STARS || []).find((x) => x.id === star) || {}, ppl = (st.overall || []);
+  const s = (STARS || []).find((x) => x.id === star) || {}, ppl = (st.people && st.people.length ? st.people : (st.overall || []));
   const d = document.createElement('div'); d.className = 'sheet';
   d.innerHTML = `<div class="in"><h2>${s.e || '⚔️'} ${esc(s.name || '')}</h2><p style="font-weight:900;margin:0 0 8px">${esc(t('duWho'))}</p>
     ${ppl.map((p) => `<div class="row" data-to="${p.uid}" style="cursor:pointer">${pic(p.photo, p.name, 34)}<span class="n">${esc(p.name)}</span><span class="s">⚔️</span></div>`).join('')}
