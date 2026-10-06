@@ -91,7 +91,7 @@ h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
 .avt{flex:none;border-radius:50%;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;line-height:1}
 .mebar{display:flex;align-items:center;gap:12px;margin:0 0 16px;cursor:pointer}.mebar b{flex:1;font:700 22px Fredoka,sans-serif}.mebar span{font-weight:900;text-decoration:underline}
 .pfhead{text-align:center}.pfhead .avt{margin:4px auto 10px;box-shadow:5px 5px 0 var(--ink);transform:rotate(-5deg)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 4px}.tg{background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:900;font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 4px}.tgl{background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:900;font-size:14px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.sx{background:var(--paper);border:3px solid var(--ink);border-radius:18px;padding:10px 4px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
 .sx b{display:block;font:700 26px Fredoka,sans-serif}.sx span{font-weight:800;font-size:12px;color:var(--mute)}
 .grid6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.gi{aspect-ratio:1;border:3px solid transparent;border-radius:14px;background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer}.gi.on{border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
@@ -100,11 +100,24 @@ h2{font:700 22px/1.2 Fredoka,ui-rounded,sans-serif;margin:0 0 12px}
 .ibar .tx{flex:1;font-weight:900;font-size:15px;line-height:1.25}.ibar .tx small{display:block;color:#fff;opacity:.8;font-weight:800;font-size:12px}
 .ibar .go{border:0;background:var(--sun);color:var(--ink);border-radius:12px;padding:9px 12px;font:900 14px Nunito,sans-serif;cursor:pointer;white-space:nowrap}
 .ibar .cl{border:0;background:transparent;color:#fff;opacity:.7;font-size:18px;cursor:pointer;padding:4px}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--paper);border-top:3px solid var(--ink);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0))}
+.tabs div{flex:1;max-width:120px;text-align:center;padding:5px 0 4px;border-radius:14px;cursor:pointer;font:900 12px Nunito,sans-serif;color:var(--mute)}
+.tabs div b{display:block;font-size:24px;line-height:1.15}.tabs div.on{background:var(--sun);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+body.withtabs .w{padding-bottom:110px}
+.hd{display:flex;align-items:center;gap:10px;margin:0 0 14px}.hd b{flex:1;font:700 22px Fredoka,sans-serif}.hd .me{cursor:pointer}
+.mission{background:var(--violet);color:#fff}.mission .lbl{font-weight:900;font-size:13px;opacity:.85;text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px}
+.mission h2{color:#fff}.mission .mute{color:rgba(255,255,255,.88)}.mission .q{color:#fff}
+.mission .dots{justify-content:flex-start;margin:0 0 10px}.mission .dots i{background:rgba(255,255,255,.3)}.mission .dots i.on{background:#fff}
+.strip{display:flex;gap:12px;overflow-x:auto;padding:6px 2px 10px;margin:0 -2px}
+.fi{flex:none;width:72px;text-align:center;cursor:pointer}.fi .avt{margin:0 auto 4px}.fi .avt.ring{box-shadow:0 0 0 3px var(--sun),0 0 0 6px var(--coral)}
+.fi span{display:block;font-weight:900;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fi small{display:block;font-weight:900;font-size:12px;color:var(--coral)}
+.fi.add .avt{background:var(--paper)!important;border-style:dashed}.fi.req .avt{background:var(--sun)!important}
+.bar2{height:14px;border-radius:9px;background:rgba(255,255,255,.25);overflow:hidden;margin:6px 0}.bar2 i{display:block;height:100%;background:var(--sun)}
 .foot{margin-top:22px;text-align:center;font-weight:800;font-size:13px}.foot a{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.btn,.opt{transition:none}}
 </style>
 </head>
-<body><div class="w" id="app"><div class="heart">💛</div></div>
+<body><div class="w" id="app"><div class="heart">💛</div></div><nav class="tabs" id="tabs" style="display:none"></nav>
 <script>
 const tg = window.Telegram && Telegram.WebApp; try { tg.ready(); tg.expand(); tg.setHeaderColor('#ffdd4a'); tg.setBackgroundColor('#ffdd4a'); } catch (e) {}
 const API = 'https://pote-ia-bot-en-production.up.railway.app/km/api/', BOTU = 'Whoknowsmebestbot', SITE = 'https://jeremstyke.github.io/whoknowsme/';
@@ -113,8 +126,8 @@ let TOKEN = ''; try { TOKEN = localStorage.getItem('km_token') || ''; } catch (e
 let lang = (((tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || navigator.language || 'en').slice(0, 2).toLowerCase() === 'fr') ? 'fr' : 'en';
 document.documentElement.lang = lang;
 const S = {
-  en: { title: 'Who knows me best?', sub: 'Answer 10 questions about yourself, share your quiz, and find out which friend knows you best!', create: '✨ Create my quiz', again: '✨ New quiz (new questions)', ready: 'Your quiz is ready! 🎉', readySub: 'Send it to your friends: who will get the best score?', more: 'Other apps', copy: '🔗 Copy the link', copied: 'Link copied!', myRank: '🏆 Who knows me best', nobody: 'No answer yet. Share your quiz! 👆', share: 'Share my quiz', qOf: '{i}/{n}', aboutMe: 'About you', guessWhat: 'What did {name} answer?', invT: '{name} wants to know if you really know them 👀', invT0: 'A friend sent you their quiz! 👀', invSub: '{n} questions. Guess their answers!', invSub0: 'Guess their answers and find out if you really know them!', yourName: 'Your first name', start: '🎯 Let\'s go!', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You have a lot to learn about {name} 😅', rank: 'You are #{r} out of {t}', yours: '✨ Create MY quiz', challenge: '📤 Challenge my friends', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', shareText: '💛 How well do you know me? Take my quiz!', saving: 'One second…', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', nameNeed: 'Type your first name 🙂', goOn: 'Continue', answers: 'Right answers', you: 'you', daily: '📅 Question of the day', wyrT: '🤔 Would you rather…', or: 'or', world: '{p}% of players', sameAs: 'Same as you:', compT: '💌 Compliments of the day', compSub: 'Choose a friend for each question. They get an anonymous notification!', compDone: '✅ Your compliments are sent! Come back tomorrow for new ones.', compNeed: 'Invite at least 2 friends to your quiz to send compliments.', gotT: '💌 Your compliments', someone: 'Someone chose you:', reveal: '👀 Who? · {p} ⭐', revealVip: '👀 Who?', streakT: '🔥 {n}', nobodyComp: 'No compliment yet: share your quiz so your friends can choose you!', dSent: '✅ Sent! Your friends get a notification to guess your answer 👀', dGot: '🎯 Guessed you:', dWait: 'Your friends will get a notification 👀', dFriends: '👀 Guess your friends', dWho: '🎯 Who guessed you today', dNoGuess: 'Nobody yet. Your friends get a notification!', dFl: '🔥 Friends who guess you every day', dYou: 'You:', dailyMine: 'Your answer?', dailyDone: '✅ Saved! Now guess your friends\' answers:', guess: 'Guess', waitF: 'Your friends haven\'t answered yet. As soon as they do, they will appear here: guess their answer, and they will guess yours!', noF: 'Your friends will appear here once they have answered your quiz. Then every day, you guess each other\'s answers to keep your 🔥 flames burning!', invite: '📤 Invite friends', flames: '🔥 Your flames', flameHint: 'Answer and guess each other every day to keep your flames burning!', flameDays: '{n} days', ibT: '📲 Install the app on your phone', ibTg: '📲 Also as an app on your phone', ibSub: 'Free, one tap on your home screen.', ibGo: 'Install', ibIosT: 'Install on iPhone', ibIos: '1. Tap the Share button ⬆️ at the bottom of Safari\n2. Choose "Add to Home Screen"\n3. Tap "Add": the app is on your home screen 💛', ibOtherT: 'Install the app', ibOther: 'Open your browser menu (⋮), then choose "Install app" or "Add to Home screen".', linkTg: '✈️ Link to my Telegram account', linkTgSub: 'Find the same profile, quizzes and friends on Telegram and here.', linkWait: 'Confirm in Telegram (tap Start), then come back here…', linkDone: '✅ Accounts linked!', useApp: '📲 Use the app on my phone', useAppSub: 'Opens the website already signed in: install it on your home screen.', pfMine: 'My profile', pfEdit: '✏️ Edit my profile', pfName: 'First name', pfAv: 'Avatar', pfCol: 'Colour', pfTags: 'My interests (3 max)', pfSave: '✅ Save', pfSaved: 'Profile saved!', stStreak: 'day streak', stFlames: 'flames', stComps: 'compliments', stQuiz: 'quizzes created', stAns: 'quizzes answered', topComps: '💌 What my friends say about me', bestKnow: '🏆 Knows me best:', noComps: 'No compliment yet.', frT: '👯 My friends', myMoodQ: 'Your mood today?', myPhotoBtn: '📸 My photo of the day', myPhotoDone: '📸 Photo posted (visible 24 h)', frReqs: 'Friend requests', accept: 'Accept', refuse: 'Refuse', addT: 'Add as friends', add: '➕ Add', sent: '⏳ Sent', frNone: 'Your friends appear here once they answered your quiz. Add them to share your mood and photo of the day 🔥', frEmpty: 'No friend yet: add the people who answered your quiz!', report: '🚩 Report', blockB: '🚫 Block', reportOk: 'Thanks, the photo is hidden and the person blocked.', blockOk: 'Person blocked.', phT: '📸 Photo of the day', phRules: 'Your photo is only seen by your accepted friends, checked automatically, and deleted after 24 hours. No nudity, violence or personal information: any problem means your account is blocked. Reserved for people aged 16 and over.', phOk: 'I am 16 or older, I agree', phRefused: 'Photo refused: it does not follow the rules.', phAlready: 'One photo a day: come back tomorrow!', phBan: 'Photos are disabled on your account.', phSending: 'Checking your photo…', phCam: '📷 Take a photo', phGal: '🖼️ Choose from my gallery', noPhoto: 'no photo yet', notifT: '🔔 Turn on notifications', notifSub: 'Know when a friend chooses you 💌 or answers your quiz.', notifBtn: '🔔 Turn on', notifOn: '🔔 Notifications on!', notifNo: 'Notifications are blocked in your browser settings.', notifIos: 'On iPhone, install the app on your home screen first (Share ⬆️ then "Add to Home Screen"), then open it from there.', other: '📲 Other apps (SMS, Messenger…)', pasteIt: 'Link copied! Paste it in an SMS or on Messenger 📋', install: '📲 Install the app', installSub: 'One tap on your home screen, like a real app.', iosHint: 'On iPhone: tap the Share button ⬆️ then "Add to Home Screen".', playTg: '✈️ Play on Telegram', tgPay: 'Payments are available in the Telegram version 💛' },
-  fr: { title: 'Qui me connaît le mieux ?', sub: 'Réponds à 10 questions sur toi, partage ton quiz, et découvre quel ami te connaît le mieux !', create: '✨ Créer mon quiz', again: '✨ Nouveau quiz (nouvelles questions)', ready: 'Ton quiz est prêt ! 🎉', readySub: 'Envoie-le à tes amis : qui fera le meilleur score ?', more: 'Autres applis', copy: '🔗 Copier le lien', copied: 'Lien copié !', myRank: '🏆 Qui me connaît le mieux', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', share: 'Partager mon quiz', qOf: '{i}/{n}', aboutMe: 'Sur toi', guessWhat: 'Qu\'a répondu {name} ?', invT: '{name} veut savoir si tu le connais vraiment 👀', invT0: 'Un ami t\'a envoyé son quiz ! 👀', invSub: '{n} questions. Devine ses réponses !', invSub0: 'Devine ses réponses et découvre si tu le connais vraiment !', yourName: 'Ton prénom', start: '🎯 C\'est parti !', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as beaucoup à apprendre sur {name} 😅', rank: 'Tu es {r}e sur {t}', yours: '✨ Créer MON quiz', challenge: '📤 Défier mes amis', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz !', saving: 'Une seconde…', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', nameNeed: 'Écris ton prénom 🙂', goOn: 'Continuer', answers: 'Les bonnes réponses', you: 'toi', daily: '📅 La question du jour', wyrT: '🤔 Tu préfères…', or: 'ou', world: '{p} % des joueurs', sameAs: 'Comme toi :', compT: '💌 Les compliments du jour', compSub: 'Choisis un ami pour chaque question. Il reçoit une notif anonyme !', compDone: '✅ Tes compliments sont envoyés ! Reviens demain pour les suivants.', compNeed: 'Invite au moins 2 amis à ton quiz pour envoyer des compliments.', gotT: '💌 Tes compliments', someone: 'Quelqu\'un t\'a choisi :', reveal: '👀 Qui ? · {p} ⭐', revealVip: '👀 Qui ?', streakT: '🔥 {n}', nobodyComp: 'Pas encore de compliment : partage ton quiz pour que tes amis puissent te choisir !', dSent: '✅ C\'est envoyé ! Tes amis reçoivent une notif pour deviner ta réponse 👀', dGot: '🎯 T\'ont deviné :', dWait: 'Tes amis vont recevoir une notif 👀', dFriends: '👀 Devine tes amis', dWho: '🎯 Qui t\'a deviné aujourd\'hui', dNoGuess: 'Personne pour l\'instant. Tes amis ont reçu une notif !', dFl: '🔥 Les amis qui te devinent chaque jour', dYou: 'Toi :', dailyMine: 'Ta réponse ?', dailyDone: '✅ Enregistré ! Devine maintenant ce qu\'ont répondu tes amis :', guess: 'Deviner', waitF: 'Tes amis n\'ont pas encore répondu. Dès qu\'ils le feront, ils apparaîtront ici : devine leur réponse, et eux devineront la tienne !', noF: 'Tes amis apparaîtront ici dès qu\'ils auront répondu à ton quiz. Ensuite, chaque jour, vous devinez vos réponses pour garder vos 🔥 flammes !', invite: '📤 Inviter des amis', flames: '🔥 Tes flammes', flameHint: 'Répondez et devinez-vous chaque jour pour garder vos flammes !', flameDays: '{n} jours', ibT: '📲 Installe l\'appli sur ton téléphone', ibTg: '📲 Aussi en appli sur ton téléphone', ibSub: 'Gratuit, un toucher sur ton écran d\'accueil.', ibGo: 'Installer', ibIosT: 'Installer sur iPhone', ibIos: '1. Touche le bouton Partager ⬆️ en bas de Safari\n2. Choisis « Sur l\'écran d\'accueil »\n3. Touche « Ajouter » : l\'appli est sur ton écran d\'accueil 💛', ibOtherT: 'Installer l\'appli', ibOther: 'Ouvre le menu de ton navigateur (⋮), puis choisis « Installer l\'application » ou « Ajouter à l\'écran d\'accueil ».', linkTg: '✈️ Relier à mon compte Telegram', linkTgSub: 'Retrouve le même profil, les mêmes quiz et les mêmes amis sur Telegram et ici.', linkWait: 'Confirme dans Telegram (touche Démarrer), puis reviens ici…', linkDone: '✅ Comptes reliés !', useApp: '📲 Utiliser l\'appli sur mon téléphone', useAppSub: 'Ouvre le site déjà connecté à ton compte : installe-le sur ton écran d\'accueil.', pfMine: 'Mon profil', pfEdit: '✏️ Modifier mon profil', pfName: 'Prénom', pfAv: 'Avatar', pfCol: 'Couleur', pfTags: 'Mes centres d\'intérêt (3 max)', pfSave: '✅ Enregistrer', pfSaved: 'Profil enregistré !', stStreak: 'jours d\'affilée', stFlames: 'flammes', stComps: 'compliments', stQuiz: 'quiz créés', stAns: 'quiz répondus', topComps: '💌 Ce que mes amis disent de moi', bestKnow: '🏆 Me connaît le mieux :', noComps: 'Pas encore de compliment.', frT: '👯 Mes amis', myMoodQ: 'Ton humeur du jour ?', myPhotoBtn: '📸 Ma photo du jour', myPhotoDone: '📸 Photo postée (visible 24 h)', frReqs: 'Demandes d\'amis', accept: 'Accepter', refuse: 'Refuser', addT: 'Ajouter en amis', add: '➕ Ajouter', sent: '⏳ Envoyé', frNone: 'Tes amis apparaissent ici dès qu\'ils ont répondu à ton quiz. Ajoute-les pour partager ton humeur et ta photo du jour 🔥', frEmpty: 'Pas encore d\'ami : ajoute ceux qui ont répondu à ton quiz !', report: '🚩 Signaler', blockB: '🚫 Bloquer', reportOk: 'Merci, la photo est masquée et la personne bloquée.', blockOk: 'Personne bloquée.', phT: '📸 Photo du jour', phRules: 'Ta photo n\'est vue que par tes amis acceptés, vérifiée automatiquement, et effacée après 24 heures. Pas de nudité, de violence ni d\'informations personnelles : en cas de problème, ton compte est bloqué. Réservé aux 16 ans et plus.', phOk: 'J\'ai 16 ans ou plus, j\'accepte', phRefused: 'Photo refusée : elle ne respecte pas les règles.', phAlready: 'Une photo par jour : reviens demain !', phBan: 'Les photos sont désactivées sur ton compte.', phSending: 'Vérification de ta photo…', phCam: '📷 Prendre une photo', phGal: '🖼️ Choisir dans ma galerie', noPhoto: 'pas encore de photo', notifT: '🔔 Active les notifications', notifSub: 'Sache quand un ami te choisit 💌 ou répond à ton quiz.', notifBtn: '🔔 Activer', notifOn: '🔔 Notifications activées !', notifNo: 'Les notifications sont bloquées dans les réglages de ton navigateur.', notifIos: 'Sur iPhone, installe d\'abord l\'appli sur ton écran d\'accueil (Partager ⬆️ puis « Sur l\'écran d\'accueil »), puis ouvre-la depuis là.', other: '📲 Autres applis (SMS, Messenger…)', pasteIt: 'Lien copié ! Colle-le dans un SMS ou sur Messenger 📋', install: '📲 Installer l\'appli', installSub: 'Un toucher sur ton écran d\'accueil, comme une vraie appli.', iosHint: 'Sur iPhone : touche le bouton Partager ⬆️ puis « Sur l\'écran d\'accueil ».', playTg: '✈️ Jouer sur Telegram', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
+  en: { title: 'Who knows me best?', sub: 'Answer 10 questions about yourself, share your quiz, and find out which friend knows you best!', create: '✨ Create my quiz', again: '✨ New quiz (new questions)', ready: 'Your quiz is ready! 🎉', readySub: 'Send it to your friends: who will get the best score?', more: 'Other apps', copy: '🔗 Copy the link', copied: 'Link copied!', myRank: '🏆 Who knows me best', nobody: 'No answer yet. Share your quiz! 👆', share: 'Share my quiz', qOf: '{i}/{n}', aboutMe: 'About you', guessWhat: 'What did {name} answer?', invT: '{name} wants to know if you really know them 👀', invT0: 'A friend sent you their quiz! 👀', invSub: '{n} questions. Guess their answers!', invSub0: 'Guess their answers and find out if you really know them!', yourName: 'Your first name', start: '🎯 Let\'s go!', vHi: 'You really know {name}! 😍', vMid: 'Not bad at all! 😉', vLo: 'You have a lot to learn about {name} 😅', rank: 'You are #{r} out of {t}', yours: '✨ Create MY quiz', challenge: '📤 Challenge my friends', challengeText: '🤔 I scored {s} on {name}\'s quiz. Can you do better?', shareText: '💛 How well do you know me? Take my quiz!', saving: 'One second…', err: 'Oops, try again', noquiz: 'This quiz doesn\'t exist anymore.', mine: 'This is your own quiz 😉', nameNeed: 'Type your first name 🙂', goOn: 'Continue', answers: 'Right answers', you: 'you', daily: '📅 Question of the day', wyrT: '🤔 Would you rather…', or: 'or', world: '{p}% of players', sameAs: 'Same as you:', compT: '💌 Compliments of the day', compSub: 'Choose a friend for each question. They get an anonymous notification!', compDone: '✅ Your compliments are sent! Come back tomorrow for new ones.', compNeed: 'Invite at least 2 friends to your quiz to send compliments.', gotT: '💌 Your compliments', someone: 'Someone chose you:', reveal: '👀 Who? · {p} ⭐', revealVip: '👀 Who?', streakT: '🔥 {n}', nobodyComp: 'No compliment yet: share your quiz so your friends can choose you!', dSent: '✅ Sent! Your friends get a notification to guess your answer 👀', dGot: '🎯 Guessed you:', dWait: 'Your friends will get a notification 👀', dFriends: '👀 Guess your friends', dWho: '🎯 Who guessed you today', dNoGuess: 'Nobody yet. Your friends get a notification!', dFl: '🔥 Friends who guess you every day', dYou: 'You:', dailyMine: 'Your answer?', dailyDone: '✅ Saved! Now guess your friends\' answers:', guess: 'Guess', waitF: 'Your friends haven\'t answered yet. As soon as they do, they will appear here: guess their answer, and they will guess yours!', noF: 'Your friends will appear here once they have answered your quiz. Then every day, you guess each other\'s answers to keep your 🔥 flames burning!', invite: '📤 Invite friends', flames: '🔥 Your flames', flameHint: 'Answer and guess each other every day to keep your flames burning!', flameDays: '{n} days', titleShort: 'Who knows me?', todo: 'To do now', mQuizT: 'Create your quiz', mQuizS: '10 questions about you, 1 minute. Then your friends guess!', mMoodT: 'Your mood today?', mPhotoT: '📸 Your photo of the day', mPhotoS: 'Only your friends see it, for 24 hours.', later: 'Later', mShareT: '📤 Share your quiz', mShareS: 'Find out who really knows you!', doneT: 'All done for today! ✅', doneS: 'Come back tomorrow for new games 😉', wyrRes: '{p}% chose like you', friendsT: '👯 My friends', noFr: 'Your friends appear here once they answered your quiz.', reqSent: 'Request sent!', seeProfile: '👤 See the profile', gotShort: '💌 Compliments received', myQuizT: '📝 My quiz', tbToday: 'Today', tbFriends: 'Friends', tbQuiz: 'My quiz', tbMe: 'Profile', ibT: '📲 Install the app on your phone', ibTg: '📲 Also as an app on your phone', ibSub: 'Free, one tap on your home screen.', ibGo: 'Install', ibIosT: 'Install on iPhone', ibIos: '1. Tap the Share button ⬆️ at the bottom of Safari\n2. Choose "Add to Home Screen"\n3. Tap "Add": the app is on your home screen 💛', ibOtherT: 'Install the app', ibOther: 'Open your browser menu (⋮), then choose "Install app" or "Add to Home screen".', linkTg: '✈️ Link to my Telegram account', linkTgSub: 'Find the same profile, quizzes and friends on Telegram and here.', linkWait: 'Confirm in Telegram (tap Start), then come back here…', linkDone: '✅ Accounts linked!', useApp: '📲 Use the app on my phone', useAppSub: 'Opens the website already signed in: install it on your home screen.', pfMine: 'My profile', pfEdit: '✏️ Edit my profile', pfName: 'First name', pfAv: 'Avatar', pfCol: 'Colour', pfTags: 'My interests (3 max)', pfSave: '✅ Save', pfSaved: 'Profile saved!', stStreak: 'day streak', stFlames: 'flames', stComps: 'compliments', stQuiz: 'quizzes created', stAns: 'quizzes answered', topComps: '💌 What my friends say about me', bestKnow: '🏆 Knows me best:', noComps: 'No compliment yet.', frT: '👯 My friends', myMoodQ: 'Your mood today?', myPhotoBtn: '📸 My photo of the day', myPhotoDone: '📸 Photo posted (visible 24 h)', frReqs: 'Friend requests', accept: 'Accept', refuse: 'Refuse', addT: 'Add as friends', add: '➕ Add', sent: '⏳ Sent', frNone: 'Your friends appear here once they answered your quiz. Add them to share your mood and photo of the day 🔥', frEmpty: 'No friend yet: add the people who answered your quiz!', report: '🚩 Report', blockB: '🚫 Block', reportOk: 'Thanks, the photo is hidden and the person blocked.', blockOk: 'Person blocked.', phT: '📸 Photo of the day', phRules: 'Your photo is only seen by your accepted friends, checked automatically, and deleted after 24 hours. No nudity, violence or personal information: any problem means your account is blocked. Reserved for people aged 16 and over.', phOk: 'I am 16 or older, I agree', phRefused: 'Photo refused: it does not follow the rules.', phAlready: 'One photo a day: come back tomorrow!', phBan: 'Photos are disabled on your account.', phSending: 'Checking your photo…', phCam: '📷 Take a photo', phGal: '🖼️ Choose from my gallery', noPhoto: 'no photo yet', notifT: '🔔 Turn on notifications', notifSub: 'Know when a friend chooses you 💌 or answers your quiz.', notifBtn: '🔔 Turn on', notifOn: '🔔 Notifications on!', notifNo: 'Notifications are blocked in your browser settings.', notifIos: 'On iPhone, install the app on your home screen first (Share ⬆️ then "Add to Home Screen"), then open it from there.', other: '📲 Other apps (SMS, Messenger…)', pasteIt: 'Link copied! Paste it in an SMS or on Messenger 📋', install: '📲 Install the app', installSub: 'One tap on your home screen, like a real app.', iosHint: 'On iPhone: tap the Share button ⬆️ then "Add to Home Screen".', playTg: '✈️ Play on Telegram', tgPay: 'Payments are available in the Telegram version 💛' },
+  fr: { title: 'Qui me connaît le mieux ?', sub: 'Réponds à 10 questions sur toi, partage ton quiz, et découvre quel ami te connaît le mieux !', create: '✨ Créer mon quiz', again: '✨ Nouveau quiz (nouvelles questions)', ready: 'Ton quiz est prêt ! 🎉', readySub: 'Envoie-le à tes amis : qui fera le meilleur score ?', more: 'Autres applis', copy: '🔗 Copier le lien', copied: 'Lien copié !', myRank: '🏆 Qui me connaît le mieux', nobody: 'Pas encore de réponse. Partage ton quiz ! 👆', share: 'Partager mon quiz', qOf: '{i}/{n}', aboutMe: 'Sur toi', guessWhat: 'Qu\'a répondu {name} ?', invT: '{name} veut savoir si tu le connais vraiment 👀', invT0: 'Un ami t\'a envoyé son quiz ! 👀', invSub: '{n} questions. Devine ses réponses !', invSub0: 'Devine ses réponses et découvre si tu le connais vraiment !', yourName: 'Ton prénom', start: '🎯 C\'est parti !', vHi: 'Tu connais vraiment {name} ! 😍', vMid: 'Pas mal du tout ! 😉', vLo: 'Tu as beaucoup à apprendre sur {name} 😅', rank: 'Tu es {r}e sur {t}', yours: '✨ Créer MON quiz', challenge: '📤 Défier mes amis', challengeText: '🤔 J\'ai fait {s} au quiz de {name}. Tu fais mieux ?', shareText: '💛 Tu me connais vraiment ? Réponds à mon quiz !', saving: 'Une seconde…', err: 'Oups, réessaie', noquiz: 'Ce quiz n\'existe plus.', mine: 'C\'est ton propre quiz 😉', nameNeed: 'Écris ton prénom 🙂', goOn: 'Continuer', answers: 'Les bonnes réponses', you: 'toi', daily: '📅 La question du jour', wyrT: '🤔 Tu préfères…', or: 'ou', world: '{p} % des joueurs', sameAs: 'Comme toi :', compT: '💌 Les compliments du jour', compSub: 'Choisis un ami pour chaque question. Il reçoit une notif anonyme !', compDone: '✅ Tes compliments sont envoyés ! Reviens demain pour les suivants.', compNeed: 'Invite au moins 2 amis à ton quiz pour envoyer des compliments.', gotT: '💌 Tes compliments', someone: 'Quelqu\'un t\'a choisi :', reveal: '👀 Qui ? · {p} ⭐', revealVip: '👀 Qui ?', streakT: '🔥 {n}', nobodyComp: 'Pas encore de compliment : partage ton quiz pour que tes amis puissent te choisir !', dSent: '✅ C\'est envoyé ! Tes amis reçoivent une notif pour deviner ta réponse 👀', dGot: '🎯 T\'ont deviné :', dWait: 'Tes amis vont recevoir une notif 👀', dFriends: '👀 Devine tes amis', dWho: '🎯 Qui t\'a deviné aujourd\'hui', dNoGuess: 'Personne pour l\'instant. Tes amis ont reçu une notif !', dFl: '🔥 Les amis qui te devinent chaque jour', dYou: 'Toi :', dailyMine: 'Ta réponse ?', dailyDone: '✅ Enregistré ! Devine maintenant ce qu\'ont répondu tes amis :', guess: 'Deviner', waitF: 'Tes amis n\'ont pas encore répondu. Dès qu\'ils le feront, ils apparaîtront ici : devine leur réponse, et eux devineront la tienne !', noF: 'Tes amis apparaîtront ici dès qu\'ils auront répondu à ton quiz. Ensuite, chaque jour, vous devinez vos réponses pour garder vos 🔥 flammes !', invite: '📤 Inviter des amis', flames: '🔥 Tes flammes', flameHint: 'Répondez et devinez-vous chaque jour pour garder vos flammes !', flameDays: '{n} jours', titleShort: 'Qui me connaît ?', todo: 'À faire maintenant', mQuizT: 'Crée ton quiz', mQuizS: '10 questions sur toi, 1 minute. Ensuite, tes amis devinent !', mMoodT: 'Ton humeur du jour ?', mPhotoT: '📸 Ta photo du jour', mPhotoS: 'Seuls tes amis la voient, pendant 24 h.', later: 'Plus tard', mShareT: '📤 Partage ton quiz', mShareS: 'Découvre qui te connaît vraiment !', doneT: 'Tout est fait pour aujourd\'hui ! ✅', doneS: 'Reviens demain pour de nouveaux jeux 😉', wyrRes: '{p} % ont choisi comme toi', friendsT: '👯 Mes amis', noFr: 'Tes amis apparaissent ici dès qu\'ils ont répondu à ton quiz.', reqSent: 'Demande envoyée !', seeProfile: '👤 Voir le profil', gotShort: '💌 Compliments reçus', myQuizT: '📝 Mon quiz', tbToday: 'Aujourd\'hui', tbFriends: 'Amis', tbQuiz: 'Mon quiz', tbMe: 'Profil', ibT: '📲 Installe l\'appli sur ton téléphone', ibTg: '📲 Aussi en appli sur ton téléphone', ibSub: 'Gratuit, un toucher sur ton écran d\'accueil.', ibGo: 'Installer', ibIosT: 'Installer sur iPhone', ibIos: '1. Touche le bouton Partager ⬆️ en bas de Safari\n2. Choisis « Sur l\'écran d\'accueil »\n3. Touche « Ajouter » : l\'appli est sur ton écran d\'accueil 💛', ibOtherT: 'Installer l\'appli', ibOther: 'Ouvre le menu de ton navigateur (⋮), puis choisis « Installer l\'application » ou « Ajouter à l\'écran d\'accueil ».', linkTg: '✈️ Relier à mon compte Telegram', linkTgSub: 'Retrouve le même profil, les mêmes quiz et les mêmes amis sur Telegram et ici.', linkWait: 'Confirme dans Telegram (touche Démarrer), puis reviens ici…', linkDone: '✅ Comptes reliés !', useApp: '📲 Utiliser l\'appli sur mon téléphone', useAppSub: 'Ouvre le site déjà connecté à ton compte : installe-le sur ton écran d\'accueil.', pfMine: 'Mon profil', pfEdit: '✏️ Modifier mon profil', pfName: 'Prénom', pfAv: 'Avatar', pfCol: 'Couleur', pfTags: 'Mes centres d\'intérêt (3 max)', pfSave: '✅ Enregistrer', pfSaved: 'Profil enregistré !', stStreak: 'jours d\'affilée', stFlames: 'flammes', stComps: 'compliments', stQuiz: 'quiz créés', stAns: 'quiz répondus', topComps: '💌 Ce que mes amis disent de moi', bestKnow: '🏆 Me connaît le mieux :', noComps: 'Pas encore de compliment.', frT: '👯 Mes amis', myMoodQ: 'Ton humeur du jour ?', myPhotoBtn: '📸 Ma photo du jour', myPhotoDone: '📸 Photo postée (visible 24 h)', frReqs: 'Demandes d\'amis', accept: 'Accepter', refuse: 'Refuser', addT: 'Ajouter en amis', add: '➕ Ajouter', sent: '⏳ Envoyé', frNone: 'Tes amis apparaissent ici dès qu\'ils ont répondu à ton quiz. Ajoute-les pour partager ton humeur et ta photo du jour 🔥', frEmpty: 'Pas encore d\'ami : ajoute ceux qui ont répondu à ton quiz !', report: '🚩 Signaler', blockB: '🚫 Bloquer', reportOk: 'Merci, la photo est masquée et la personne bloquée.', blockOk: 'Personne bloquée.', phT: '📸 Photo du jour', phRules: 'Ta photo n\'est vue que par tes amis acceptés, vérifiée automatiquement, et effacée après 24 heures. Pas de nudité, de violence ni d\'informations personnelles : en cas de problème, ton compte est bloqué. Réservé aux 16 ans et plus.', phOk: 'J\'ai 16 ans ou plus, j\'accepte', phRefused: 'Photo refusée : elle ne respecte pas les règles.', phAlready: 'Une photo par jour : reviens demain !', phBan: 'Les photos sont désactivées sur ton compte.', phSending: 'Vérification de ta photo…', phCam: '📷 Prendre une photo', phGal: '🖼️ Choisir dans ma galerie', noPhoto: 'pas encore de photo', notifT: '🔔 Active les notifications', notifSub: 'Sache quand un ami te choisit 💌 ou répond à ton quiz.', notifBtn: '🔔 Activer', notifOn: '🔔 Notifications activées !', notifNo: 'Les notifications sont bloquées dans les réglages de ton navigateur.', notifIos: 'Sur iPhone, installe d\'abord l\'appli sur ton écran d\'accueil (Partager ⬆️ puis « Sur l\'écran d\'accueil »), puis ouvre-la depuis là.', other: '📲 Autres applis (SMS, Messenger…)', pasteIt: 'Lien copié ! Colle-le dans un SMS ou sur Messenger 📋', install: '📲 Installer l\'appli', installSub: 'Un toucher sur ton écran d\'accueil, comme une vraie appli.', iosHint: 'Sur iPhone : touche le bouton Partager ⬆️ puis « Sur l\'écran d\'accueil ».', playTg: '✈️ Jouer sur Telegram', tgPay: 'Les paiements sont disponibles dans la version Telegram 💛' },
 };
 const t = (k, v) => { let s = S[lang][k] || S.en[k] || k; for (const [a, b] of Object.entries(v || {})) s = s.split('{' + a + '}').join(b); return s; };
 const Q = [
@@ -207,7 +220,7 @@ async function friendsCard() {
     box.innerHTML = `<div class="stk">${html}</div>`;
     const call = async (route, body) => { try { f = await api(route, body); draw(); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } };
     box.querySelectorAll('[data-md]').forEach((x) => x.onclick = () => { haptic('ok'); call('mood', { mood: Number(x.dataset.md) }); });
-    box.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => { haptic(); profileView(Number(x.dataset.pf)); });
+    box.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => { haptic(); tab = 'friends'; profileView(Number(x.dataset.pf)); });
     box.querySelectorAll('[data-acc]').forEach((x) => x.onclick = () => { haptic('ok'); call('friend_accept', { id: Number(x.dataset.acc) }); });
     box.querySelectorAll('[data-ref]').forEach((x) => x.onclick = () => call('friend_remove', { id: Number(x.dataset.ref) }));
     box.querySelectorAll('[data-add]').forEach((x) => x.onclick = () => { haptic(); x.textContent = t('sent'); x.disabled = true; call('friend_add', { id: Number(x.dataset.add) }); });
@@ -260,20 +273,22 @@ function takePhoto(f, call) {
 }
 
 // ===== profiles =====
-async function profileView(id) {
+async function profileView(id, inTab) {
   window.scrollTo(0, 0);
+  if (!inTab) setTabs(false);
   let p; try { p = await api('profile', { id: id || 0 }); } catch (e) { return toast(t('err')); }
   const s = p.stats, top = s.topComps || [];
-  app.innerHTML = `<div class="top"><button class="x" id="pbk">←</button><span class="mute">${p.me ? esc(t('pfMine')) : ''}</span></div>
+  app.innerHTML = (inTab ? installBanner() : `<div class="top"><button class="x" id="pbk">←</button><span class="mute">${p.me ? esc(t('pfMine')) : ''}</span></div>`) + `
     <div class="stk pfhead">${avHtml(p.avatar, p.color, 110)}<h1 style="margin:0">${esc(p.name)}${p.vip ? ' 👑' : ''}</h1>
-      ${p.tags.length ? `<div class="tags">${p.tags.map((k) => `<span class="tg">${TAGS[k][0]} ${esc(TAGS[k][lang === 'fr' ? 2 : 1])}</span>`).join('')}</div>` : ''}</div>
+      ${p.tags.length ? `<div class="tags">${p.tags.map((k) => `<span class="tgl">${TAGS[k][0]} ${esc(TAGS[k][lang === 'fr' ? 2 : 1])}</span>`).join('')}</div>` : ''}</div>
     <div class="stats"><div class="sx"><b>🔥 ${s.streak}</b><span>${esc(t('stStreak'))}</span></div><div class="sx"><b>👯 ${s.flames}</b><span>${esc(t('stFlames'))}</span></div><div class="sx"><b>💌 ${s.compliments}</b><span>${esc(t('stComps'))}</span></div><div class="sx"><b>📝 ${s.quizzes}</b><span>${esc(t('stQuiz'))}</span></div><div class="sx"><b>🎯 ${s.answered}</b><span>${esc(t('stAns'))}</span></div><div class="sx"><b>🔥 ${s.bestFlame}</b><span>max</span></div></div>
     <div class="stk" style="margin-top:18px"><h2>${esc(t('topComps'))}</h2>${top.length ? top.map((c) => `<div class="row"><span style="font-size:22px">${COMP[c.qid].e}</span><span class="n">${esc(COMP[c.qid][lang])}</span><span class="s">×${c.n}</span></div>`).join('') : `<p class="mute" style="margin:0">${esc(t('noComps'))}</p>`}
       ${s.best ? `<p style="font-weight:900;margin:12px 0 0">${esc(t('bestKnow'))} ${esc(s.best.name)} (${s.best.score}/10)</p>` : ''}</div>
     ${p.me ? `<button class="btn go" id="pedit">${esc(t('pfEdit'))}</button>` : ''}
     ${p.me && st.me && st.me.web ? `<div class="stk" style="margin-top:22px"><h2>${esc(t('linkTg'))}</h2><p class="mute" style="margin:0">${esc(t('linkTgSub'))}</p><button class="btn tg" id="plink">${esc(t('linkTg'))}</button></div>` : ''}
-    ${p.me && IN_TG ? `<div class="stk" style="margin-top:22px"><h2>${esc(t('useApp'))}</h2><p class="mute" style="margin:0">${esc(t('useAppSub'))}</p><button class="btn ink" id="papp">${esc(t('useApp'))}</button></div>` : ''}${foot}`;
-  $('pbk').onclick = home;
+    ${p.me && IN_TG ? `<div class="stk" style="margin-top:22px"><h2>${esc(t('useApp'))}</h2><p class="mute" style="margin:0">${esc(t('useAppSub'))}</p><button class="btn ink" id="papp">${esc(t('useApp'))}</button></div>` : ''}${p.me ? notifCard() : ''}${foot}`;
+  const pbk = $('pbk'); if (pbk) pbk.onclick = home;
+  bindInstall();
   const pl = $('plink'); if (pl) pl.onclick = linkTelegram;
   const pa = $('papp'); if (pa) pa.onclick = async () => { haptic('medium'); try { const r = await api('web_code'); tg.openLink(r.url); } catch (e) { toast(t('err')); } };
   const pe = $('pedit'); if (pe) pe.onclick = () => profileEdit(p);
@@ -294,6 +309,7 @@ async function linkTelegram() {
 }
 function profileEdit(p) {
   window.scrollTo(0, 0);
+  setTabs(false);
   let av = p.avatar == null ? 0 : p.avatar, col = p.color || 0, tags = [...p.tags];
   const draw = () => {
     app.innerHTML = `<div class="top"><button class="x" id="ebk">←</button><span class="mute">${esc(t('pfEdit'))}</span></div>
@@ -304,13 +320,13 @@ function profileEdit(p) {
       <div class="stk"><h2>${esc(t('pfTags'))}</h2><div class="chips">${TAGS.map((g, k) => `<span class="ch ${tags.includes(k) ? 'on' : ''}" data-tg="${k}">${g[0]} ${esc(g[lang === 'fr' ? 2 : 1])}</span>`).join('')}</div></div>
       <button class="btn go" id="psave">${esc(t('pfSave'))}</button>${foot}`;
     const keep = () => { p.name = $('pn').value; };
-    $('ebk').onclick = () => profileView(0);
+    $('ebk').onclick = () => { tab = 'me'; home(); };
     app.querySelectorAll('[data-av]').forEach((x) => x.onclick = () => { keep(); haptic(); av = Number(x.dataset.av); draw(); });
     app.querySelectorAll('[data-col]').forEach((x) => x.onclick = () => { keep(); haptic(); col = Number(x.dataset.col); draw(); });
     app.querySelectorAll('[data-tg]').forEach((x) => x.onclick = () => { keep(); haptic(); const k = Number(x.dataset.tg); tags = tags.includes(k) ? tags.filter((y) => y !== k) : tags.length < 3 ? [...tags, k] : tags; draw(); });
     $('psave').onclick = async () => {
       const name = $('pn').value.trim(); if (name.length < 2) return toast(t('nameNeed'));
-      try { await api('profile_save', { name, avatar: av, color: col, tags }); haptic('ok'); toast(t('pfSaved')); st.me = { ...st.me, name, av, col }; profileView(0); } catch (e) { toast(t('err')); }
+      try { await api('profile_save', { name, avatar: av, color: col, tags }); haptic('ok'); toast(t('pfSaved')); st.me = { ...st.me, name, av, col }; tab = 'me'; home(); } catch (e) { toast(t('err')); }
     };
   };
   draw();
@@ -368,23 +384,98 @@ function bindInstall() { const nb = $('ntfb'); if (nb) nb.onclick = enablePush; 
 if (!IN_TG && 'serviceWorker' in navigator && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});
 
 // ===== home: question of the day + flames, my ranking, new quiz =====
-function home() {
-  window.scrollTo(0, 0);
-  const q = st.quiz;
-  if (!q) {
-    app.innerHTML = `${installBanner()}<div class="heart">💛</div><h1>${esc(t('title'))}</h1><p class="lead">${esc(t('sub'))}</p><button class="btn go" id="new">${esc(t('create'))}</button><div id="dly" style="margin-top:22px"></div>${foot}`;
-    $('new').onclick = createFlow; return dailyCard();
+let tab = 'today';
+try { tab = localStorage.getItem('km_tab') || 'today'; } catch (e) {}
+function setTabs(on) {
+  document.body.classList.toggle('withtabs', on);
+  const nav = $('tabs'); nav.style.display = on ? 'flex' : 'none'; if (!on) return;
+  nav.innerHTML = [['today', '☀️', t('tbToday')], ['friends', '👯', t('tbFriends')], ['quiz', '📝', t('tbQuiz')], ['me', '👤', t('tbMe')]].map(([k, e, l]) => `<div class="${tab === k ? 'on' : ''}" data-tab="${k}"><b>${e}</b>${esc(l)}</div>`).join('');
+  nav.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { haptic(); tab = x.dataset.tab; try { localStorage.setItem('km_tab', tab); } catch (e) {} home(); });
+}
+let D = null, F = null;
+const todayKey = () => new Date().toISOString().slice(0, 10);
+const skipped = (k) => { try { return localStorage.getItem('km_skip_' + k) === todayKey(); } catch (e) { return false; } };
+const skip = (k) => { try { localStorage.setItem('km_skip_' + k, todayKey()); } catch (e) {} };
+// the next thing to do, one at a time
+function nextMission() {
+  if (!st.quiz) return 'quiz';
+  if (D && D.wyr && D.wyr.mine == null) return 'wyr';
+  if (D && D.friendCount >= 2 && (D.comps || []).some((c) => !c.done && c.options.length >= 2)) return 'comp';
+  if (F && F.myMood == null) return 'mood';
+  if (F && !F.myPhoto && !F.photoBan && (F.friends || []).length && !skipped('photo')) return 'photo';
+  if (st.quiz && st.quiz.board.length < 3 && !skipped('share')) return 'share';
+  return 'done';
+}
+async function home() {
+  setTabs(false); window.scrollTo(0, 0);
+  if (dailyPre) { D = dailyPre; dailyPre = null; }
+  if (friendsPre) { F = friendsPre; friendsPre = null; }
+  if (!D || !F) { draw1(); const [d, f] = await Promise.all([api('today').catch(() => null), api('friends').catch(() => null)]); D = d || D; F = f || F; }
+  draw1();
+}
+function draw1() {
+  const q = st.quiz, m = nextMission(), streak = (D && D.streak) || 0;
+  const missions = ['wyr', 'comp', 'mood', 'photo', 'share'];
+  let card = '';
+  if (m === 'quiz') card = `<p class="lbl">${esc(t('todo'))}</p><h2>${esc(t('mQuizT'))}</h2><p class="mute" style="margin:0">${esc(t('mQuizS'))}</p><button class="btn go" id="mq">${esc(t('create'))}</button>`;
+  else if (m === 'wyr') { const w = WYR[D.wyr.id]; card = `<p class="lbl">${esc(t('todo'))}</p><h2>${esc(t('wyrT'))}</h2><div class="wyr">${[0, 1].map((k) => `<div class="wy ${k ? 'b' : 'a'}" data-wy="${k}"><b>${w.e[k]}</b>${esc(w[lang][k])}</div>`).join('')}<span class="ortag">${esc(t('or'))}</span></div>`; }
+  else if (m === 'comp') { const todo = D.comps.filter((c) => !c.done && c.options.length >= 2), c = todo[0], cm = COMP[c.qid]; card = `<p class="lbl">${esc(t('todo'))} · 💌 ${D.comps.length - todo.length + 1}/${D.comps.length}</p><p class="q" style="font-size:22px;margin:4px 0 14px">${cm.e} ${esc(cm[lang])}</p><div class="pick">${c.options.map((o) => `<div class="pk" data-cp="${c.qid}:${o.id}">${esc(o.name)}</div>`).join('')}</div><p class="mute" style="margin:10px 0 0;font-size:13px">${esc(t('compSub'))}</p>`; }
+  else if (m === 'mood') card = `<p class="lbl">${esc(t('todo'))}</p><h2>${esc(t('mMoodT'))}</h2><div class="moods">${MOODS.map((mo, k) => `<div class="md" data-md="${k}" style="color:var(--ink)"><b>${mo[0]}</b>${esc(moodTxt(k))}</div>`).join('')}</div>`;
+  else if (m === 'photo') card = `<p class="lbl">${esc(t('todo'))}</p><h2>${esc(t('mPhotoT'))}</h2><p class="mute" style="margin:0">${esc(t('mPhotoS'))}</p><button class="btn go" id="mph">${esc(t('myPhotoBtn'))}</button><button class="link" style="color:#fff" data-skip="photo">${esc(t('later'))}</button>`;
+  else if (m === 'share') card = `<p class="lbl">${esc(t('todo'))}</p><h2>${esc(t('mShareT'))}</h2><p class="mute" style="margin:0">${esc(t('mShareS'))}</p>${shareBtns()}<button class="link" style="color:#fff" data-skip="share">${esc(t('later'))}</button>`;
+  else { const w = D && WYR[D.wyr.id], tot = D ? ((D.wyr.votes[0] || 0) + (D.wyr.votes[1] || 0)) || 1 : 1, pc = D && D.wyr.mine != null ? Math.round(((D.wyr.votes[D.wyr.mine] || 0) * 100) / tot) : null;
+    card = `<h2>${esc(t('doneT'))}</h2>${streak ? `<p style="font:700 34px Fredoka,sans-serif;margin:4px 0">🔥 ${streak}</p>` : ''}${pc != null ? `<p style="font-weight:900;margin:8px 0 0">${w.e[D.wyr.mine]} ${esc(w[lang][D.wyr.mine])}</p><div class="bar2"><i style="width:${pc}%"></i></div><p class="mute" style="margin:0;font-size:14px">${esc(t('wyrRes', { p: pc }))}</p>` : ''}<p class="mute" style="margin:12px 0 0">${esc(t('doneS'))}</p>`; }
+  // friends in one line: requests, friends (mood, flame, photo ring), people to add
+  let strip = '';
+  if (F) {
+    const items = [...(F.incoming || []).map((x) => `<div class="fi req" data-fq="${x.id}">${avHtml(null, 0, 58).replace('🙂', '👋')}<span>${esc(x.name)}</span><small>👋</small></div>`),
+      ...(F.friends || []).map((x) => `<div class="fi" data-fr="${x.id}">${avHtml(x.av, x.col, 58).replace('class="avt"', `class="avt${x.photo ? ' ring' : ''}"`).replace(/>[^<]*<\/div>$/, `>${x.mood != null ? MOODS[x.mood][0] : (x.av != null ? AVATARS[x.av] : '🙂')}</div>`)}<span>${esc(x.name)}</span>${x.flame ? `<small>🔥${x.flame}</small>` : '<small>&nbsp;</small>'}</div>`),
+      ...(F.suggestions || []).map((x) => `<div class="fi add" data-fa="${x.id}">${avHtml(null, 0, 58).replace('🙂', '➕')}<span>${esc(x.name)}</span><small>&nbsp;</small></div>`)];
+    strip = `<div class="stk"><h2>${esc(t('friendsT'))}</h2>${items.length ? `<div class="strip">${items.join('')}</div>` : `<p class="mute" style="margin:0;font-size:15px">${esc(t('noFr'))}</p>`}</div>`;
   }
-  app.innerHTML = `${installBanner()}<div class="mebar" id="mebar">${avHtml(st.me && st.me.av, st.me && st.me.col, 52)}<b>${esc((st.me && st.me.name) || '')}</b><span>${esc(t('pfMine'))}</span></div><div id="frd"></div><div id="dly"></div>
-    <div class="stk"><h2>${esc(t('myRank'))}</h2>${board(q.board, q.n)}</div>
-    <h2 style="margin-top:4px">${esc(t('share'))}</h2>${shareBtns()}
-    <button class="btn go" id="new" style="margin-top:22px">${esc(t('again'))}</button>${notifCard()}${foot}`;
-  bindShare(q.id, t('shareText'));
-  $('new').onclick = createFlow;
+  // compliments received (the last ones)
+  const rc = (D && D.received) || [], P = (st.prices || {}).reveal || 15;
+  const got = rc.length ? `<div class="stk"><h2>${esc(t('gotShort'))} (${rc.length})</h2>${rc.slice(0, 3).map((r) => { const cm = COMP[r.qid]; return `<div class="cg"><span style="font-size:22px">${cm.e}</span><span class="tx">${r.from ? `<b>${esc(r.from)}</b>` : esc(t('someone'))}<br><span class="mute" style="font-size:14px">« ${esc(cm[lang])} »</span></span>${r.from ? '' : `<button class="rv" data-rv="${r.id}">${esc(st.me && st.me.vip ? t('revealVip') : t('reveal', { p: P }))}</button>`}</div>`; }).join('')}</div>` : '';
+  // my quiz, small
+  const quiz = q ? `<div class="stk"><h2>${esc(t('myQuizT'))}</h2>${board(q.board.slice(0, 3), q.n)}${m === 'share' ? '' : `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px"><button class="btn wa sm" data-s="wa">💬 WhatsApp</button><button class="btn tg sm" data-s="tg">✈️ Telegram</button></div><button class="btn sm" data-s="other">${esc(t('other'))}</button>`}<button class="link" id="nq">${esc(t('again'))}</button></div>` : '';
+  app.innerHTML = `<div class="hd"><b>💛 ${esc(t('titleShort'))}</b>${streak ? `<span class="streak">🔥 ${streak}</span>` : ''}<span class="me" id="meb">${avHtml(st.me && st.me.av, st.me && st.me.col, 44)}</span></div>
+    ${installBanner()}<div class="stk mission">${card}</div>${strip}${got}${quiz}${notifCard()}${foot}`;
+  bindMission();
+}
+function bindMission() {
+  const reload = async () => { const [d, f] = await Promise.all([api('today').catch(() => null), api('friends').catch(() => null)]); D = d || D; F = f || F; draw1(); };
+  $('meb').onclick = () => profileView(0);
+  const mq = $('mq'); if (mq) mq.onclick = createFlow;
+  const nq = $('nq'); if (nq) nq.onclick = createFlow;
+  if (st.quiz) bindShare(st.quiz.id, t('shareText'));
+  app.querySelectorAll('[data-skip]').forEach((x) => x.onclick = () => { skip(x.dataset.skip); draw1(); });
+  app.querySelectorAll('[data-wy]').forEach((x) => x.onclick = async () => { haptic('ok'); try { D = await api('wyr_vote', { choice: Number(x.dataset.wy) }); const tot = (D.wyr.votes[0] || 0) + (D.wyr.votes[1] || 0) || 1; toast(t('wyrRes', { p: Math.round(((D.wyr.votes[D.wyr.mine] || 0) * 100) / tot) })); draw1(); } catch (e) { toast(t('err')); } });
+  app.querySelectorAll('[data-cp]').forEach((x) => x.onclick = async () => { haptic('ok'); x.style.opacity = .5; const [qid, to] = x.dataset.cp.split(':').map(Number); try { D = await api('comp_pick', { qid, to }); toast('💌'); draw1(); } catch (e) { toast(t('err')); } });
+  const callF = async (route, body) => { try { F = await api(route, body); if (route === 'mood' || route === 'photo') { D = await api('today').catch(() => D); } draw1(); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } };
+  app.querySelectorAll('[data-md]').forEach((x) => x.onclick = () => { haptic('ok'); callF('mood', { mood: Number(x.dataset.md) }); });
+  const mph = $('mph'); if (mph) mph.onclick = () => takePhoto(F, callF);
+  app.querySelectorAll('[data-rv]').forEach((x) => x.onclick = () => buy('reveal', { id: Number(x.dataset.rv) }, reload));
+  app.querySelectorAll('[data-fa]').forEach((x) => x.onclick = () => { haptic(); toast(t('reqSent')); callF('friend_add', { id: Number(x.dataset.fa) }); });
+  app.querySelectorAll('[data-fq]').forEach((x) => x.onclick = () => {
+    const it = F.incoming.find((y) => String(y.id) === x.dataset.fq);
+    const d = document.createElement('div'); d.className = 'sheet';
+    d.innerHTML = `<div class="in"><h2>👋 ${esc(it.name)}</h2><button class="btn go" id="qa">${esc(t('accept'))}</button><button class="btn" id="qr">${esc(t('refuse'))}</button></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+    d.querySelector('#qa').onclick = () => { d.remove(); haptic('ok'); callF('friend_accept', { id: it.id }); };
+    d.querySelector('#qr').onclick = () => { d.remove(); callF('friend_remove', { id: it.id }); };
+  });
+  app.querySelectorAll('[data-fr]').forEach((x) => x.onclick = () => {
+    haptic(); const fr = F.friends.find((y) => String(y.id) === x.dataset.fr);
+    const d = document.createElement('div'); d.className = 'sheet';
+    d.innerHTML = `<div class="in" style="text-align:center">${avHtml(fr.av, fr.col, 80)}<h2 style="margin:10px 0 2px">${esc(fr.name)}${fr.flame ? ' 🔥' + fr.flame : ''}</h2><p class="mute" style="margin:0 0 6px">${fr.mood != null ? MOODS[fr.mood][0] + ' ' + esc(moodTxt(fr.mood)) : ''}</p>
+      ${fr.photo ? `<img src="${fr.photo.url}" alt="" style="width:100%;max-height:52vh;object-fit:cover;border-radius:18px;border:3px solid var(--ink);margin:8px 0" id="fph"><div style="display:flex;gap:8px;justify-content:center"><button class="mini" id="frp">${esc(t('report'))}</button><button class="mini" id="frb">${esc(t('blockB'))}</button></div>` : ''}
+      <button class="btn" id="fpf">${esc(t('seeProfile'))}</button></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+    d.querySelector('#fpf').onclick = () => { d.remove(); profileView(fr.id); };
+    const rp = d.querySelector('#frp'); if (rp) rp.onclick = async () => { d.remove(); await callF('report', { photo: fr.photo.id }); toast(t('reportOk')); };
+    const rb = d.querySelector('#frb'); if (rb) rb.onclick = async () => { d.remove(); await callF('block', { id: fr.id }); toast(t('blockOk')); };
+  });
   bindInstall();
-  $('mebar').onclick = () => profileView(0);
-  friendsCard();
-  dailyCard();
 }
 let dailyPre = null;
 async function dailyCard() {
@@ -429,6 +520,7 @@ async function buy(kind, extra, after) {
 // ===== creating a quiz: 10 questions never asked before to this player =====
 function createFlow() {
   haptic();
+  setTabs(false);
   const used = new Set(st.used || []);
   let pool = [...Array(Q.length).keys()].filter((x) => !used.has(x));
   if (pool.length < 10) pool = [...Array(Q.length).keys()];
@@ -449,13 +541,15 @@ function createFlow() {
 }
 function ready(id) {
   window.scrollTo(0, 0);
+  setTabs(false);
   app.innerHTML = `<div class="heart">🎉</div><h1>${esc(t('ready'))}</h1><p class="lead">${esc(t('readySub'))}</p>${shareBtns()}<button class="link" id="hm">← ${esc(t('myRank'))}</button>${foot}`;
-  bindShare(id, t('shareText')); $('hm').onclick = home;
+  bindShare(id, t('shareText')); $('hm').onclick = () => { tab = 'quiz'; home(); };
 }
 
 // ===== a friend's quiz =====
 function playFlow(qz) {
-  const name = qz.owner, n = nOf(qz), guesses = [];
+
+  setTabs(false);  const name = qz.owner, n = nOf(qz), guesses = [];
   app.innerHTML = `<div class="heart">🤔</div><h1>${esc(t('invT', { name }))}</h1><p class="lead">${esc(t('invSub', { n }))}</p><button class="btn go" id="go">${esc(t('start'))}</button>${foot}`;
   const step = (i) => {
     if (i === n) {
@@ -473,13 +567,14 @@ function playFlow(qz) {
 }
 function result(qz, score, guesses, answers, b, rank, total) {
   window.scrollTo(0, 0);
+  setTabs(false);
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
   app.innerHTML = `${installBanner()}<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: rank, t: total }))}</span>` : ''}</div>
     <button class="btn go" id="mk">${esc(t('yours'))}</button>
     <button class="btn" id="ch">${esc(t('challenge'))}</button>
     <div class="stk" style="margin-top:20px"><h2>🏆 ${esc(name)}</h2>${board(b, n)}</div>
     <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${guesses[i] === answers[i] ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${qq.e[answers[i]]} ${esc(qq.o[answers[i]])}</b>${guesses[i] !== answers[i] ? ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>` : ''}</div></div>`; }).join('')}</div>${foot}`;
-  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); createFlow(); };
+  $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); tab = 'quiz'; createFlow(); };
   $('ch').onclick = () => shareSheetFor(qz.id, t('challengeText', { s: score + '/' + n, name }));
 }
 
@@ -500,6 +595,7 @@ async function start() {
   home();
 }
 async function boot() {
+  setTabs(false);
   const lc = !IN_TG && new URLSearchParams(location.search).get('link');
   if (lc) {
     try { const r = await fetch(API + 'link_claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: lc }) }).then((x) => x.json()); if (r.token) { TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} } } catch (e) {}
