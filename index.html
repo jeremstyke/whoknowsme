@@ -136,6 +136,14 @@ body.withig .w{padding-bottom:96px}
 .spic{width:100%;max-height:300px;object-fit:cover;border-radius:16px;border:3px solid var(--ink);margin:0 0 10px;cursor:pointer;display:block}
 .cmt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:2px dashed rgba(29,18,56,.12)}.cmt b{font-size:14px}.cmt p{margin:2px 0 0;font-weight:700;word-wrap:break-word}.cmr{border:0;background:none;font-size:16px;cursor:pointer;opacity:.6}
 body.withtabs .igbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}body.withtabs.withig .w{padding-bottom:180px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{aspect-ratio:1;border:3px solid var(--ink);border-radius:18px;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;box-shadow:3px 3px 0 var(--ink);padding:6px;position:relative;background-size:cover;background-position:center}
+.tile b{font-size:30px;line-height:1.1}.tile span{font-weight:900;font-size:13px;line-height:1.15}.tile small{font-size:11px;color:var(--mute);font-weight:800}.tile.done{background-color:var(--sun)}
+.tbadge{position:absolute;bottom:6px;right:6px;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:0 6px;font-size:14px}
+.igin{display:flex;align-items:center;gap:10px;margin:18px 0 0;padding:10px 12px;border-radius:16px;background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none;color:var(--ink)}
+.igin b{display:block;font:900 14px Nunito,sans-serif}.igin small{display:block;font-weight:800;font-size:12px;color:var(--mute)}.igin .igtag{font-size:9px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#ff8a1f}
+.igin .iggo{margin-left:auto;flex:none;padding:7px 12px;border-radius:99px;background:#ff8a1f;color:#1d0f00;font:900 13px Nunito,sans-serif;border:2px solid var(--ink)}
+details.acc{margin-top:20px;text-align:start}details.acc summary{cursor:pointer;font:700 18px Fredoka,sans-serif;list-style:none;padding:10px 0;border-top:2px dashed rgba(29,18,56,.15)}details.acc summary::-webkit-details-marker{display:none}
 .foot{margin-top:22px;text-align:center;font-weight:800;font-size:13px}.foot a{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.btn,.opt{transition:none}}
 </style>
@@ -427,9 +435,11 @@ for (const [l, v] of Object.entries({"en": {"feedT": "👀 Today with your peopl
 const MOODN = {"en": ["Feeling lazy", "On fire", "So hungry", "In love", "Annoyed", "Party mood", "Working hard", "A bit sad", "Sick", "Laughing so hard", "Super busy", "Chilling"], "fr": ["Grosse flemme", "En feu", "J'ai trop faim", "Amoureux", "Énervé", "Envie de faire la fête", "Je bosse dur", "Un peu triste", "Malade", "Mort de rire", "Je cours partout", "Tranquille"], "es": ["Mucha pereza", "A tope", "Tengo mucha hambre", "Enamorado", "Molesto", "Con ganas de fiesta", "Trabajando duro", "Un poco triste", "Enfermo", "Muerto de risa", "A mil por hora", "Tranquilo"], "pt": ["Com preguiça", "Com tudo", "Morrendo de fome", "Apaixonado", "Irritado", "Clima de festa", "Trabalhando muito", "Meio triste", "Doente", "Morrendo de rir", "Correria total", "De boa"], "de": ["Null Bock", "Voll im Flow", "Riesenhunger", "Verliebt", "Genervt", "Partylaune", "Viel Arbeit", "Etwas traurig", "Krank", "Lache mich kaputt", "Total im Stress", "Entspannt"], "it": ["Che pigrizia", "In forma", "Ho una fame", "Innamorato", "Arrabbiato", "Voglia di festa", "Lavoro duro", "Un po' triste", "Malato", "Muoio dal ridere", "Di corsa", "Tranquillo"], "ru": ["Лень", "В ударе", "Очень голоден", "Влюблён", "Раздражён", "Хочу тусить", "Много работы", "Немного грустно", "Болею", "Умираю со смеху", "Весь в делах", "Расслаблен"], "ar": ["كسل شديد", "في قمة نشاطي", "جائع جداً", "عاشق", "منزعج", "مزاج حفلات", "أعمل بجد", "حزين قليلاً", "مريض", "أموت من الضحك", "مشغول جداً", "مرتاح"], "tr": ["Çok tembelim", "Çok iyiyim", "Çok açım", "Aşığım", "Sinirliyim", "Parti modu", "Çok çalışıyorum", "Biraz üzgünüm", "Hastayım", "Gülmekten ölüyorum", "Çok yoğunum", "Rahatım"], "id": ["Lagi malas", "Lagi semangat", "Lapar banget", "Lagi jatuh cinta", "Kesal", "Mau pesta", "Kerja keras", "Agak sedih", "Sakit", "Ngakak banget", "Sibuk banget", "Santai"]};
 for (const [l, v] of Object.entries({"en": {"tbPeople": "My people", "cmT": "💬 Comments", "cmPh": "Write a comment…", "cmSend": "Send", "cmRefused": "Comment refused: keep it kind 😉", "cmBanned": "Comments are turned off on your account.", "cmSlow": "Slow down! Try again later.", "cmNone": "No comment yet. Be the first!", "myDayT": "📸 Your photo of the day", "peopleEmpty": "Your people show up here once they took your quiz. Share it!"}, "fr": {"tbPeople": "Mes proches", "cmT": "💬 Commentaires", "cmPh": "Écris un commentaire…", "cmSend": "Envoyer", "cmRefused": "Commentaire refusé : reste gentil 😉", "cmBanned": "Les commentaires sont désactivés sur ton compte.", "cmSlow": "Doucement ! Réessaie plus tard.", "cmNone": "Pas encore de commentaire. Lance-toi !", "myDayT": "📸 Ta photo du jour", "peopleEmpty": "Tes proches apparaissent ici dès qu'ils ont répondu à ton quiz. Partage-le !"}, "es": {"tbPeople": "Mi gente", "cmT": "💬 Comentarios", "cmPh": "Escribe un comentario…", "cmSend": "Enviar", "cmRefused": "Comentario rechazado: sé amable 😉", "cmBanned": "Los comentarios están desactivados en tu cuenta.", "cmSlow": "¡Más despacio! Inténtalo luego.", "cmNone": "Aún no hay comentarios. ¡Sé el primero!", "myDayT": "📸 Tu foto del día", "peopleEmpty": "Tu gente aparece aquí cuando responde tu quiz. ¡Compártelo!"}, "pt": {"tbPeople": "Minha galera", "cmT": "💬 Comentários", "cmPh": "Escreva um comentário…", "cmSend": "Enviar", "cmRefused": "Comentário recusado: seja gentil 😉", "cmBanned": "Os comentários estão desativados na sua conta.", "cmSlow": "Calma! Tente mais tarde.", "cmNone": "Nenhum comentário ainda. Seja o primeiro!", "myDayT": "📸 Sua foto do dia", "peopleEmpty": "Sua galera aparece aqui quando responder o seu quiz. Compartilhe!"}, "de": {"tbPeople": "Meine Leute", "cmT": "💬 Kommentare", "cmPh": "Schreib einen Kommentar…", "cmSend": "Senden", "cmRefused": "Kommentar abgelehnt: bleib nett 😉", "cmBanned": "Kommentare sind für dein Konto deaktiviert.", "cmSlow": "Langsam! Versuch es später.", "cmNone": "Noch kein Kommentar. Sei der Erste!", "myDayT": "📸 Dein Foto des Tages", "peopleEmpty": "Deine Leute erscheinen hier, sobald sie dein Quiz gespielt haben. Teile es!"}, "it": {"tbPeople": "I miei", "cmT": "💬 Commenti", "cmPh": "Scrivi un commento…", "cmSend": "Invia", "cmRefused": "Commento rifiutato: sii gentile 😉", "cmBanned": "I commenti sono disattivati sul tuo account.", "cmSlow": "Piano! Riprova più tardi.", "cmNone": "Ancora nessun commento. Inizia tu!", "myDayT": "📸 La tua foto del giorno", "peopleEmpty": "I tuoi appaiono qui quando rispondono al tuo quiz. Condividilo!"}, "ru": {"tbPeople": "Близкие", "cmT": "💬 Комментарии", "cmPh": "Напиши комментарий…", "cmSend": "Отправить", "cmRefused": "Комментарий отклонён: будь вежлив 😉", "cmBanned": "Комментарии отключены для твоего аккаунта.", "cmSlow": "Помедленнее! Попробуй позже.", "cmNone": "Пока нет комментариев. Будь первым!", "myDayT": "📸 Твоё фото дня", "peopleEmpty": "Твои близкие появятся здесь, когда пройдут твой квиз. Поделись им!"}, "ar": {"tbPeople": "أحبائي", "cmT": "💬 التعليقات", "cmPh": "اكتب تعليقًا…", "cmSend": "إرسال", "cmRefused": "تم رفض التعليق: كن لطيفًا 😉", "cmBanned": "التعليقات معطلة في حسابك.", "cmSlow": "على مهلك! حاول لاحقًا.", "cmNone": "لا تعليقات بعد. كن الأول!", "myDayT": "📸 صورتك اليومية", "peopleEmpty": "سيظهر أحباؤك هنا بعد أن يجيبوا على اختبارك. شاركه!"}, "tr": {"tbPeople": "Yakınlarım", "cmT": "💬 Yorumlar", "cmPh": "Bir yorum yaz…", "cmSend": "Gönder", "cmRefused": "Yorum reddedildi: nazik ol 😉", "cmBanned": "Hesabında yorumlar kapalı.", "cmSlow": "Yavaş! Sonra tekrar dene.", "cmNone": "Henüz yorum yok. İlk sen ol!", "myDayT": "📸 Günün fotoğrafın", "peopleEmpty": "Yakınların testini çözünce burada görünür. Paylaş!"}, "id": {"tbPeople": "Orang terdekat", "cmT": "💬 Komentar", "cmPh": "Tulis komentar…", "cmSend": "Kirim", "cmRefused": "Komentar ditolak: tetap sopan ya 😉", "cmBanned": "Komentar dinonaktifkan di akunmu.", "cmSlow": "Pelan-pelan! Coba lagi nanti.", "cmNone": "Belum ada komentar. Jadilah yang pertama!", "myDayT": "📸 Foto hari ini", "peopleEmpty": "Orang terdekatmu muncul di sini setelah menjawab kuismu. Bagikan!"}})) S[l] = { ...(S[l] || {}), ...v };
 for (const [l, v] of Object.entries({"en": {"phPending": "⏳ Sent! Your photo will be visible once it is approved.", "avPending": "⏳ Your new profile picture is waiting for approval."}, "fr": {"phPending": "⏳ Envoyée ! Ta photo sera visible dès qu'elle sera validée.", "avPending": "⏳ Ta nouvelle photo de profil attend d'être validée."}, "es": {"phPending": "⏳ ¡Enviada! Tu foto será visible cuando sea aprobada.", "avPending": "⏳ Tu nueva foto de perfil espera ser aprobada."}, "pt": {"phPending": "⏳ Enviada! Sua foto ficará visível quando for aprovada.", "avPending": "⏳ Sua nova foto de perfil está aguardando aprovação."}, "de": {"phPending": "⏳ Gesendet! Dein Foto ist sichtbar, sobald es freigegeben wurde.", "avPending": "⏳ Dein neues Profilbild wartet auf Freigabe."}, "it": {"phPending": "⏳ Inviata! La tua foto sarà visibile appena approvata.", "avPending": "⏳ La tua nuova foto profilo è in attesa di approvazione."}, "ru": {"phPending": "⏳ Отправлено! Фото появится после проверки.", "avPending": "⏳ Новое фото профиля ждёт проверки."}, "ar": {"phPending": "⏳ تم الإرسال! ستظهر صورتك بعد الموافقة عليها.", "avPending": "⏳ صورة ملفك الجديدة بانتظار الموافقة."}, "tr": {"phPending": "⏳ Gönderildi! Fotoğrafın onaylanınca görünecek.", "avPending": "⏳ Yeni profil fotoğrafın onay bekliyor."}, "id": {"phPending": "⏳ Terkirim! Fotomu akan terlihat setelah disetujui.", "avPending": "⏳ Foto profil barumu menunggu persetujuan."}})) S[l] = { ...(S[l] || {}), ...v };
+for (const [l, v] of Object.entries({"en": {"myDayT2": "☀️ My day", "tMood": "My mood", "tPhoto": "My photo", "tDq": "My question", "tDqSent": "Question sent", "accT": "⚙️ My account", "haveAcc": "I already have an account", "playAs": "Your first name to play"}, "fr": {"myDayT2": "☀️ Ma journée", "tMood": "Mon humeur", "tPhoto": "Ma photo", "tDq": "Ma question", "tDqSent": "Question envoyée", "accT": "⚙️ Mon compte", "haveAcc": "J'ai déjà un compte", "playAs": "Ton prénom pour jouer"}, "es": {"myDayT2": "☀️ Mi día", "tMood": "Mi humor", "tPhoto": "Mi foto", "tDq": "Mi pregunta", "tDqSent": "Pregunta enviada", "accT": "⚙️ Mi cuenta", "haveAcc": "Ya tengo una cuenta", "playAs": "Tu nombre para jugar"}, "pt": {"myDayT2": "☀️ Meu dia", "tMood": "Meu humor", "tPhoto": "Minha foto", "tDq": "Minha pergunta", "tDqSent": "Pergunta enviada", "accT": "⚙️ Minha conta", "haveAcc": "Já tenho uma conta", "playAs": "Seu nome para jogar"}, "de": {"myDayT2": "☀️ Mein Tag", "tMood": "Meine Laune", "tPhoto": "Mein Foto", "tDq": "Meine Frage", "tDqSent": "Frage gesendet", "accT": "⚙️ Mein Konto", "haveAcc": "Ich habe schon ein Konto", "playAs": "Dein Vorname zum Spielen"}, "it": {"myDayT2": "☀️ La mia giornata", "tMood": "Il mio umore", "tPhoto": "La mia foto", "tDq": "La mia domanda", "tDqSent": "Domanda inviata", "accT": "⚙️ Il mio account", "haveAcc": "Ho già un account", "playAs": "Il tuo nome per giocare"}, "ru": {"myDayT2": "☀️ Мой день", "tMood": "Настроение", "tPhoto": "Моё фото", "tDq": "Мой вопрос", "tDqSent": "Вопрос отправлен", "accT": "⚙️ Мой аккаунт", "haveAcc": "У меня уже есть аккаунт", "playAs": "Твоё имя для игры"}, "ar": {"myDayT2": "☀️ يومي", "tMood": "مزاجي", "tPhoto": "صورتي", "tDq": "سؤالي", "tDqSent": "تم إرسال السؤال", "accT": "⚙️ حسابي", "haveAcc": "لدي حساب بالفعل", "playAs": "اسمك للعب"}, "tr": {"myDayT2": "☀️ Günüm", "tMood": "Ruh halim", "tPhoto": "Fotoğrafım", "tDq": "Sorum", "tDqSent": "Soru gönderildi", "accT": "⚙️ Hesabım", "haveAcc": "Zaten hesabım var", "playAs": "Oynamak için adın"}, "id": {"myDayT2": "☀️ Hariku", "tMood": "Mood-ku", "tPhoto": "Fotoku", "tDq": "Pertanyaanku", "tDqSent": "Pertanyaan terkirim", "accT": "⚙️ Akunku", "haveAcc": "Aku sudah punya akun", "playAs": "Nama depanmu untuk bermain"}})) S[l] = { ...(S[l] || {}), ...v };
 const IG_URL = 'https://www.instant-gaming.com/?igr=jeremymultigaming';
 let igSeen = false;
 function igShow(on) {
+  on = false;
   const b = $('igbar'); if (!b) return;
   document.body.classList.toggle('withig', on);
   b.style.display = on ? 'block' : 'none';
@@ -438,6 +448,8 @@ function igShow(on) {
   $('igl').onclick = (e) => { api('ev', { k: 'ig_click' }).catch(() => {}); if (IN_TG) { e.preventDefault(); try { tg.openLink(IG_URL); } catch (er) { location.href = IG_URL; } } };
   if (!igSeen) { igSeen = true; api('ev', { k: 'ig_view' }).catch(() => {}); }
 }
+const igInline = () => { if (!igSeen) { igSeen = true; api('ev', { k: 'ig_view' }).catch(() => {}); } return `<a class="igin" href="${IG_URL}" target="_blank" rel="noopener sponsored" data-ig="1"><div style="min-width:0"><span class="igtag">${esc(t('igTag'))} · Instant Gaming</span><b>${esc(t('igT'))}</b><small>${esc(t('igB'))}</small></div><span class="iggo">${esc(t('igGo'))}</span></a>`; };
+document.addEventListener('click', (e) => { const a = e.target.closest('[data-ig]'); if (!a) return; api('ev', { k: 'ig_click' }).catch(() => {}); if (IN_TG) { e.preventDefault(); try { tg.openLink(IG_URL); } catch (er) { location.href = IG_URL; } } });
 function setTabs(on) {
   igShow(false);
   document.body.classList.toggle('withtabs', on);
@@ -471,12 +483,12 @@ function dqCards() {
   if (!DQ || !st.quiz) return '';
   if (!DQ.audience && !(DQ.pending || []).length && !(DQ.feed || []).length) return '';
   let html = '';
-  const feed = DQ.feed || [];
-  // my mood of the day
-  html += DQ.myMood == null || dqMoodEdit ? `<div class="stk"><h2>${esc(t('moodQ'))}</h2><div class="moodsel">${MOODS.map((m, k) => `<div class="md" data-mymood="${k}"><b>${m[0]}</b>${esc(moodTxt(k))}</div>`).join('')}</div></div>`
-    : `<div class="stk" style="padding:12px 16px"><p style="margin:0;font-weight:900">${esc(t('moodMine', { m: MOODS[DQ.myMood][0] + ' ' + moodTxt(DQ.myMood) }))} <button class="link" id="mchg" style="display:inline;margin:0 0 0 6px;padding:0">${esc(t('moodChange'))}</button></p></div>`;
-  const md = DQ.myDay;
-  if (md && !md.photoBan) html += `<div class="stk"><h2>${esc(t('myDayT'))}</h2>${md.photo ? `<img class="spic" src="${esc(md.photo.url)}" alt="" data-myph="1" style="${md.photo.pending ? 'opacity:.55' : ''}">${md.photo.pending ? `<p style="font-weight:900;margin:-4px 0 6px">${esc(t('phPending'))}</p>` : ''}` : `<button class="btn go" id="myph">${esc(t('myPhotoBtn'))}</button>`}${reactBar(st.me && st.me.uid != null ? st.me.uid : 'me', md.react, md.comments).replace(/data-rx="[^"]*"/g, 'data-noop="1"')}</div>`;
+  const feed = DQ.feed || [], md = DQ.myDay || {}, mine = DQ.mine;
+  const tile = (id, icon, label, sub, on) => `<div class="tile ${on ? 'done' : ''}" id="${id}"><b>${icon}</b><span>${esc(label)}</span>${sub ? `<small>${esc(sub)}</small>` : ''}</div>`;
+  const moodT = DQ.myMood != null ? tile('tmood', MOODS[DQ.myMood][0], moodTxt(DQ.myMood), '', true) : tile('tmood', '😊', t('tMood'), '', false);
+  const photoT = md.photo ? `<div class="tile done" id="tphoto" style="background-image:url('${esc(md.photo.url)}')"><span class="tbadge">${md.photo.pending ? '⏳' : '📸'}</span></div>` : (md.photoBan ? '' : tile('tphoto', '📸', t('tPhoto'), '', false));
+  const dqT = mine ? tile('tdq', '📩', t('tDqSent'), (mine.answers || []).length ? (mine.answers.filter((a) => a.correct).length + '/' + mine.answers.length + ' ✅') : '⏳', true) : tile('tdq', '📩', t('tDq'), '', false);
+  html += `<div class="stk"><h2>${esc(t('myDayT2'))}</h2><div class="tiles">${moodT}${photoT}${dqT}</div>${md.photo && md.photo.pending ? `<p class="mute" style="margin:10px 0 0;font-size:13px">${esc(t('phPending'))}</p>` : ''}${md.react && (md.react.counts.some((x) => x) || md.comments) ? reactBar(st.me && st.me.uid, md.react, md.comments).replace(/data-rx="[^"]*"/g, 'data-noop="1"') : ''}</div>`;
   // today with my people: mood and question of the day, one card each, scrolling
   if (feed.length) html += `<div class="stk daily"><h2>${esc(t('feedT'))}</h2><div class="car" id="car">${feed.map((f) => {
       let q = '';
@@ -485,9 +497,6 @@ function dqCards() {
       else { const qq = dqOf(f.dq); q = `<p style="font-weight:900;margin:0 0 8px">${esc(qq.q)}</p>` + (f.dq.done ? `<p style="margin:0;font-weight:900">${f.dq.done.correct ? '✅' : '❌'} ${qq.e[f.dq.done.answer]} ${esc(qq.o[f.dq.done.answer])}</p>` : `<div class="opts">${[0, 1, 2, 3].map((k) => `<div class="opt" data-fg="${f.dq.id}:${k}"><b>${qq.e[k]}</b>${esc(qq.o[k])}</div>`).join('')}</div>`); }
       return `<div class="slide"><div class="shd" data-pfx="${f.uid}" style="cursor:pointer">${pic(f.photo, f.name, 46)}<div><b>${esc(f.name)}</b><span>${f.mood != null ? MOODS[f.mood][0] + ' ' + esc(moodTxt(f.mood)) : '…'}</span></div></div>${f.pic && f.pic.url ? `<img class="spic" src="${esc(f.pic.url)}" alt="" data-fph="${f.uid}">` : ''}${q}${reactBar(f.uid, f.react, f.comments)}</div>`;
     }).join('')}</div>${feed.length > 1 ? `<div class="cdots">${feed.map((_, k) => `<i class="${k === 0 ? 'on' : ''}"></i>`).join('')}</div>` : ''}</div>`;
-  if (DQ.mine) { const qq = dqOf({ qid: DQ.mine.qid, text: DQ.mine.text, k: DQ.mine.answer }), an = DQ.mine.answers || [];
-    html += `<div class="stk"><h2>${esc(t('dqMineT'))}</h2><p style="font-weight:900;margin:0">${esc(qq.q)}</p><p style="margin:4px 0 8px">${qq.e[DQ.mine.answer]} ${esc(qq.o[DQ.mine.answer])}</p>${an.length ? `<p style="font-weight:900;margin:0 0 4px">${esc(t('dqResults', { ok: an.filter((a) => a.correct).length, n: an.length }))}</p>${an.map((a) => `<div class="row"><span class="n">${esc(a.name)}</span><span>${a.correct ? '✅' : '❌'}</span></div>`).join('')}` : `<p class="mute" style="margin:0;font-size:15px">${esc(t('dqWait'))}</p>`}</div>`; }
-  else html += `<div class="stk"><h2>${esc(t('dqMineT'))}</h2><p class="mute" style="margin:0">${esc(DQ.audience ? t('dqMineS', { n: DQ.audience }) : t('dqMineNone'))}</p>${DQ.audience ? `<button class="btn go" id="dqs">${esc(t('dqSendBtn'))}</button>` : ''}</div>`;
   // the flames ranking: who answers my question of the day every day
   const fl = DQ.flames || [];
   if (fl.length) html += `<div class="stk"><h2>${esc(t('flT'))}</h2><p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('flS'))}</p>${fl.map((f, i) => `<div class="row"><span>${medal(i)}</span>${pic(f.photo, f.name, 34)}<span class="n">${esc(f.name)}</span><span class="s">🔥 ${f.n}</span></div>`).join('')}</div>`;
@@ -517,6 +526,24 @@ function bindDq() {
     try { DQ = await api('dq_answer', { id, guess: k }); const np = (DQ.pending || []).find((p) => p.id === id); const ok = np && np.done && np.done.correct; haptic(ok ? 'ok' : 'medium'); toast(ok ? '✅' : '❌'); redraw(); } catch (e) { toast(t('err')); }
   });
   app.querySelectorAll('[data-pfx]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pfx)));
+  const tm = $('tmood'); if (tm) tm.onclick = () => {
+    haptic(); const d = document.createElement('div'); d.className = 'sheet';
+    d.innerHTML = `<div class="in"><h2>${esc(t('moodQ'))}</h2><div class="pick" style="grid-template-columns:repeat(3,1fr)">${MOODS.map((m, k) => `<div class="md" data-mm="${k}" style="min-width:0"><b>${m[0]}</b>${esc(moodTxt(k))}</div>`).join('')}</div></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+    d.querySelectorAll('[data-mm]').forEach((x) => x.onclick = async () => { d.remove(); haptic('ok'); try { DQ = await api('my_mood', { mood: Number(x.dataset.mm) }); redraw(); } catch (e) { toast(t('err')); } });
+  };
+  const tp = $('tphoto'); if (tp) tp.onclick = () => {
+    if (DQ.myDay && DQ.myDay.photo) return photoView({ pic: DQ.myDay.photo, name: (st.me && st.me.name) || '', mood: DQ.myMood });
+    takePhoto({ photoOk: DQ.myDay && DQ.myDay.photoOk }, async (route, body) => { try { await api(route, body); await dqReload(); if (route === 'photo') toast(DQ && DQ.myDay && DQ.myDay.photo && DQ.myDay.photo.pending ? t('phPending') : '📸 ✅'); } catch (e) { toast(e.code === 'refused' ? t('phRefused') : e.code === 'already' ? t('phAlready') : e.code === 'banned' ? t('phBan') : t('err')); } });
+  };
+  const td = $('tdq'); if (td) td.onclick = () => {
+    haptic();
+    if (!DQ.mine) return DQ.audience ? dqSendFlow() : toast(t('dqMineNone'));
+    const qq = dqOf({ qid: DQ.mine.qid, text: DQ.mine.text, k: DQ.mine.answer }), an = DQ.mine.answers || [];
+    const d = document.createElement('div'); d.className = 'sheet';
+    d.innerHTML = `<div class="in"><h2>${esc(t('dqMineT'))}</h2><p style="font-weight:900;margin:0">${esc(qq.q)}</p><p style="margin:4px 0 10px">${qq.e[DQ.mine.answer]} ${esc(qq.o[DQ.mine.answer])}</p>${an.length ? `<p style="font-weight:900;margin:0 0 4px">${esc(t('dqResults', { ok: an.filter((a) => a.correct).length, n: an.length }))}</p>${an.map((a) => `<div class="row"><span class="n">${esc(a.name)}</span><span>${a.correct ? '✅' : '❌'}</span></div>`).join('')}` : `<p class="mute" style="margin:0">${esc(t('dqWait'))}</p>`}<button class="btn" id="dqok">OK</button></div>`;
+    document.body.appendChild(d); d.onclick = (e) => { if (e.target === d || e.target.id === 'dqok') d.remove(); };
+  };
   app.querySelectorAll('[data-rx]').forEach((x) => x.onclick = async () => { const [o, e] = x.dataset.rx.split(':').map(Number); haptic(); try { await api('react', { owner: o, emoji: e }); dqReload(); } catch (er) { toast(t('err')); } });
   app.querySelectorAll('[data-cmt]').forEach((x) => x.onclick = () => { const o = x.dataset.cmt; if (o === 'me' || !Number(o)) return; const f = (DQ.feed || []).find((y) => String(y.uid) === o); commentsSheet(Number(o), f ? f.name : ((st.me && st.me.name) || '')); });
   app.querySelectorAll('[data-fph]').forEach((x) => x.onclick = () => { const f = (DQ.feed || []).find((y) => String(y.uid) === x.dataset.fph); if (f) photoView(f); });
@@ -577,11 +604,12 @@ function profileSheet(inPage) {
     d.innerHTML = `<div class="in" style="text-align:center"><h2>${esc(t('pfTitle'))}</h2><div style="margin:4px 0 12px">${pic(st.me.photo, st.me.name, 110)}</div>${st.me.photoPending ? `<p class="mute" style="margin:-4px 0 10px;font-size:14px">${esc(t('avPending'))}</p>` : ''}
       <button class="btn go" id="pcam">${esc(t('pfPhotoCam'))}</button><button class="btn" id="pgal">${esc(t('pfPhotoGal'))}</button>${st.me.photo ? `<button class="link" id="pdel">${esc(t('pfPhotoDel'))}</button>` : ''}
       <input class="inp" id="pnm" maxlength="30" value="${esc(st.me.name || '')}" style="margin-top:16px;text-align:center"><button class="btn ink" id="psv">${esc(t('pfSave'))}</button>
+      <details class="acc" id="accd"><summary>${esc(t('accT'))} ▾</summary>
       ${googleCard('gbtn2')}
       ${codeCard()}
       ${!IN_TG && st.me.web ? `<button class="btn tg" id="plink" style="margin-top:18px">${esc(t('linkTg'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('linkTgSub'))}</p>` : ''}
-      ${IN_TG ? `<button class="btn" id="papp" style="margin-top:18px">${esc(t('useApp'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('useAppSub'))}</p>` : ''}</div>`;
-    if (!IN_TG) { const lo = document.createElement('button'); lo.className = 'link'; lo.id = 'plogout'; lo.style.marginTop = '18px'; lo.textContent = t('logout'); d.querySelector('.in').appendChild(lo); lo.onclick = () => { d.remove(); logout(); }; }
+      ${IN_TG ? `<button class="btn" id="papp" style="margin-top:18px">${esc(t('useApp'))}</button><p class="mute" style="margin:6px 0 0;font-size:13px">${esc(t('useAppSub'))}</p>` : ''}</details></div>`;
+    if (!IN_TG) { const lo = document.createElement('button'); lo.className = 'link'; lo.id = 'plogout'; lo.style.marginTop = '18px'; lo.textContent = t('logout'); d.querySelector('#accd').appendChild(lo); lo.onclick = () => { d.remove(); logout(); }; }
     const pl = d.querySelector('#plink'); if (pl) pl.onclick = () => { d.remove(); linkTelegram(); };
     googleBtn('gbtn2');
     const pa = d.querySelector('#papp'); if (pa) pa.onclick = async () => { haptic('medium'); try { const r = await api('web_code'); tg.openLink(r.url); } catch (e) { toast(t('err')); } };
@@ -692,7 +720,7 @@ function quizTab() {
   app.innerHTML = `${notifCard()}<h1 style="margin-top:8px">${esc(t('simpleT'))}</h1><p class="lead">${esc(t('simpleS'))}</p>${shareBtns()}
     <div class="stk" style="margin-top:22px"><h2>${esc(t('myRank'))}</h2>${(st.quizzes || []).length > 1 ? `<p class="mute" style="margin:-6px 0 6px;font-size:13px">${esc(t('allRankS'))}</p>` : ''}${(st.overall || []).length ? st.overall.map((x, i) => `<div class="row" data-pf="${x.uid}" style="cursor:pointer"><span>${medal(i)}</span>${pic(x.photo, x.name, 34)}<span class="n">${esc(x.name)}${x.rel != null ? `<small>${relTxt(x.rel)}</small>` : ''}</span><span class="s">${x.pct}%${(st.quizzes || []).length > 1 ? `<small style="display:block;font:800 11px Nunito,sans-serif;color:var(--mute);text-align:right">${esc(t('quizzesN', { n: x.count }))}</small>` : ''}</span></div>`).join('') + `<p class="mute" style="margin:8px 0 0;font-size:13px">${esc(t('tapProfile'))}</p>` : `<p class="mute" style="text-align:center;margin:6px 0">${esc(t('nobody'))}</p>`}</div>
     <div class="stk"><h2>${esc(t('quizzesT'))}</h2>${(st.quizzes || []).map((z) => `<div class="row" data-qz="${z.id}" style="cursor:pointer"><span class="n">${esc(t('quizOf', { d: new Date(z.at).toLocaleDateString(lang, { day: 'numeric', month: 'short' }) }))}<small>${esc(t('nAns', { n: z.plays }))}</small></span><span class="s">›</span></div>`).join('')}</div>
-    <button class="btn go" id="new">${esc(t('again'))}</button>${foot}`;
+    <button class="btn go" id="new">${esc(t('again'))}</button>${igInline()}${foot}`;
   bindShare(q.id, t('shareText'));
   $('new').onclick = createFlow;
   bindInstall();
@@ -700,7 +728,7 @@ function quizTab() {
   app.querySelectorAll('[data-pf]').forEach((x) => x.onclick = () => friendProfile(Number(x.dataset.pf)));
 }
 function peopleTab() {
-  app.innerHTML = `<div id="dqbox">${DQ ? (dqCards() || peopleEmpty()) : '<div class="stk"><h2>…</h2></div>'}</div>${foot}`;
+  app.innerHTML = `<div id="dqbox">${DQ ? (dqCards() || peopleEmpty()) : '<div class="stk"><h2>…</h2></div>'}</div>${igInline()}${foot}`;
   if (st.quiz) bindShare(st.quiz.id, t('shareText'));
   if (DQ) bindDq();
   dqReload().then(() => { if (st.quiz) bindShare(st.quiz.id, t('shareText')); });
@@ -938,6 +966,7 @@ function playFlow(qz) {
     app.querySelectorAll('.opt').forEach((o) => o.onclick = () => { haptic(); guesses.push(Number(o.dataset.k)); step(i + 1); });
   };
   $('go').onclick = () => { if (rel == null) return; haptic('medium'); step(0); };
+  if (window.__preRel != null) { rel = window.__preRel; window.__preRel = null; step(0); }
 }
 function result(qz, score, guesses, answers, b, rank, total) {
   adAfterResult = true;
@@ -946,12 +975,12 @@ function result(qz, score, guesses, answers, b, rank, total) {
   const name = qz.owner, n = nOf(qz), v = score >= n * 0.8 ? 'vHi' : score >= n * 0.5 ? 'vMid' : 'vLo';
   app.innerHTML = `${installBanner()}<div class="stk" style="text-align:center"><div class="score">${score}/${n}</div><h1 style="font-size:26px">${esc(t(v, { name }))}</h1>${rank ? `<span class="badge">${esc(t('rank', { r: ord(rank), t: total }))}</span>` : ''}</div>
     <button class="btn go" id="mk">${esc(t('yours'))}</button>
-    <button class="btn" id="ch">${esc(t('shareRes'))}</button>
+    <button class="btn" id="ch">${esc(t('shareRes'))}</button>${googleCard('gbtnr')}
     <div class="stk" style="margin-top:20px"><h2>🏆 ${esc(name)}</h2>${board(b, n)}</div>
-    <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${isOk(guesses[i], answers[i]) ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${ansText(qq, answers[i])}</b>${isOk(guesses[i], answers[i]) ? '' : ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>`}</div></div>`; }).join('')}</div>${foot}`;
+    <div class="stk"><h2>${esc(t('answers'))}</h2>${Array.from({ length: n }, (_, i) => { const qq = qOf(qz, i); return `<div class="ans"><span>${isOk(guesses[i], answers[i]) ? '✅' : '❌'}</span><div>${esc(qq.q)}<br><b>${ansText(qq, answers[i])}</b>${isOk(guesses[i], answers[i]) ? '' : ` <em>(${esc(t('you'))} : ${esc(qq.o[guesses[i]])})</em>`}</div></div>`; }).join('')}</div>${igInline()}${foot}`;
   $('mk').onclick = () => { api('ev', { k: 'make_yours' }).catch(() => {}); tab = 'quiz'; createFlow(); };
   $('ch').onclick = () => shareResult(qz, name, score, n, rank, total);
-  igShow(true);
+  googleBtn('gbtnr');
 }
 
 // ===== start: Telegram players are known; web visitors give their first name once =====
@@ -1014,6 +1043,47 @@ async function googleBtn(elId) {
   } catch (e) {}
 }
 const googleCard = (id) => (!IN_TG && st && st.me && !st.me.google ? `<div class="stk" style="text-align:center;margin-top:16px"><h2 style="margin-bottom:6px">${esc(t('gSaveT'))}</h2><p class="mute" style="margin:0 0 12px;font-size:14px">${esc(t('gSaveS'))}</p><div id="${id}" style="display:flex;justify-content:center;min-height:44px"></div></div>` : (!IN_TG && st && st.me && st.me.google ? `<p class="mute" style="text-align:center;margin:14px 0 0;font-size:13px">${esc(t('gLinked', { e: st.me.google }))}</p>` : ''));
+function codeSheet() {
+  const d = document.createElement('div'); d.className = 'sheet';
+  d.innerHTML = `<div class="in"><h2>${esc(t('codeT'))}</h2><input class="inp" id="rcode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="${esc(t('codePh'))}" style="text-align:center;letter-spacing:4px;font-size:22px;text-transform:uppercase"><button class="btn go" id="rgo">${esc(t('codeGo'))}</button></div>`;
+  document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+  const inp = d.querySelector('#rcode'); setTimeout(() => inp.focus(), 50);
+  const go = async () => {
+    const code = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); if (code.length !== 6) return toast(t('codeBad'));
+    try { const r = await fetch(API + 'recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) }).then((x) => x.json()); if (!r.token) return toast(r.error === 'slow' ? t('codeSlow') : t('codeBad')); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} d.remove(); haptic('ok'); start(); }
+    catch (e) { toast(t('err')); }
+  };
+  d.querySelector('#rgo').onclick = go; inp.onkeydown = (e) => { if (e.key === 'Enter') go(); };
+}
+function accountSheet() {
+  const d = document.createElement('div'); d.className = 'sheet';
+  d.innerHTML = `<div class="in" style="text-align:center"><h2>${esc(t('haveAcc'))}</h2><div id="gbtnx" style="display:flex;justify-content:center;min-height:44px;margin:6px 0 12px"></div><button class="btn tg" id="axtg">${esc(t('haveTg'))}</button><button class="link" id="axcode">${esc(t('haveCode'))}</button></div>`;
+  document.body.appendChild(d); d.onclick = (e) => { if (e.target === d) d.remove(); };
+  googleBtn('gbtnx');
+  d.querySelector('#axtg').onclick = () => { d.remove(); tgLogin(); };
+  d.querySelector('#axcode').onclick = () => { d.remove(); codeSheet(); };
+}
+async function inviteScreen(qid) {
+  let p = null; try { p = await fetch(API + 'quiz_peek', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: qid }) }).then((x) => x.json()); } catch (e) {}
+  if (!p || !p.owner) return false;
+  const name = p.owner;
+  app.innerHTML = `${p.ownerPhoto ? `<div style="text-align:center;margin:6px 0 14px">${pic(p.ownerPhoto, name, 120)}</div>` : '<div class="heart">🤔</div>'}<h1>${esc(t('invT', { name }))}</h1><p class="lead">${esc(t('invSub', { n: p.n || 10 }))}</p>
+    <input class="inp" id="nm" maxlength="30" placeholder="${esc(t('playAs'))}" autocomplete="given-name">
+    <div class="stk"><h2 style="text-align:center">${esc(t('relQ', { name }))}</h2><div class="chips" style="justify-content:center">${RELS.map((r, k) => `<span class="ch" data-rel="${k}">${r[0]} ${esc(relName(k))}</span>`).join('')}</div></div>
+    <button class="btn go" id="ngo" disabled>${esc(t('start'))}</button><button class="link" id="hvacc">${esc(t('haveAcc'))}</button>${foot}`;
+  let rel = null;
+  const ok = () => { $('ngo').disabled = !($('nm').value.trim().length >= 2 && rel != null); };
+  $('nm').oninput = ok;
+  app.querySelectorAll('[data-rel]').forEach((c) => c.onclick = () => { haptic(); rel = Number(c.dataset.rel); app.querySelectorAll('[data-rel]').forEach((y) => y.classList.toggle('on', y === c)); ok(); });
+  $('hvacc').onclick = accountSheet;
+  $('ngo').onclick = async () => {
+    const nm = $('nm').value.trim(); if (nm.length < 2 || rel == null) return;
+    $('ngo').disabled = true;
+    try { const r = await fetch(API + 'guest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: nm, lang, src: new URLSearchParams(location.search).get('src') || 'quiz' }) }).then((x) => x.json()); if (!r.token) throw new Error(); TOKEN = r.token; try { localStorage.setItem('km_token', TOKEN); } catch (e) {} window.__preRel = rel; start(); }
+    catch (e) { $('ngo').disabled = false; toast(t('err')); }
+  };
+  return true;
+}
 async function boot() {
   // back from Google (installed app): the token comes in the address
   if (!IN_TG && /gt=/.test(location.hash)) { const m = /gt=([^&]+)/.exec(location.hash); if (m) { TOKEN = decodeURIComponent(m[1]); try { localStorage.setItem('km_token', TOKEN); } catch (e) {} } try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
@@ -1027,6 +1097,7 @@ async function boot() {
   }
   if (IN_TG || TOKEN) return start();
   const qid = new URLSearchParams(location.search).get('q');
+  if (qid && await inviteScreen(qid.replace(/[^a-z0-9]/g, ''))) return;
   app.innerHTML = `${installBanner()}<div class="heart">${qid ? '👀' : '💛'}</div><h1>${esc(qid ? t('invT0') : t('title'))}</h1><p class="lead">${esc(qid ? t('invSub0') : t('sub'))}</p>
     <div class="stk" style="text-align:center"><p style="font-weight:900;margin:0 0 12px">${esc(t('gBest'))}</p><div id="gbtn" style="display:flex;justify-content:center;min-height:44px"></div></div>
     <p class="mute" style="text-align:center;margin:4px 0 8px;font-weight:900">${esc(t('orTxt'))}</p>
