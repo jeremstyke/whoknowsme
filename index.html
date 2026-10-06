@@ -422,8 +422,8 @@ async function personAnswers(q, idx) {
 let DQ = null, dqPre = null;
 const dqOf = (p) => { const o = [0, 1, 2, 3].map((k) => oText(p.qid, k)), e = [...Q[p.qid].e]; if (p.text != null && p.k != null) { o[p.k] = p.text; e[p.k] = '💭'; } return { q: qText(p.qid), o, e }; };
 function dqCards() {
-  return '';
   if (!DQ || !st.quiz) return '';
+  if (!DQ.audience && !(DQ.pending || []).length) return '';
   let html = '';
   const pend = DQ.pending || [];
   if (pend.length) html += `<div class="stk daily"><h2>${esc(t('dqFriendsT'))}</h2>${pend.map((p) => { const qq = dqOf(p); return `<div class="row"><span class="n">${esc(p.name)}<br><span style="font-weight:800;font-size:14px;opacity:.9">${esc(qq.q)}</span></span>${p.done ? `<span>${p.done.correct ? '✅' : '❌'} ${qq.e[p.done.answer]}</span>` : `<button class="gbtn" data-dqg="${p.id}">${esc(t('dqGuess'))}</button>`}</div>`; }).join('')}</div>`;
@@ -476,7 +476,7 @@ function simpleHome() {
     $('new').onclick = createFlow; return;
   }
   if (dqPre) { DQ = dqPre; dqPre = null; }
-  if (false) api('dq_state').then((d) => { DQ = d; if (!$('dqbox')) return; $('dqbox').innerHTML = dqCards(); bindDq(); }).catch(() => {});
+  if (!DQ) api('dq_state').then((d) => { DQ = d; if (!$('dqbox')) return; $('dqbox').innerHTML = dqCards(); bindDq(); }).catch(() => {});
   app.innerHTML = `${installBanner()}<div id="dqbox">${dqCards()}</div><h1 style="margin-top:8px">${esc(t('simpleT'))}</h1><p class="lead">${esc(t('simpleS'))}</p>${shareBtns()}
     <div class="stk" style="margin-top:22px"><h2>${esc(t('myRank'))}</h2>${q.board.length ? q.board.map((x, i) => `<div class="row" data-bi="${i}" style="cursor:pointer"><span>${medal(i)}</span><span class="n">${esc(x.name)}</span><span class="s">${x.score}/${q.n} ›</span></div>`).join('') + `<p class="mute" style="margin:8px 0 0;font-size:13px">${esc(t('tapHint'))}</p>` : board(q.board, q.n)}</div>
     <button class="btn go" id="new">${esc(t('again'))}</button>${notifCard()}${foot}`;
@@ -694,7 +694,7 @@ function result(qz, score, guesses, answers, b, rank, total) {
 
 // ===== start: Telegram players are known; web visitors give their first name once =====
 async function start() {
-  try { const [s1, d1, f1, q1] = await Promise.all([api('state'), SOCIAL ? api('today').catch(() => null) : null, SOCIAL ? api('friends').catch(() => null) : null, null]); st = s1; dailyPre = d1; friendsPre = f1; dqPre = q1; } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
+  try { const [s1, d1, f1, q1] = await Promise.all([api('state'), SOCIAL ? api('today').catch(() => null) : null, SOCIAL ? api('friends').catch(() => null) : null, api('dq_state').catch(() => null)]); st = s1; dailyPre = d1; friendsPre = f1; dqPre = q1; } catch (e) { if (!IN_TG) { TOKEN = ''; try { localStorage.removeItem('km_token'); } catch (er) {} return boot(); } app.innerHTML = `<div class="heart">😕</div><p class="lead">${esc(t('err'))}</p>`; return; }
   if (st.me && st.me.lang && S[st.me.lang]) { lang = st.me.lang; document.documentElement.lang = lang; }
   const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || '';
   const qid = (new URLSearchParams(location.search).get('q') || (sp.startsWith('q_') ? sp.slice(2) : '')).replace(/[^a-z0-9]/g, '');
