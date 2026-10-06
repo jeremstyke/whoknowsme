@@ -1,5 +1,5 @@
 // Who Knows Me Best? offline shell: the page is always fetched fresh when online (updates), from cache when offline
-const CACHE = 'km-v2';
+const CACHE = 'km-v3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
@@ -18,13 +18,14 @@ self.addEventListener('push', (e) => {
       const r = await fetch(API + '/km/push/last', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ endpoint: sub && sub.endpoint }) });
       d = await r.json();
     } catch (err) {}
-    await self.registration.showNotification(d.title || 'Who Knows Me Best? 💛', { body: d.body || '💛', icon: 'icon-192.png', badge: 'icon-192.png', tag: 'km-' + (d.at || Date.now()), data: { url: './' } });
+    await self.registration.showNotification(d.title || 'Who Knows Me Best? 💛', { body: d.body || '💛', icon: 'icon-192.png', badge: 'icon-192.png', tag: 'km-' + (d.at || Date.now()), data: { url: d.url || './' } });
   })());
 });
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
   e.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then((ws) => {
-    for (const w of ws) { w.focus(); return w.navigate ? w.navigate('./') : w; }
-    return clients.openWindow('./');
+    const to = (e.notification.data && e.notification.data.url) || './';
+    for (const w of ws) { w.focus(); return w.navigate ? w.navigate(to) : w; }
+    return clients.openWindow(to);
   }));
 });
